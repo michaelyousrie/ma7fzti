@@ -20,6 +20,9 @@ class CreateExpensesTable extends Migration
             $table->unsignedInteger('category_id');
             $table->text('description');
             $table->timestamps();
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('expense_categories');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
