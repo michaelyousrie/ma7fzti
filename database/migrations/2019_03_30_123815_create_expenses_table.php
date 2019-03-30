@@ -22,7 +22,7 @@ class CreateExpensesTable extends Migration
             $table->timestamps();
             $table->foreign('user_id')
                 ->references('id')
-                ->on('languages');
+                ->on('users');
         });
     }
 

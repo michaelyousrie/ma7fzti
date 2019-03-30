@@ -21,7 +21,7 @@ class CreateUserSubscriptionsTable extends Migration
             $table->timestamps();
             $table->foreign('user_id')
                 ->references('id')
-                ->on('languages');
+                ->on('users');
 
             $table->foreign('subscription_id')
                 ->references('id')
