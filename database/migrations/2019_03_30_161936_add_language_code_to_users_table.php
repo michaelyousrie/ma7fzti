@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLanguagesTable extends Migration
+class AddLanguageCodeToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateLanguagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('languages', function (Blueprint $table) {
-            $table->string('code', 2)->primary();
-            $table->string('name', 50)->unique();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table){
+            $table->foreign('language_code')
+                ->references('code')
+                ->on('languages');
         });
     }
 
@@ -27,6 +27,8 @@ class CreateLanguagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('languages');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['language_code']);
+        });
     }
 }
