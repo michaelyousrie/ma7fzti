@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->decimal('balance', 10, 2)->default(0.00);
             $table->string('currency', 5)->default('EGP');
             $table->string('app_version', 10);
-            $table->string('language_code', 10);
+            $table->string('language_code', 2);
             $table->rememberToken();
             $table->timestamps();
         });
