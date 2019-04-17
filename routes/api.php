@@ -8,4 +8,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::namespace( 'Api' )->prefix('v1')->group(function() {
     Route::get('/expenses', 'ExpensesController@index');
+    Route::get('/languages', 'LanguagesController@index');
 });
