@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Expense;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -36,4 +37,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
 }

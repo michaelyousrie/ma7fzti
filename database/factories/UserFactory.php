@@ -14,6 +14,7 @@ $factory->define(User::class, function (Faker $faker) {
         'currency'  => "EGP",
         "language_code" => function() { return factory( Language::class )->create()->code; },
         'remember_token' => Str::random(10),
+        "api_token"     => Str::random(20),
         "app_version"   => "1.0"
     ];
 });
