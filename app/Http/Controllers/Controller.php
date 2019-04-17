@@ -17,6 +17,8 @@ class Controller extends BaseController
 
     public function __construct( Request $request )
     {
+        if ( ! $request->api_token ) abort(403);
+
         $this->user = User::where('api_token', $request->api_token)->first();
     }
 }
