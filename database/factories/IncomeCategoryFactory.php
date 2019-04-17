@@ -1,10 +1,9 @@
 <?php
 
-use App\Models\User;
 use Faker\Generator as Faker;
-use App\Models\ExpenseCategory;
+use App\Models\IncomeCategory;
 
-$factory->define(ExpenseCategory::class, function (Faker $faker) {
+$factory->define(IncomeCategory::class, function (Faker $faker) {
     return [
         'name'          => $faker->name,
         "description"   => $faker->sentence,

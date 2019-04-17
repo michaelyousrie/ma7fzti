@@ -12,7 +12,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'currency'  => "EGP",
-        "language_code" => factory( Language::class )->create()->code,
+        "language_code" => function() { return factory( Language::class )->create()->code; },
         'remember_token' => Str::random(10),
         "app_version"   => "1.0"
     ];
