@@ -5,5 +5,10 @@ Route::namespace( 'Api' )->prefix('v1')->group(function() {
 
     Route::get('/user/expenses', 'ExpensesController@index');
     Route::get('/user/incomes', 'IncomesController@index');
+    Route::get('/user/income_categories', 'IncomeCategoriesController@index');
+    Route::get('/user/expense_categories', 'ExpenseCategoriesController@index');
     Route::get('/user', 'UsersController@index');
+
+    Route::post('/expenses', 'ExpensesController@store');
+    Route::post('/incomes', 'IncomesController@store');
 });
