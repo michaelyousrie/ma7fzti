@@ -9,6 +9,9 @@ Route::namespace( 'Api' )->prefix('v1')->group(function() {
     Route::get('/user/expense_categories', 'ExpenseCategoriesController@index');
     Route::get('/user', 'UsersController@index');
 
+    Route::post('/user/income_categories', 'IncomeCategoriesController@store');
+    Route::post('/user/expense_categories', 'ExpenseCategoriesController@store');
+
     Route::post('/expenses', 'ExpensesController@store');
     Route::post('/incomes', 'IncomesController@store');
 });
