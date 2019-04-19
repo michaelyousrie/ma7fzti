@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('currency', 5)->default('EGP');
             $table->string('app_version', 10);
             $table->string('language_code', 2);
+            $table->string("api_token", 20);
             $table->rememberToken();
             $table->timestamps();
         });
