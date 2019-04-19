@@ -3,16 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Language;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Transformers\LanguagesTransformer;
+use App\Http\Resources\LanguageResource;
 
 class LanguagesController extends Controller
 {
     public function index()
     {
-        $transformer = new LanguagesTransformer( collect( Language::all() ) );
-
-        return $transformer->transform();
+        return LanguageResource::collection( Language::all() );
     }
 }
