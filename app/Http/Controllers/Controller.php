@@ -18,10 +18,17 @@ class Controller extends BaseController
 
     public function __construct( Request $request )
     {
-        if ( ! $request->api_token ) abort(403);
-
-        $this->user = User::where('api_token', $request->api_token)->first();
-
-        Auth::login( $this->user );
+        if ( $request->path() != 'api/v1/login' && $request->path()!= 'api/v1/register' )
+        {
+            if ( ! $request->api_token ) abort(403);
+    
+            $user = User::where('api_token', $request->api_token)->first();
+    
+            if ( ! $user ) abort(404, "User not found!");
+    
+            $this->user = $user;
+    
+            Auth::login( $this->user );
+        }
     }
 }

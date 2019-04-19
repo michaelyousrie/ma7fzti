@@ -1,0 +1,393 @@
+{
+	"info": {
+		"_postman_id": "bc54d6c2-846a-4bfc-bb0d-d4ca5de54237",
+		"name": "ma7fzti",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Languages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/languages?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"languages"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/user?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Expenses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/user/expenses?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"expenses"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Incomes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/user/incomes?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"incomes"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Income Categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/user/income_categories?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"income_categories"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Expense Categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/user/expense_categories?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"expense_categories"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Expense",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"amount\": 50.122,\n\t\"category_id\": 1,\n\t\"description\": \"Test Expense\"\n}"
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/expenses?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"expenses"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Income",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"amount\": 100.150,\n\t\"category_id\": 1,\n\t\"description\": \"Test Income\"\n}"
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/incomes?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"incomes"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Income Category",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\"\t\t : \"hello\",\n\t\"description\": \"Test Description\"\n}"
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/user/income_categories?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"income_categories"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Expense Category",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Opal Handx\",\n\t\"description\": \"131212\"\n}"
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/user/expense_categories?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"expense_categories"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"stiedemann.geoffrey@example.com\",\n\t\"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/login",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"first_name\": \"Test\",\n\t\"last_name\": \"User\",\n\t\"email\": \"test@test.com\",\n\t\"password\": \"password\",\n\t\"currency\": \"EGP\",\n\t\"language_code\": \"E2\"\n}"
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/register",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

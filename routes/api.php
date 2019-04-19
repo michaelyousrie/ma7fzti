@@ -14,4 +14,7 @@ Route::namespace( 'Api' )->prefix('v1')->group(function() {
 
     Route::post('/expenses', 'ExpensesController@store');
     Route::post('/incomes', 'IncomesController@store');
+
+    Route::post('/login', 'LoginController@store');
+    Route::post('/register', 'RegisterController@store');
 });

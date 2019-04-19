@@ -21,7 +21,8 @@ class UserResource extends JsonResource
             'balance'       => $this->balance,
             'currency'      => $this->currency,
             'app_version'   => $this->app_version,
-            'language_code' => $this->language_code
+            'language_code' => $this->language_code,
+            'api_token'     => $this->api_token
         ];
     }
 }
