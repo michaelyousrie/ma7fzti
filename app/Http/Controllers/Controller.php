@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Database\Eloquent\Model;
 
 class Controller extends BaseController
 {
@@ -30,5 +31,15 @@ class Controller extends BaseController
     
             Auth::login( $this->user );
         }
+    }
+
+
+    protected function guard( Model $model, int $id )
+    {
+        $guard = $model::where('user_id', $this->user->id)->where('id', $id)->first() ? True : False;
+
+        if ( ! $guard ) abort(403, "You are not authorized to view this!");
+
+        return True;
     }
 }
