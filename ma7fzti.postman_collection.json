@@ -331,6 +331,18 @@
 		},
 		{
 			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "edd1ab40-19a6-4ba0-a22b-77631321bae4",
+						"exec": [
+							"pm.environment.set(\"API_TOKEN\", pm.response.json().data.api_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -343,7 +355,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\": \"stiedemann.geoffrey@example.com\",\n\t\"password\": \"password\"\n}"
+					"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"password\"\n}"
 				},
 				"url": {
 					"raw": "{{HOST}}/api/v1/login",
