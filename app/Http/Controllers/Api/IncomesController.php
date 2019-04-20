@@ -47,6 +47,6 @@ class IncomesController extends Controller
 
         $income->save();
 
-        return new ExpenseResource($income);
+        return new IncomeResource($income);
     }
 }
