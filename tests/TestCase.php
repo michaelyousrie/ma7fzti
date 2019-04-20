@@ -54,6 +54,12 @@ abstract class TestCase extends BaseTestCase
 
     protected function getResponse( string $url, array $data, string $method = "post" )
     {
-        return (array) json_decode( $this->$method( $this->makeUrl( $url ) , $data)->getContent() );
+        $resp = $this->$method( $this->makeUrl( $url ) , $data);
+
+        if ( property_exists($resp, 'exception') ) {
+            dd( $resp->exception(), $resp->status() );
+        }
+
+        return (array) json_decode( $resp->getContent() );
     }
 }
