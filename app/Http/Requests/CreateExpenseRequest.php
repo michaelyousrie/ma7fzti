@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+
 class CreateExpenseRequest extends BaseRequest
 {
     /**
@@ -23,7 +26,12 @@ class CreateExpenseRequest extends BaseRequest
     {
         return [
             'amount'        => 'required|numeric|between:1,999999999999.99',
-            'category_id'   => 'required|exists:expenses,id',
+            'category_id'   => [
+                'required',
+                Rule::exists('expense_categories', 'id')->where(function( $query ) {
+                    $query->where('user_id', Auth::id());
+                }),
+            ],
             'description'   => 'required'
         ];
     }

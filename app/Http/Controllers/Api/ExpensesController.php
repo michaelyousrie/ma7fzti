@@ -6,6 +6,7 @@ use App\Models\Expense;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ExpenseResource;
 use App\Http\Requests\CreateExpenseRequest;
+use App\Http\Requests\UpdateExpenseRequest;
 
 class ExpensesController extends Controller
 {
@@ -30,8 +31,22 @@ class ExpensesController extends Controller
 
     public function show( $id )
     {
-        $this->guard(new Expense, $id);
+        $expense = $this->guard(new Expense, $id);
 
-        return new ExpenseResource( Expense::where('id', $id)->first() );
+        return new ExpenseResource( $expense );
+    }
+
+
+    public function update( $id, UpdateExpenseRequest $request )
+    {
+        $expense = $this->guard( new Expense, $id );
+
+        $expense->amount = $request->amount;
+        $expense->category_id = $request->category_id;
+        $expense->description = $request->description;
+
+        $expense->save();
+
+        return new ExpenseResource($expense);
     }
 }

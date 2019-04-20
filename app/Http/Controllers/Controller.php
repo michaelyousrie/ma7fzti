@@ -36,10 +36,10 @@ class Controller extends BaseController
 
     protected function guard( Model $model, int $id )
     {
-        $guard = $model::where('user_id', $this->user->id)->where('id', $id)->first() ? True : False;
+        $guard = $model::where('user_id', $this->user->id)->where('id', $id)->first();
 
         if ( ! $guard ) abort(403, "You are not authorized to view this!");
 
-        return True;
+        return $guard;
     }
 }

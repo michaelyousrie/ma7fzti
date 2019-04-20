@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
-class CreateIncomeRequest extends BaseRequest
+class UpdateExpenseRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +29,7 @@ class CreateIncomeRequest extends BaseRequest
             'amount'        => 'required|numeric|between:1,999999999999.99',
             'category_id'   => [
                 'required',
-                Rule::exists('income_categories', 'id')->where(function( $query ) {
+                Rule::exists('expense_categories', 'id')->where(function( $query ) {
                     $query->where('user_id', Auth::id());
                 }),
             ],
