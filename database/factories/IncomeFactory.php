@@ -1,7 +1,8 @@
 <?php
 
-use Faker\Generator as Faker;
+use App\Models\User;
 use App\Models\Income;
+use Faker\Generator as Faker;
 use App\Models\IncomeCategory;
 
 $factory->define(Income::class, function (Faker $faker) {
