@@ -26,4 +26,12 @@ class IncomesController extends Controller
 
         return new IncomeResource( $income );
     }
+
+
+    public function show( $id )
+    {
+        $this->guard(new Income, $id);
+
+        return new IncomeResource( Income::where('id', $id)->first() );
+    }
 }
