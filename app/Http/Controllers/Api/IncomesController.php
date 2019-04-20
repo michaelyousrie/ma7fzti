@@ -6,6 +6,7 @@ use App\Models\Income;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\IncomeResource;
 use App\Http\Requests\CreateIncomeRequest;
+use App\Http\Requests\UpdateIncomeRequest;
 
 class IncomesController extends Controller
 {
@@ -33,5 +34,19 @@ class IncomesController extends Controller
         $this->guard(new Income, $id);
 
         return new IncomeResource( Income::where('id', $id)->first() );
+    }
+
+
+    public function update( $id, UpdateIncomeRequest $request )
+    {
+        $income = $this->guard( new Income, $id );
+
+        $income->amount = $request->amount;
+        $income->category_id = $request->category_id;
+        $income->description = $request->description;
+
+        $income->save();
+
+        return new ExpenseResource($income);
     }
 }

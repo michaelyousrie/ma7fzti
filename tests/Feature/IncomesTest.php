@@ -4,43 +4,42 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Expense;
+use App\Models\Income;
+use App\Models\IncomeCategory;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Models\ExpenseCategory;
 
-class ExpensesTest extends TestCase
+class IncomesTest extends TestCase
 {
     use RefreshDatabase;
 
-    
-    public function testCreatingNewExpense()
+    public function testCreatingNewIncome()
     {
         $this->init();
 
-        $expenseCategory = $this->createExpenseCategory();
+        $incomeCategory = $this->createIncomeCategory();
 
-        $data = factory(Expense::class)->make([
-            'category_id'   => $expenseCategory->id,
-            'user_id'       => $expenseCategory->user_id
+        $data = factory(Income::class)->make([
+            'category_id'   => $incomeCategory->id,
+            'user_id'       => $incomeCategory->user_id
         ])->toArray();
 
-        $this->post( $this->makeUrl("/api/v1/expenses") , $data);
+        $this->post( $this->makeUrl("/api/v1/incomes") , $data);
 
-        $this->assertDatabaseHas('expenses', [
+        $this->assertDatabaseHas('incomes', [
             'user_id'       => $data['user_id'],
-            'category_id'   => $expenseCategory->id,
+            'category_id'   => $incomeCategory->id,
             'amount'        => $data['amount'],
             'description'   => $data['description']
         ]);
     }
 
 
-    public function testCreatingNewExpenseValidation()
+    public function testCreatingNewIncomeValidation()
     {
         $this->init();
 
-        $url = "/api/v1/expenses";
+        $url = "/api/v1/incomes";
 
         // Test empty values
         $data = [];
@@ -69,26 +68,27 @@ class ExpensesTest extends TestCase
         $this->assertEquals("The selected category id is invalid.", $response['errors']->category_id[0]);
 
 
-        // Test updating expense with a category id that doesn't belong to our current user.
+        // Test updating income with a category id that doesn't belong to our current user.
         $otherUser = factory( User::class )->create();
-        $otherExpenseCategory = factory( ExpenseCategory::class )->create([
+        $otherIncomeCategory = factory( IncomeCategory::class )->create([
             'user_id'       => $otherUser->id
         ]);
 
         $data = [
             "amount"        => 123,
-            "category_id"   => $otherExpenseCategory->id,
+            "category_id"   => $otherIncomeCategory->id,
             "description"   => "Updated Description"
         ];
 
-        $expense = factory(Expense::class)->create([
+        $income = factory(Income::class)->create([
             "user_id"   => $this->user->id
         ]);
 
-        $response = $this->getResponse( "api/v1/user/expenses/{$expense->id}", $data, 'patch' );
+        $response = $this->getResponse( "api/v1/user/incomes/{$income->id}", $data, 'patch' );
 
         $this->assertArrayHasKey("errors", $response);
 
         $this->assertEquals("The selected category id is invalid.", $response['errors']->category_id[0]);
     }
+
 }

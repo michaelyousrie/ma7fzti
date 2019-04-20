@@ -8,6 +8,6 @@ $factory->define(IncomeCategory::class, function (Faker $faker) {
     return [
         'name'          => $faker->name,
         "description"   => $faker->sentence,
-        "user_id"       => function() { factory( User::class )->create()->id; }
+        "user_id"       => function() { return factory( User::class )->create()->id; }
     ];
 });
