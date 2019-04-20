@@ -94,6 +94,37 @@
 			"response": []
 		},
 		{
+			"name": "View Expense",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/user/expenses/1?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"expenses",
+						"1"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "User Incomes",
 			"request": {
 				"method": "GET",
@@ -112,6 +143,37 @@
 						"v1",
 						"user",
 						"incomes"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Income",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/user/incomes/1?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"incomes",
+						"1"
 					],
 					"query": [
 						{
