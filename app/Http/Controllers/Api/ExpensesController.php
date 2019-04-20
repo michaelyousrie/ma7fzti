@@ -27,4 +27,11 @@ class ExpensesController extends Controller
 
         return new ExpenseResource( $expense );
     }
+
+    public function show( $id )
+    {
+        $this->guard(new Expense, $id);
+
+        return new ExpenseResource( Expense::where('id', $id)->first() );
+    }
 }
