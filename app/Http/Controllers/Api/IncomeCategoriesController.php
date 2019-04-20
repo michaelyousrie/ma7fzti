@@ -26,4 +26,12 @@ class IncomeCategoriesController extends Controller
 
         return new IncomeCategoryResource($incomeCategory);
     }
+
+
+    public function show( $id )
+    {
+        $this->guard(new IncomeCategory, $id);
+
+        return new IncomeCategoryResource( IncomeCategory::where('id', $id)->first() );
+    }
 }

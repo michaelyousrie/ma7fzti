@@ -26,4 +26,12 @@ class ExpenseCategoriesController extends Controller
 
         return new ExpenseCategoryResource($expenseCategory);
     }
+
+
+    public function show( $id )
+    {
+        $this->guard(new ExpenseCategory, $id);
+
+        return new ExpenseCategoryResource( ExpenseCategory::where('id', $id)->first() );
+    }
 }
