@@ -213,4 +213,20 @@ class ExpensesTest extends TestCase
 
         $this->assertEquals("The amount field is required.", $response['errors']->amount[0]);
     }
+
+
+    public function testViewingIndividualExpense()
+    {
+        $this->init();
+
+        $item = factory( Expense::class )->create([
+            'user_id'   => $this->user->id
+        ]);
+
+        $response = $this->getResponse("/api/v1/user/expenses/{$item->id}", [], "get")['data'];
+
+        $this->assertEquals( $response->id, $item->id );
+        $this->assertEquals( $response->amount, $item->amount );
+        $this->assertEquals( $response->description, $item->description );
+    }
 }

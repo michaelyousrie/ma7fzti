@@ -212,4 +212,20 @@ class IncomesTest extends TestCase
             $this->assertTrue( in_array($income->id, $incs) );
         }
     }
+
+
+    public function testViewingIndividualIncome()
+    {
+        $this->init();
+
+        $item = factory( Income::class )->create([
+            'user_id'   => $this->user->id
+        ]);
+
+        $response = $this->getResponse("/api/v1/user/incomes/{$item->id}", [], "get")['data'];
+
+        $this->assertEquals( $response->id, $item->id );
+        $this->assertEquals( $response->amount, $item->amount );
+        $this->assertEquals( $response->description, $item->description );
+    }
 }
