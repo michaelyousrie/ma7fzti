@@ -188,4 +188,28 @@ class IncomesTest extends TestCase
 
         $this->assertEquals("The amount field is required.", $response['errors']->amount[0]);
     }
+
+
+    public function testGettingAllUserIncomes()
+    {
+        $this->init();
+
+        $incomes = factory( Income::class, 10 )->create([
+            'user_id'   => $this->user->id
+        ]);
+
+        $incomes = Income::all();
+        
+        $incs = [];
+
+        foreach( $incomes as $inc ) {
+            $incs[] = $inc->id;
+        }
+
+        $incomes = $this->getResponse("/api/v1/user/incomes", [], "get")['data'];
+
+        foreach( $incomes as $income ) {
+            $this->assertTrue( in_array($income->id, $incs) );
+        }
+    }
 }
