@@ -213,28 +213,4 @@ class ExpensesTest extends TestCase
 
         $this->assertEquals("The amount field is required.", $response['errors']->amount[0]);
     }
-
-
-    public function testGettingAllUserExpenses()
-    {
-        $this->init();
-
-        $expenses = factory( Expense::class, 10 )->create([
-            'user_id'   => $this->user->id
-        ]);
-
-        $expenses = Expense::all();
-        
-        $exps = [];
-
-        foreach( $expenses as $exp ) {
-            $exps[] = $exp->id;
-        }
-
-        $expenses = $this->getResponse("/api/v1/user/expenses", [], "get")['data'];
-
-        foreach( $expenses as $exp ) {
-            $this->assertTrue( in_array($exp->id, $exps) );
-        }
-    }
 }
