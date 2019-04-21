@@ -65,7 +65,8 @@ abstract class TestCase extends BaseTestCase
         // Uncomment if you think the tested url sends back errors.
         // It's commented because some test functions expect errors to be sent back.
         // if ( array_key_exists("errors", $decoded) ) {
-        //     dd( $url, $decoded['errors'] );
+        //     var_dump( $url, $decoded['errors'] );
+        //     echo "\n\n\n";
         // }
 
         return $decoded;

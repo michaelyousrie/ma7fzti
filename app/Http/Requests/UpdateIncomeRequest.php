@@ -28,7 +28,7 @@ class UpdateIncomeRequest extends BaseRequest
             'amount'        => 'required|numeric|between:1,999999999999.99',
             'category_id'   => [
                 'required',
-                Rule::exists('expense_categories', 'id')->where(function( $query ) {
+                Rule::exists('income_categories', 'id')->where(function( $query ) {
                     $query->where('user_id', Auth::id());
                 }),
             ],
