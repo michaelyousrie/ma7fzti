@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\Models\User;
+use App\Models\IncomeCategory;
 use App\Models\ExpenseCategory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
@@ -27,6 +28,14 @@ abstract class TestCase extends BaseTestCase
         ]);
     }
 
+
+    protected function createIncomeCategory()
+    {
+        return factory( IncomeCategory::class )->create([
+            'user_id'       => $this->user->id
+        ]);
+    }
+
     
     protected function makeUrl( string $url )
     {
@@ -40,5 +49,26 @@ abstract class TestCase extends BaseTestCase
         $this->token = $this->user->api_token;
 
         return True;
+    }
+
+
+    protected function getResponse( string $url, array $data, string $method = "post" )
+    {
+        $resp = $this->$method( $this->makeUrl( $url ) , $data);
+
+        if ( property_exists($resp, 'exception') ) {
+            dd( $resp->exception(), $resp->status() );
+        }
+
+        $decoded = (array) json_decode( $resp->getContent() );
+
+        // Uncomment if you think the tested url sends back errors.
+        // It's commented because some test functions expect errors to be sent back.
+        // if ( array_key_exists("errors", $decoded) ) {
+        //     var_dump( $url, $decoded['errors'] );
+        //     echo "\n\n\n";
+        // }
+
+        return $decoded;
     }
 }
