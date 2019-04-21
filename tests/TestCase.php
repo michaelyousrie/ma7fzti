@@ -60,6 +60,14 @@ abstract class TestCase extends BaseTestCase
             dd( $resp->exception(), $resp->status() );
         }
 
-        return (array) json_decode( $resp->getContent() );
+        $decoded = (array) json_decode( $resp->getContent() );
+
+        // Uncomment if you think the tested url sends back errors.
+        // It's commented because some test functions expect errors to be sent back.
+        // if ( array_key_exists("errors", $decoded) ) {
+        //     dd( $url, $decoded['errors'] );
+        // }
+
+        return $decoded;
     }
 }
