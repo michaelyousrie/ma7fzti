@@ -8,15 +8,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class GeneralTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function testExample()
-    {
-        $response = $this->get('/');
+    use RefreshDatabase;
 
-        $response->assertStatus(200);
+
+    public function testSendingARequestWithoutApiTokenFails()
+    {
+        $resp = $this->get('/api/v1/languages');
+
+        $this->assertEquals($resp->status(), 403);
     }
 }
