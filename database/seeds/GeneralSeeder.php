@@ -48,6 +48,8 @@ class GeneralSeeder extends Seeder
                 'user_id'       => $user->id
             ]);
         }
+
+        return True;
     }
 
 
