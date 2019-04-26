@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\IncomeCategoryResource;
 use App\Http\Requests\CreateIncomeCategoryRequest;
 use App\Models\IncomeCategory;
+use App\Http\Requests\UpdateIncomeCategoryRequest;
 
 class IncomeCategoriesController extends Controller
 {
@@ -30,8 +31,21 @@ class IncomeCategoriesController extends Controller
 
     public function show( $id )
     {
-        $this->guard(new IncomeCategory, $id);
+        $incomeCategory = $this->guard(new IncomeCategory, $id);
 
-        return new IncomeCategoryResource( IncomeCategory::where('id', $id)->first() );
+        return new IncomeCategoryResource( $incomeCategory );
+    }
+
+
+    public function update( $id, UpdateIncomeCategoryRequest $request )
+    {
+        $incomeCategory = $this->guard( new IncomeCategory, $id );
+
+        $incomeCategory->name = $request->name;
+        $incomeCategory->description = $request->description;
+
+        $incomeCategory->save();
+
+        return new IncomeCategoryResource( $incomeCategory );
     }
 }

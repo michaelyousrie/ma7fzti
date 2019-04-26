@@ -344,6 +344,44 @@
 			"response": []
 		},
 		{
+			"name": "Update Expense",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"amount\": \"123\",\n\t\"description\": \"yaay\",\n\t\"category_id\": 1\n}"
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/user/expenses/1?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"expenses",
+						"1"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Income",
 			"request": {
 				"method": "POST",
@@ -368,6 +406,44 @@
 						"api",
 						"v1",
 						"incomes"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Income",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"amount\": \"123\",\n\t\"description\": \"yaay\",\n\t\"category_id\": 1\n}"
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/user/incomes/1?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"incomes",
+						"1"
 					],
 					"query": [
 						{
@@ -417,6 +493,44 @@
 			"response": []
 		},
 		{
+			"name": "Update Income Category",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Test\",\n\t\"description\": \"test test.\"\n}"
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/user/income_categories/1?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"income_categories",
+						"1"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create Expense Category",
 			"request": {
 				"method": "POST",
@@ -442,6 +556,44 @@
 						"v1",
 						"user",
 						"expense_categories"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Expense Category",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Opalz Handx\",\n\t\"description\": \"131212s\"\n}"
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/user/expense_categories/1?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"expense_categories",
+						"1"
 					],
 					"query": [
 						{
@@ -520,6 +672,42 @@
 						"api",
 						"v1",
 						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"first_name\": \"Test\",\n\t\"last_name\": \"User\",\n\t\"email\": \"test@test.com\",\n\t\"password\": \"password\",\n\t\"currency\": \"EGP\",\n\t\"language_code\": \"E2\"\n}"
+				},
+				"url": {
+					"raw": "{{HOST}}/api/v1/user?api_token={{API_TOKEN}}",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user"
+					],
+					"query": [
+						{
+							"key": "api_token",
+							"value": "{{API_TOKEN}}"
+						}
 					]
 				}
 			},

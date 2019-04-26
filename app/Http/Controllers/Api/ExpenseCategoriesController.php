@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ExpenseCategoryResource;
 use App\Http\Requests\CreateExpenseCategoryRequest;
 use App\Models\ExpenseCategory;
+use App\Http\Requests\UpdateExpenseCategoryRequest;
 
 class ExpenseCategoriesController extends Controller
 {
@@ -33,5 +34,18 @@ class ExpenseCategoriesController extends Controller
         $this->guard(new ExpenseCategory, $id);
 
         return new ExpenseCategoryResource( ExpenseCategory::where('id', $id)->first() );
+    }
+
+
+    public function update( $id, UpdateExpenseCategoryRequest $request )
+    {
+        $expenseCategory = $this->guard( new ExpenseCategory, $id );
+
+        $expenseCategory->name = $request->name;
+        $expenseCategory->description = $request->description;
+
+        $expenseCategory->save();
+
+        return new ExpenseCategoryResource( $expenseCategory );
     }
 }
