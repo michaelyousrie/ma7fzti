@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\IncomeCategory;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 
 class UpdateIncomeCategoryRequest extends BaseRequest
@@ -23,9 +25,21 @@ class UpdateIncomeCategoryRequest extends BaseRequest
      */
     public function rules()
     {
+        $incomeCategory = IncomeCategory::findOrFail( $this->id );
+
         return [
-            'name'              => 'required|string|unique:income_categories,name,NULL,id,user_id,'.Auth::id(),
-            'description'       => 'required|string|unique:income_categories,description,NULL,id,user_id,'.Auth::id(),
+            'name'              => [
+                "required",
+                Rule::unique('income_categories', 'name')->where( function ( $query ) use ($incomeCategory) {
+                    $query->where('user_id', Auth::id())->where('name', '!=', $incomeCategory->name);
+                }),
+            ],
+            'description'      => [
+                "required",
+                Rule::unique('income_categories', 'description')->where( function ( $query ) use ($incomeCategory) {
+                    $query->where('user_id', Auth::id())->where('description', '!=', $incomeCategory->description);
+                }),
+            ],
         ];
     }
 }

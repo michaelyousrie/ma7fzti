@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use App\Models\ExpenseCategory;
 
 class UpdateExpenseCategoryRequest extends BaseRequest
 {
@@ -23,9 +25,21 @@ class UpdateExpenseCategoryRequest extends BaseRequest
      */
     public function rules()
     {
+        $expenseCategory = ExpenseCategory::findOrFail( $this->id );
+
         return [
-            'name'              => 'required|string|unique:expense_categories,name,NULL,id,user_id,'.Auth::id(),
-            'description'       => 'required|string|unique:expense_categories,description,NULL,id,user_id,'.Auth::id(),
+            'name'              => [
+                "required",
+                Rule::unique('expense_categories', 'name')->where( function ( $query ) use ($expenseCategory) {
+                    $query->where('user_id', Auth::id())->where('name', '!=', $expenseCategory->name);
+                }),
+            ],
+            'description'      => [
+                "required",
+                Rule::unique('expense_categories', 'description')->where( function ( $query ) use ($expenseCategory) {
+                    $query->where('user_id', Auth::id())->where('description', '!=', $expenseCategory->description);
+                }),
+            ],
         ];
     }
 }

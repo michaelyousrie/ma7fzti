@@ -50,4 +50,69 @@ class IncomeCategoryTest extends TestCase
         $this->assertEquals( $response->name, $category->name );
         $this->assertEquals( $response->description, $category->description );
     }
+
+
+    public function testUpdatingIncomeCategory()
+    {
+        $this->init();
+
+        $cat = factory( IncomeCategory::class )->create([
+            'user_id'   => $this->user->id
+        ]);
+
+        // Test valid data
+        $data = [
+            'name'          => "Test Name",
+            'description'   => "Test Description"
+        ];
+
+        $response = $this->getResponse("/api/v1/user/income_categories/{$cat->id}", $data, 'patch');
+
+        $this->assertArrayHasKey("data", $response);
+
+        $this->assertEquals("Test Name", $response['data']->name);
+        $this->assertEquals("Test Description", $response['data']->description);
+
+        $cat = IncomeCategory::find( $cat->id );
+
+        $this->assertEquals("Test Name", $cat->name);
+        $this->assertEquals("Test Description", $cat->description);
+
+
+        // Test updating only name
+        $data = [
+            'name'          => "Test Name2",
+            'description'   => "Test Description"
+        ];
+
+        $response = $this->getResponse("/api/v1/user/income_categories/{$cat->id}", $data, 'patch');
+
+        $this->assertArrayHasKey("data", $response);
+
+        $this->assertEquals("Test Name2", $response['data']->name);
+        $this->assertEquals("Test Description", $response['data']->description);
+
+        $cat = IncomeCategory::find( $cat->id );
+
+        $this->assertEquals("Test Name2", $cat->name);
+        $this->assertEquals("Test Description", $cat->description);
+
+
+        // Test invalid data
+        $otherCat = factory(IncomeCategory::class)->create([
+            'user_id'   => $this->user->id
+        ]);
+
+        $data = [
+            'name'          => $otherCat->name,
+            'description'   => $otherCat->description
+        ];
+
+        $response = $this->getResponse("/api/v1/user/income_categories/{$cat->id}", $data, 'patch');
+
+        $this->assertArrayHasKey("errors", $response);
+
+        $this->assertEquals( "The name has already been taken.", $response['errors']->name[0] );
+        $this->assertEquals( "The description has already been taken.", $response['errors']->description[0] );
+    }
 }
