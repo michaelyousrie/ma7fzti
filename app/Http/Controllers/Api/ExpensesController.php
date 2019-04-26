@@ -31,7 +31,7 @@ class ExpensesController extends Controller
 
     public function show( $id )
     {
-        $expense = $this->guard(new Expense, $id);
+        $expense = $this->guard( Expense::class, $id);
 
         return new ExpenseResource( $expense );
     }
@@ -39,7 +39,7 @@ class ExpensesController extends Controller
 
     public function update( $id, UpdateExpenseRequest $request )
     {
-        $expense = $this->guard( new Expense, $id );
+        $expense = $this->guard(  Expense::class, $id );
 
         $expense->amount = $request->amount;
         $expense->category_id = $request->category_id;

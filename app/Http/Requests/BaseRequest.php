@@ -12,9 +12,12 @@ class BaseRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         $errors = $validator->errors();
-
+        $validationErrors = [];
+        foreach ($errors->messages() as $errorName => $error){
+            $validationErrors[$errorName] = $error[0];
+        }
         throw new HttpResponseException(response()->json(
-            [ 'errors'   => $errors ]
+            [ 'errors'   => $validationErrors ]
             , Response::HTTP_UNPROCESSABLE_ENTITY));
     }
 }
