@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,25 +25,20 @@ class Controller extends BaseController
     
             $user = User::where('api_token', $request->api_token)->first();
     
-            if ( ! $user ) throw new HttpResponseException(response()->json(['message' => 'invalid user'], '404'));
+            if ( ! $user ) abort(404, "User not found!");
     
             $this->user = $user;
-
+    
             Auth::login( $this->user );
         }
     }
 
 
-    /**
-     * @param Model | string $model
-     * @param int $id
-     * @return mixed
-     */
-    protected function guard($model, int $id )
+    protected function guard( Model $model, int $id )
     {
         $guard = $model::where('user_id', $this->user->id)->where('id', $id)->first();
 
-        if ( ! $guard ) throw new HttpResponseException(response()->json(['message' => "You are not authorized to view this!"], '403'));
+        if ( ! $guard ) abort(403, "You are not authorized to view this!");
 
         return $guard;
     }
