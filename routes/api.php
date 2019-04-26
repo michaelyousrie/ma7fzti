@@ -18,6 +18,7 @@ Route::namespace( 'Api' )->prefix('v1')->group(function() {
     Route::get('/user/expense_categories/{id}', 'ExpenseCategoriesController@show');
     
     Route::get('/user', 'UsersController@index');
+    Route::patch('/user', 'UsersController@update');
 
     Route::post('/user/income_categories', 'IncomeCategoriesController@store');
     Route::post('/user/expense_categories', 'ExpenseCategoriesController@store');
