@@ -5,6 +5,7 @@ namespace Tests;
 use App\Models\User;
 use App\Models\IncomeCategory;
 use App\Models\ExpenseCategory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
@@ -48,6 +49,9 @@ abstract class TestCase extends BaseTestCase
         $this->user = $this->createUser();
         $this->token = $this->user->api_token;
 
+
+        Auth::login( $this->user );
+
         return True;
     }
 
@@ -64,6 +68,7 @@ abstract class TestCase extends BaseTestCase
 
         // Uncomment if you think the tested url sends back errors.
         // It's commented because some test functions expect errors to be sent back.
+        // ...
         // if ( array_key_exists("errors", $decoded) ) {
         //     var_dump( $url, $decoded['errors'] );
         //     echo "\n\n\n";
