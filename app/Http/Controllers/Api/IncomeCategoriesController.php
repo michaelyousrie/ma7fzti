@@ -31,7 +31,7 @@ class IncomeCategoriesController extends Controller
 
     public function show( $id )
     {
-        $incomeCategory = $this->guard(new IncomeCategory, $id);
+        $incomeCategory = $this->guard( IncomeCategory::class, $id);
 
         return new IncomeCategoryResource( $incomeCategory );
     }
@@ -39,7 +39,7 @@ class IncomeCategoriesController extends Controller
 
     public function update( $id, UpdateIncomeCategoryRequest $request )
     {
-        $incomeCategory = $this->guard( new IncomeCategory, $id );
+        $incomeCategory = $this->guard( IncomeCategory::class, $id);
 
         $incomeCategory->name = $request->name;
         $incomeCategory->description = $request->description;

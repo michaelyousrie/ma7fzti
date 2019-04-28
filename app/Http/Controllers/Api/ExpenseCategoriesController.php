@@ -31,7 +31,7 @@ class ExpenseCategoriesController extends Controller
 
     public function show( $id )
     {
-        $this->guard(new ExpenseCategory, $id);
+        $this->guard( ExpenseCategory::class, $id);
 
         return new ExpenseCategoryResource( ExpenseCategory::where('id', $id)->first() );
     }
@@ -39,7 +39,7 @@ class ExpenseCategoriesController extends Controller
 
     public function update( $id, UpdateExpenseCategoryRequest $request )
     {
-        $expenseCategory = $this->guard( new ExpenseCategory, $id );
+        $expenseCategory = $this->guard(ExpenseCategory::class, $id);
 
         $expenseCategory->name = $request->name;
         $expenseCategory->description = $request->description;
