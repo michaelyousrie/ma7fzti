@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use function App\Helpers\handleError;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -9,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Database\Eloquent\Model;
 
 class Controller extends BaseController
 {
@@ -21,11 +21,11 @@ class Controller extends BaseController
     {
         if ( $request->path() != 'api/v1/login' && $request->path()!= 'api/v1/register' )
         {
-            if ( ! $request->api_token ) abort(403);
+            if ( ! $request->api_token ) handleError(403);
     
             $user = User::where('api_token', $request->api_token)->first();
     
-            if ( ! $user ) abort(404, "User not found!");
+            if ( ! $user ) handleError( 404, "User is not found!");
     
             $this->user = $user;
     
@@ -33,12 +33,16 @@ class Controller extends BaseController
         }
     }
 
-
-    protected function guard( Model $model, int $id )
+    /**
+     * @param string $model
+     * @param int $id
+     * @return mixed
+     */
+    protected function guard(string $model, int $id )
     {
         $guard = $model::where('user_id', $this->user->id)->where('id', $id)->first();
 
-        if ( ! $guard ) abort(403, "You are not authorized to view this!");
+        if ( ! $guard ) handleError(403, "You are not authorized to access this!");
 
         return $guard;
     }
