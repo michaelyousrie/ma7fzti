@@ -25,7 +25,7 @@ if (! function_exists('transformError')) {
      * @param string $message
      * @return array
      */
-    function transformError(int $code, string $message)
+    function transformError(int $code, string $message = null)
     {
         return [
             'message' => $message ?: Response::$statusTexts[$code],
