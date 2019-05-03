@@ -6,12 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Application</title>
 
+    <!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
+
     {{-- Font Awesome --}}
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 
     {{-- Bootstrap CDN --}}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+
+    {{-- Select 2 --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/css/select2.min.css" rel="stylesheet" />
 
 
     @yield('head')
@@ -41,14 +47,22 @@
     {{-- SWAL --}}
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    @if ( session()->has('message') )
-        <script>
-			swal(
-				"{{ session('title') ?? 'Success' }}",
-				"{{ session('message') }}",
-				"{{ session('message-class') ?? 'success' }}"
-			);
-		</script>
-    @endif
+    {{-- Select 2 --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/js/select2.min.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            $('select.select2').select2();
+            
+            @if ( session()->has('message') )
+                swal(
+                    "{{ session('title') ?? 'Success' }}",
+                    "{{ session('message') }}",
+                    "{{ session('message-class') ?? 'success' }}"
+                );
+            @endif
+        });
+    </script>
 </body>
 </html>

@@ -9,6 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view("home");
+        // swal("Hail there traveler");
+        return view("homepage");
     }
 }
