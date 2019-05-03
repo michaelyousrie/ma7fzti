@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use function App\Helpers\isApiCall;
 
 class Controller extends BaseController
 {
@@ -19,17 +20,20 @@ class Controller extends BaseController
 
     public function __construct( Request $request )
     {
-        if ( $request->path() != 'api/v1/login' && $request->path()!= 'api/v1/register' )
+        if ( isApiCall($request) )
         {
-            if ( ! $request->api_token ) handleError(403);
-    
-            $user = User::where('api_token', $request->api_token)->first();
-    
-            if ( ! $user ) handleError( 404, "User is not found!");
-    
-            $this->user = $user;
-    
-            Auth::login( $this->user );
+            if ( $request->path() != 'api/v1/login' && $request->path()!= 'api/v1/register' )
+            {
+                if ( ! $request->api_token ) handleError(403);
+        
+                $user = User::where('api_token', $request->api_token)->first();
+        
+                if ( ! $user ) handleError( 404, "User is not found!");
+        
+                $this->user = $user;
+        
+                Auth::login( $this->user );
+            }
         }
     }
 
