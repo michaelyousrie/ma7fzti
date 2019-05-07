@@ -1792,6 +1792,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1812,7 +1814,8 @@ __webpack_require__.r(__webpack_exports__);
       }]
     };
   },
-  methods: {}
+  methods: {},
+  props: ['user']
 });
 
 /***/ }),
@@ -37118,7 +37121,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "nav",
-    { staticClass: "navbar navbar-expand-lg navbar-dark bg-dark" },
+    { staticClass: "navbar navbar-expand-lg navbar-light bg-light" },
     [
       _c("a", { staticClass: "navbar-brand", attrs: { href: "/" } }, [
         _vm._v(_vm._s(_vm.application_name))
@@ -37186,7 +37189,14 @@ var render = function() {
               })
             ],
             2
-          )
+          ),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v("Welcome, "),
+            _c("a", { attrs: { href: "#" } }, [
+              _vm._v(_vm._s(this.user.first_name))
+            ])
+          ])
         ]
       )
     ]

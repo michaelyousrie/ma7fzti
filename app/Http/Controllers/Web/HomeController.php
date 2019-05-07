@@ -11,10 +11,9 @@ class HomeController extends Controller
     public function index()
     {
         if ( Auth::check() ){
-            // swal("Hail there traveler");
-            return view("homepage");
-        } else {
-            return redirect(route('login.show'));
+            return view("homepage", ['user' => Auth::user()]);
         }
+        
+        return redirect(route('login.show'));
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
     
         <a class="navbar-brand" href="/">{{ application_name }}</a>
 
@@ -23,6 +23,8 @@
                     <a :href="item.href" class="nav-link">{{item.label}}</a>
                 </li>
             </ul>
+
+            <p>Welcome, <a href="#">{{this.user.first_name}}</a></p>
         </div>
     </nav>
 </template>
@@ -32,6 +34,7 @@
         data() {
             return {
                 application_name: window.application_name,
+
                 links: [
                     { label: "Google", href: "https://google.com" },
                     { label: "YouTube", href: "https://youtube.com" },
@@ -39,12 +42,14 @@
                 items: [
                     { label: "YouTube", href: "https://youtube.com" },
                     { label: "Google", href: "https://google.com" },
-                ]
+                ],
             }
         },
 
         methods: {
 
-        }
+        },
+
+        props: ['user'],
     }
 </script>
