@@ -61,4 +61,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(ExpenseCategory::class);
     }
+
+
+    public function calculateBalance()
+    {
+        $total = 0;
+
+        foreach( $this->incomes as $income ) {
+            $total += $income->amount;
+        }
+
+        foreach( $this->expenses as $expense ) {
+            $total -= $expense->amount;
+        }
+
+        $this->balance = $total;
+
+        $this->save();
+
+        return $total;
+    }
 }

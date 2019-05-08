@@ -10,8 +10,13 @@ class HomeController extends Controller
 {
     public function index()
     {
-        if ( Auth::check() ){
-            return view("homepage", ['user' => Auth::user()]);
+        if ( Auth::check() ) {
+            $user = Auth::user();
+
+            $user->incomes = $user->incomes;
+            $user->expenses = $user->expenses;
+
+            return view("homepage", compact('user'));
         }
         
         return redirect(route('login.show'));
