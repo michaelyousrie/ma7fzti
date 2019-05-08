@@ -1914,20 +1914,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       application_name: window.application_name,
-      links: [{
-        label: "Google",
-        href: "https://google.com"
-      }, {
-        label: "YouTube",
-        href: "https://youtube.com"
-      }],
-      items: [{
-        label: "YouTube",
-        href: "https://youtube.com"
-      }, {
-        label: "Google",
-        href: "https://google.com"
-      }]
+      links: [// { label: "Google", href: "https://google.com" },
+        // { label: "YouTube", href: "https://youtube.com" },
+      ],
+      items: [// { label: "YouTube", href: "https://youtube.com" },
+        // { label: "Google", href: "https://google.com" },
+      ]
     };
   },
   methods: {},
@@ -6437,7 +6429,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.navbar {\n    border-bottom: 1px solid #e8e8e8;\n}\n", ""]);
+exports.push([module.i, "\n.navbar {\n    border-bottom: 1px solid #e8e8e8;\n}\n.navbar-brand {\n    font-size: 2em;\n}\n", ""]);
 
 // exports
 
@@ -6456,7 +6448,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#sidebar {\n    font-family: 'Courier New', Courier, monospace;\n    font-weight: bold;\n    background-color: #F8F9FA;\n    height: calc(100vh - 57px);\n    width: 250px;\n    text-align: center;\n    border-right: 1px solid #e8e8e8;\n    float: left;\n}\n.list-group-item:hover {\n    cursor: pointer;\n    background: #dddddd;\n}\n.list-group-item {\n    border-top: none;\n    border-left:none;\n    border-right:none;\n    margin-top: 10px;\n    padding: 10px;\n}\n", ""]);
+exports.push([module.i, "\n#sidebar {\n    font-family: 'Courier New', Courier, monospace;\n    font-weight: bold;\n    background-color: #F8F9FA;\n    height: calc(100vh - 75px);\n    width: 250px;\n    text-align: center;\n    border-right: 1px solid #e8e8e8;\n    float: left;\n}\n.list-group-item:hover {\n    cursor: pointer;\n    background: #dddddd;\n}\n.list-group-item {\n    border-top: none;\n    border-left:none;\n    border-right:none;\n    margin-top: 10px;\n    padding: 10px;\n}\n", ""]);
 
 // exports
 
@@ -38130,107 +38122,13 @@ var render = function() {
     "nav",
     { staticClass: "navbar navbar-expand-lg navbar-light bg-light" },
     [
-      _c("a", { staticClass: "navbar-brand", attrs: { href: "/" } }, [
+      _c("a", { staticClass: "navbar-brand mx-auto", attrs: { href: "/" } }, [
         _vm._v(_vm._s(_vm.application_name))
-      ]),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "collapse navbar-collapse",
-          attrs: { id: "navbarSupportedContent" }
-        },
-        [
-          _c(
-            "ul",
-            { staticClass: "navbar-nav mr-auto" },
-            [
-              _c("li", { staticClass: "nav-item dropdown" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "nav-link dropdown-toggle",
-                    attrs: {
-                      href: "#",
-                      id: "navbarDropdown",
-                      role: "button",
-                      "data-toggle": "dropdown",
-                      "aria-haspopup": "true",
-                      "aria-expanded": "false"
-                    }
-                  },
-                  [_vm._v("\n                Dropdown\n                ")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "dropdown-menu",
-                    attrs: { "aria-labelledby": "navbarDropdown" }
-                  },
-                  _vm._l(_vm.links, function(link, index) {
-                    return _c(
-                      "a",
-                      {
-                        key: index,
-                        staticClass: "dropdown-item",
-                        attrs: { href: link.href }
-                      },
-                      [_vm._v(_vm._s(link.label))]
-                    )
-                  }),
-                  0
-                )
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.items, function(item, index) {
-                return _c("li", { key: index, staticClass: "nav-item" }, [
-                  _c(
-                    "a",
-                    { staticClass: "nav-link", attrs: { href: item.href } },
-                    [_vm._v(_vm._s(item.label))]
-                  )
-                ])
-              })
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v("Welcome, "),
-            _c("a", { attrs: { href: "#" } }, [
-              _vm._v(_vm._s(this.user.first_name))
-            ])
-          ])
-        ]
-      )
+      ])
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      {
-        staticClass: "navbar-toggler",
-        attrs: {
-          type: "button",
-          "data-toggle": "collapse",
-          "data-target": "#navbarSupportedContent",
-          "aria-controls": "navbarSupportedContent",
-          "aria-expanded": "false",
-          "aria-label": "Toggle navigation"
-        }
-      },
-      [_c("span", { staticClass: "navbar-toggler-icon" })]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

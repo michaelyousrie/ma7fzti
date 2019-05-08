@@ -44,7 +44,7 @@ export default {
         font-family: 'Courier New', Courier, monospace;
         font-weight: bold;
         background-color: #F8F9FA;
-        height: calc(100vh - 57px);
+        height: calc(100vh - 75px);
         width: 250px;
         text-align: center;
         border-right: 1px solid #e8e8e8;
