@@ -31,6 +31,8 @@
 
 <script>
     export default {
+        name: "Navbar",
+
         data() {
             return {
                 application_name: window.application_name,
@@ -53,3 +55,9 @@
         props: ['user'],
     }
 </script>
+
+<style>
+    .navbar {
+        border-bottom: 1px solid #e8e8e8;
+    }
+</style>

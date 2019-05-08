@@ -1,5 +1,6 @@
 @extends('layouts.base')
 
-@section('content')
-    <Navbar :user="{{$user}}" />
+
+@section('content')    
+    <App :user="{{$user}}"></App>
 @endsection

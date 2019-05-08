@@ -10662,3 +10662,8 @@ a.text-dark:focus {
   }
 }
 
+.content {
+  margin-left: 250px;
+  padding: 10px;
+}
+
