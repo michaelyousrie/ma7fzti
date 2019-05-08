@@ -48,6 +48,27 @@ export default {
                 return this.currency + " " + this.balance;
             }
 
+            this.user.getTotalIncome = function() {
+                let total = 0;
+                
+                this.incomes.forEach(income => {
+                    total += parseFloat( income.amount );
+                });
+
+                return this.currency + " " + total;
+            }
+
+
+            this.user.getTotalExpense = function() {
+                let total = 0;
+                
+                this.expenses.forEach(expense => {
+                    total -= expense.amount;
+                });
+
+                return this.currency + " " + total;
+            }
+
             return this.user;
         }
     },

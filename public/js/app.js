@@ -1805,6 +1805,22 @@ __webpack_require__.r(__webpack_exports__);
         return this.currency + " " + this.balance;
       };
 
+      this.user.getTotalIncome = function () {
+        var total = 0;
+        this.incomes.forEach(function (income) {
+          total += parseFloat(income.amount);
+        });
+        return this.currency + " " + total;
+      };
+
+      this.user.getTotalExpense = function () {
+        var total = 0;
+        this.expenses.forEach(function (expense) {
+          total -= expense.amount;
+        });
+        return this.currency + " " + total;
+      };
+
       return this.user;
     }
   },
@@ -1874,6 +1890,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Incomes",
   props: ['user'],
@@ -1882,7 +1909,10 @@ __webpack_require__.r(__webpack_exports__);
       show: true
     };
   },
-  methods: {}
+  methods: {
+    deleteIncome: function deleteIncome(id) {// 
+    }
+  }
 });
 
 /***/ }),
@@ -38170,18 +38200,53 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.user.incomes, function(income, index) {
-            return _c("tr", { key: index }, [
-              _c("td", [_vm._v(_vm._s(index + 1))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(income.description))]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(_vm._s(_vm.user.currency) + " " + _vm._s(income.amount))
+          [
+            _vm._l(_vm.user.incomes, function(income, index) {
+              return _c("tr", { key: index }, [
+                _c("td", [_vm._v(_vm._s(index + 1))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(income.description))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(income.when))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("span", { staticClass: "text-success" }, [
+                    _vm._v(
+                      _vm._s(_vm.user.currency) + " +" + _vm._s(income.amount)
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-xs btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteIncome(income.id)
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fa fa-trash" })]
+                  )
+                ])
               ])
+            }),
+            _vm._v(" "),
+            _c("tr", [
+              _c("td"),
+              _c("td"),
+              _c("td"),
+              _vm._v(" "),
+              _c("td", { staticClass: "text-secondary" }, [
+                _vm._v(_vm._s(_vm.user.getTotalIncome()))
+              ]),
+              _vm._v(" "),
+              _c("td")
             ])
-          }),
-          0
+          ],
+          2
         )
       ])
     ]
@@ -38197,7 +38262,11 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("description")]),
       _vm._v(" "),
-      _c("th", [_vm._v("amount")])
+      _c("th", [_vm._v("Created")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("amount")]),
+      _vm._v(" "),
+      _c("th")
     ])
   }
 ]
@@ -50529,7 +50598,9 @@ try {
   window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
-} catch (e) {}
+} catch (e) {
+  console.log(e);
+}
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the

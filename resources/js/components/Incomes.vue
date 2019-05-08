@@ -8,14 +8,25 @@
             <thead>
                 <th>#</th>
                 <th>description</th>
+                <th>Created</th>
                 <th>amount</th>
+                <th></th>
             </thead>
 
             <tbody>
                 <tr v-for="(income, index) in user.incomes" :key="index">
                     <td>{{ index + 1 }}</td>
                     <td>{{ income.description }}</td>
-                    <td>{{user.currency }} {{ income.amount }}</td>
+                    <td>{{ income.when }}</td>
+                    <td><span class="text-success">{{user.currency }} +{{ income.amount }}</span></td>
+                    <td>
+                        <button class="btn btn-xs btn-danger" @click="deleteIncome(income.id)"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td><td></td><td></td>
+                    <td class="text-secondary">{{ user.getTotalIncome() }}</td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
@@ -35,7 +46,9 @@ export default {
     },
 
     methods: {
-        
+        deleteIncome(id) {
+            // 
+        }
     }
 }
 </script>

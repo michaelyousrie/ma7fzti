@@ -13,8 +13,8 @@ class HomeController extends Controller
         if ( Auth::check() ) {
             $user = Auth::user();
 
-            $user->incomes = $user->incomes;
-            $user->expenses = $user->expenses;
+            $user->incomes = $user->getIncomes();
+            $user->expenses = $user->getExpenses();
 
             return view("homepage", compact('user'));
         }

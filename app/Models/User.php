@@ -63,6 +63,30 @@ class User extends Authenticatable
     }
 
 
+    public function getIncomes()
+    {
+        $incomes = $this->incomes;
+
+        foreach( $incomes as $index => $income ) {
+            $incomes[$index]->when = $income->created_at->diffForHumans();
+        }
+
+        return $incomes;
+    }
+
+
+    public function getExpenses()
+    {
+        $expenses = $this->expenses;
+
+        foreach( $expenses as $index => $expense ) {
+            $expenses[$index]->when = $expense->created_at->diffForHumans();
+        }
+
+        return $expenses;
+    }
+
+
     public function calculateBalance()
     {
         $total = 0;
