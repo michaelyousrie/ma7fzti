@@ -51,7 +51,7 @@
                         <!-- Category -->
                         <div class="form-group">
                             <label for="category">Category</label>
-                            <select name="category_id" id="category" class="form-control">
+                            <select name="category_id" id="category" class="form-control" v-model="category_value">
                                 <option v-for="cat in user.income_categories" :value="cat.id" :key="cat.id">{{ cat.name }}</option>
                             </select>
                         </div>
@@ -60,14 +60,14 @@
                         <!-- Description -->
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <textarea id="description" class="form-control" name="description" rows="4" cols="2"></textarea>
+                            <textarea id="description" class="form-control" name="description" rows="4" cols="2" v-model="description_value"></textarea>
                         </div>
                         <!-- /Description -->
 
                         <!-- Amount -->
                         <div class="form-group">
                             <label for="amount">Amount</label>
-                            <input type="text" id="amount" class="form-control" name="amount">
+                            <input type="text" id="amount" class="form-control" name="amount" v-model="amount_value">
                         </div>
                         <!--  Amount/-->
                     </div>
@@ -99,6 +99,10 @@ export default {
             show: true,
             incomes: [],
             balance: 0,
+
+            amount_value: null,
+            description_value: null,
+            category_value: null
         }
     },
 
@@ -124,9 +128,10 @@ export default {
             var that = this;
 
             window.Alert.confirm("Are you sure you want to add this income??", function() {
-                let description = $('textarea[name=description]').val();
-                let category_id = $('select[name=category_id] option:selected').val();
-                let amount = $('input[name=amount]').val();
+
+                let description = that.description_value;
+                let category_id = that.category_value;
+                let amount = that.amount_value;
 
                 window.axios.post( window.makeUrl( "/incomes" ), { description, category_id, amount } ).then(resp => {
                     that.updateUser(resp);
@@ -145,9 +150,9 @@ export default {
 
 
         clearForm() {
-            $('textarea[name=description]').val('');
-            $('select[name=category_id] option:first').attr('selected', true);
-            $('input[name=amount]').val('');
+            this.description_value = null;
+            this.category_value = null;
+            this.amount_value = null;
         }
     },
 

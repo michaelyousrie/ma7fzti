@@ -1968,7 +1968,10 @@ __webpack_require__.r(__webpack_exports__);
     return {
       show: true,
       incomes: [],
-      balance: 0
+      balance: 0,
+      amount_value: null,
+      description_value: null,
+      category_value: null
     };
   },
   methods: {
@@ -1987,9 +1990,9 @@ __webpack_require__.r(__webpack_exports__);
     addIncome: function addIncome() {
       var that = this;
       window.Alert.confirm("Are you sure you want to add this income??", function () {
-        var description = $('textarea[name=description]').val();
-        var category_id = $('select[name=category_id] option:selected').val();
-        var amount = $('input[name=amount]').val();
+        var description = that.description_value;
+        var category_id = that.category_value;
+        var amount = that.amount_value;
         window.axios.post(window.makeUrl("/incomes"), {
           description: description,
           category_id: category_id,
@@ -2007,9 +2010,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit("updateUser");
     },
     clearForm: function clearForm() {
-      $('textarea[name=description]').val('');
-      $('select[name=category_id] option:first').attr('selected', true);
-      $('input[name=amount]').val('');
+      this.description_value = null;
+      this.category_value = null;
+      this.amount_value = null;
     }
   },
   computed: {
@@ -41206,8 +41209,31 @@ var render = function() {
                     _c(
                       "select",
                       {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.category_value,
+                            expression: "category_value"
+                          }
+                        ],
                         staticClass: "form-control",
-                        attrs: { name: "category_id", id: "category" }
+                        attrs: { name: "category_id", id: "category" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.category_value = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
                       },
                       _vm._l(_vm.user.income_categories, function(cat) {
                         return _c(
@@ -41220,9 +41246,66 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _vm._m(2),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "description" } }, [
+                      _vm._v("Description")
+                    ]),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.description_value,
+                          expression: "description_value"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        id: "description",
+                        name: "description",
+                        rows: "4",
+                        cols: "2"
+                      },
+                      domProps: { value: _vm.description_value },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.description_value = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
                   _vm._v(" "),
-                  _vm._m(3)
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "amount" } }, [
+                      _vm._v("Amount")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.amount_value,
+                          expression: "amount_value"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", id: "amount", name: "amount" },
+                      domProps: { value: _vm.amount_value },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.amount_value = $event.target.value
+                        }
+                      }
+                    })
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer" }, [
@@ -41295,32 +41378,6 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "description" } }, [_vm._v("Description")]),
-      _vm._v(" "),
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: { id: "description", name: "description", rows: "4", cols: "2" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "amount" } }, [_vm._v("Amount")]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "text", id: "amount", name: "amount" }
-      })
     ])
   }
 ]
