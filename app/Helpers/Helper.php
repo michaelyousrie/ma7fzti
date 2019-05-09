@@ -34,3 +34,11 @@ function loggedIn()
 {
     return Auth::check();
 }
+
+
+function ajaxResponse( array $data = [] )
+{
+    return array_merge([
+        'user'  => Auth::user(),
+    ], $data);
+}

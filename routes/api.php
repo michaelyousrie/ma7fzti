@@ -10,6 +10,7 @@ Route::namespace( 'Api' )->prefix('v1')->group(function() {
     Route::get('/user/incomes', 'IncomesController@index');
     Route::get('/user/incomes/{id}', 'IncomesController@show');
     Route::patch('/user/incomes/{id}', 'IncomesController@update');
+    Route::delete('/user/incomes/{id}', 'IncomesController@destroy');
 
     Route::get('/user/income_categories', 'IncomeCategoriesController@index');
     Route::get('/user/income_categories/{id}', 'IncomeCategoriesController@show');

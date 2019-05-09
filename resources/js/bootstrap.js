@@ -32,13 +32,24 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 let token = document.head.querySelector('meta[name="csrf-token"]');
 
-window.application_name = "Ma7fzti";
-
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+window.application_name = "Ma7fzti";
+
+let api_token = $('meta[name="api-token"]').attr('value');
+window.api_token = api_token;
+
+window.Ajax = require('./Helpers/Ajax').default.Ajax;
+window.makeUrl = require('./Helpers/makeUrl').makeUrl;
+window.updateUserObject = require('./Helpers/updateUserObject').updateUserObject;
+
+// window.axios.get("/api/v1/user?api_token=" + window.api_token).then(response => {
+//     window.user = response.data;
+// });
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

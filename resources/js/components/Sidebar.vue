@@ -9,7 +9,7 @@
         </ul>
         <br>
         <hr class="bg-light">
-        <p><b>Balance:</b> <i class="text-success">{{ this.user.getBalance() }}</i></p>
+        <p><b>Balance:</b> <i class="text-success">{{ user.getBalance() }}</i></p>
     </div>
 </template>
 

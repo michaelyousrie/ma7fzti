@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
 
-@section('content')    
+@section('content')
     <App :user="{{$user}}"></App>
 @endsection

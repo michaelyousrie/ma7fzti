@@ -1793,6 +1793,9 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  created: function created() {
+    this.user = window.updateUserObject(this.user);
+  },
   methods: {
     showIncomes: function showIncomes(bool) {
       this.incomes.show = bool;
@@ -1801,27 +1804,10 @@ __webpack_require__.r(__webpack_exports__);
       this.expenses.show = bool;
     },
     getUser: function getUser() {
-      this.user.getBalance = function () {
-        return this.currency + " " + this.balance;
-      };
-
-      this.user.getTotalIncome = function () {
-        var total = 0;
-        this.incomes.forEach(function (income) {
-          total += parseFloat(income.amount);
-        });
-        return this.currency + " " + total;
-      };
-
-      this.user.getTotalExpense = function () {
-        var total = 0;
-        this.expenses.forEach(function (expense) {
-          total -= expense.amount;
-        });
-        return this.currency + " " + total;
-      };
-
       return this.user;
+    },
+    updateBalance: function updateBalance() {
+      this.balance = 15;
     }
   },
   props: ['user']
@@ -1904,13 +1890,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Incomes",
   props: ['user'],
+  created: function created() {
+    this.incomes = this.user.incomes;
+    this.balance = this.user.balance;
+  },
   data: function data() {
     return {
-      show: true
+      show: true,
+      incomes: [],
+      balance: 0
     };
   },
   methods: {
-    deleteIncome: function deleteIncome(id) {// 
+    deleteIncome: function deleteIncome(id) {
+      var _this = this;
+
+      window.axios["delete"](window.makeUrl("/user/incomes/" + id), []).then(function (resp) {
+        _this.user = window.user = window.updateUserObject(resp.data.user);
+      });
+    }
+  },
+  computed: {
+    getUserIncomes: function getUserIncomes() {
+      return this.user.incomes;
+    },
+    getUserBalance: function getUserBalance() {
+      return this.balance;
     }
   }
 });
@@ -38098,7 +38103,12 @@ var render = function() {
                 expression: "incomes.show"
               }
             ],
-            attrs: { user: this.getUser() }
+            attrs: { user: this.getUser() },
+            on: {
+              updateBalance: function($event) {
+                return _vm.updateBalance()
+              }
+            }
           }),
           _vm._v(" "),
           _c("Expenses", {
@@ -38201,7 +38211,7 @@ var render = function() {
         _c(
           "tbody",
           [
-            _vm._l(_vm.user.incomes, function(income, index) {
+            _vm._l(_vm.getUserIncomes, function(income, index) {
               return _c("tr", { key: index }, [
                 _c("td", [_vm._v(_vm._s(index + 1))]),
                 _vm._v(" "),
@@ -38234,14 +38244,12 @@ var render = function() {
               ])
             }),
             _vm._v(" "),
-            _c("tr", [
+            _c("tr", { staticClass: "bg-info" }, [
               _c("td"),
               _c("td"),
               _c("td"),
               _vm._v(" "),
-              _c("td", { staticClass: "text-secondary" }, [
-                _vm._v(_vm._s(_vm.user.getTotalIncome()))
-              ]),
+              _c("td", [_vm._v(_vm._s(_vm.user.getTotalIncome()))]),
               _vm._v(" "),
               _c("td")
             ])
@@ -38353,7 +38361,7 @@ var render = function() {
       _c("b", [_vm._v("Balance:")]),
       _vm._v(" "),
       _c("i", { staticClass: "text-success" }, [
-        _vm._v(_vm._s(this.user.getBalance()))
+        _vm._v(_vm._s(_vm.user.getBalance()))
       ])
     ])
   ])
@@ -50538,6 +50546,105 @@ webpackContext.id = "./resources/js sync recursive \\.vue$/";
 
 /***/ }),
 
+/***/ "./resources/js/Helpers/Ajax.js":
+/*!**************************************!*\
+  !*** ./resources/js/Helpers/Ajax.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function Ajax(url, data) {
+  var method = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'post';
+  url = 'api/v1/' + url.replace('/', '') + '?api_token=' + window.api_token;
+  return window.axios[method](url, data).then(function (response) {
+    return response;
+  });
+}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  Ajax: Ajax
+});
+
+/***/ }),
+
+/***/ "./resources/js/Helpers/makeUrl.js":
+/*!*****************************************!*\
+  !*** ./resources/js/Helpers/makeUrl.js ***!
+  \*****************************************/
+/*! exports provided: makeUrl */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeUrl", function() { return makeUrl; });
+function makeUrl(url) {
+  return 'api/v1/' + url.replace('/', '') + '?api_token=' + window.api_token;
+}
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Helpers/updateUserObject.js":
+/*!**************************************************!*\
+  !*** ./resources/js/Helpers/updateUserObject.js ***!
+  \**************************************************/
+/*! exports provided: updateUserObject */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUserObject", function() { return updateUserObject; });
+function updateUserObject(user) {
+  user.getBalance = function () {
+    return this.currency + " " + this.balance;
+  };
+
+  user.calcBalance = function () {
+    return this.getIncomeValue() - this.getExpenseValue();
+  };
+
+  user.getTotalIncome = function () {
+    var total = 0;
+    this.incomes.forEach(function (income) {
+      total += parseFloat(income.amount);
+    });
+    return this.currency + " " + total;
+  };
+
+  user.getTotalExpense = function () {
+    var total = 0;
+    this.expenses.forEach(function (expense) {
+      total -= expense.amount;
+    });
+    return this.currency + " " + total;
+  };
+
+  user.getIncomeValue = function () {
+    var total = 0;
+    this.incomes.forEach(function (income) {
+      total += parseFloat(income.amount);
+    });
+    return parseFloat(total);
+  };
+
+  user.getExpenseValue = function () {
+    var total = 0;
+    this.expenses.forEach(function (expense) {
+      total += parseFloat(expense.amount);
+    });
+    return parseFloat(total);
+  };
+
+  return user;
+}
+
+
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -50617,13 +50724,22 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  */
 
 var token = document.head.querySelector('meta[name="csrf-token"]');
-window.application_name = "Ma7fzti";
 
 if (token) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+window.application_name = "Ma7fzti";
+var api_token = $('meta[name="api-token"]').attr('value');
+window.api_token = api_token;
+window.Ajax = __webpack_require__(/*! ./Helpers/Ajax */ "./resources/js/Helpers/Ajax.js")["default"].Ajax;
+window.makeUrl = __webpack_require__(/*! ./Helpers/makeUrl */ "./resources/js/Helpers/makeUrl.js").makeUrl;
+window.updateUserObject = __webpack_require__(/*! ./Helpers/updateUserObject */ "./resources/js/Helpers/updateUserObject.js").updateUserObject; // window.axios.get("/api/v1/user?api_token=" + window.api_token).then(response => {
+//     window.user = response.data;
+// });
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

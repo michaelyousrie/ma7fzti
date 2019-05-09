@@ -49,4 +49,14 @@ class IncomesController extends Controller
 
         return new IncomeResource($income);
     }
+
+
+    public function destroy( $id )
+    {
+        $income = $this->guard( Income::class, $id );
+
+        $income->delete();
+
+        return ajaxResponse();
+    }
 }
