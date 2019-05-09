@@ -11,9 +11,10 @@
         <table class="table table-dark table-striped">
             <thead>
                 <th>#</th>
-                <th>description</th>
+                <th>Description</th>
+                <th>Category</th>
                 <th>Created</th>
-                <th>amount</th>
+                <th>Amount</th>
                 <th></th>
             </thead>
 
@@ -21,6 +22,7 @@
                 <tr v-for="(income, index) in getUserIncomes" :key="index">
                     <td>{{ index + 1 }}</td>
                     <td>{{ income.description }}</td>
+                    <td>{{ income.category? income.category.name : '-' }}</td>
                     <td>{{ income.when }}</td>
                     <td><span class="text-success">{{user.currency }} +{{ income.amount }}</span></td>
                     <td>
@@ -28,7 +30,7 @@
                     </td>
                 </tr>
                 <tr class="bg-info">
-                    <td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td>
                     <td>{{ user.getTotalIncome() }}</td>
                     <td></td>
                 </tr>

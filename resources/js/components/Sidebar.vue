@@ -6,6 +6,9 @@
         <ul class="list-group">
             <li class="list-group-item" @click="showIncomes">Incomes</li>
             <li class="list-group-item" @click="showExpenses">Expenses</li>
+            <li class="separator"></li>
+            <li class="list-group-item">Income Categories</li>
+            <li class="list-group-item">Expense Catgories</li>
         </ul>
         <br>
         <hr class="bg-light">

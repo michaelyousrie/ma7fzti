@@ -53,5 +53,13 @@ function getUserObject()
     $user->income_categories = $user->getIncomeCategories();
     $user->expense_categories = $user->getExpenseCategories();
 
+    foreach( $user->incomes as $index => $income ) {
+        $user->incomes[$index]->category = $income->category;
+    }
+
+    foreach( $user->expenses as $index => $expense ) {
+        $user->expenses[$index]->category = $expense->category;
+    }
+
     return $user;
 }

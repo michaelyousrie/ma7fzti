@@ -1955,6 +1955,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Incomes",
   props: ['user'],
@@ -2090,6 +2092,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -41123,6 +41128,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(income.description))]),
                 _vm._v(" "),
+                _c("td", [
+                  _vm._v(_vm._s(income.category ? income.category.name : "-"))
+                ]),
+                _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(income.when))]),
                 _vm._v(" "),
                 _c("td", [
@@ -41151,6 +41160,7 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("tr", { staticClass: "bg-info" }, [
+              _c("td"),
               _c("td"),
               _c("td"),
               _c("td"),
@@ -41251,11 +41261,13 @@ var staticRenderFns = [
     return _c("thead", [
       _c("th", [_vm._v("#")]),
       _vm._v(" "),
-      _c("th", [_vm._v("description")]),
+      _c("th", [_vm._v("Description")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Category")]),
       _vm._v(" "),
       _c("th", [_vm._v("Created")]),
       _vm._v(" "),
-      _c("th", [_vm._v("amount")]),
+      _c("th", [_vm._v("Amount")]),
       _vm._v(" "),
       _c("th")
     ])
@@ -41384,7 +41396,17 @@ var render = function() {
         "li",
         { staticClass: "list-group-item", on: { click: _vm.showExpenses } },
         [_vm._v("Expenses")]
-      )
+      ),
+      _vm._v(" "),
+      _c("li", { staticClass: "separator" }),
+      _vm._v(" "),
+      _c("li", { staticClass: "list-group-item" }, [
+        _vm._v("Income Categories")
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "list-group-item" }, [
+        _vm._v("Expense Catgories")
+      ])
     ]),
     _vm._v(" "),
     _c("br"),
