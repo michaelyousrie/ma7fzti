@@ -56,6 +56,7 @@ export default {
         deleteIncome(id) {
             window.axios.delete( window.makeUrl( "/user/incomes/" + id ), [] ).then(resp => {
                 this.user = window.user = window.updateUserObject( resp.data.user );
+                this.$emit("updateUser");
             });
         }
     },

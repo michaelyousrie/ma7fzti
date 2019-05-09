@@ -1793,9 +1793,6 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
-  created: function created() {
-    this.user = window.updateUserObject(this.user);
-  },
   methods: {
     showIncomes: function showIncomes(bool) {
       this.incomes.show = bool;
@@ -1803,11 +1800,13 @@ __webpack_require__.r(__webpack_exports__);
     showExpenses: function showExpenses(bool) {
       this.expenses.show = bool;
     },
+    updateUser: function updateUser() {
+      this.user = window.user;
+    }
+  },
+  computed: {
     getUser: function getUser() {
-      return this.user;
-    },
-    updateBalance: function updateBalance() {
-      this.balance = 15;
+      return window.updateUserObject(this.user);
     }
   },
   props: ['user']
@@ -1907,6 +1906,8 @@ __webpack_require__.r(__webpack_exports__);
 
       window.axios["delete"](window.makeUrl("/user/incomes/" + id), []).then(function (resp) {
         _this.user = window.user = window.updateUserObject(resp.data.user);
+
+        _this.$emit("updateUser");
       });
     }
   },
@@ -38070,10 +38071,10 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("Navbar", { attrs: { user: this.getUser() } }),
+      _c("Navbar", { attrs: { user: _vm.getUser } }),
       _vm._v(" "),
       _c("Sidebar", {
-        attrs: { user: this.getUser() },
+        attrs: { user: _vm.getUser },
         on: {
           showIncomes: function($event) {
             return _vm.showIncomes(true)
@@ -38103,12 +38104,8 @@ var render = function() {
                 expression: "incomes.show"
               }
             ],
-            attrs: { user: this.getUser() },
-            on: {
-              updateBalance: function($event) {
-                return _vm.updateBalance()
-              }
-            }
+            attrs: { user: _vm.getUser },
+            on: { updateUser: _vm.updateUser }
           }),
           _vm._v(" "),
           _c("Expenses", {
@@ -38120,7 +38117,7 @@ var render = function() {
                 expression: "expenses.show"
               }
             ],
-            attrs: { user: this.getUser() }
+            attrs: { user: _vm.getUser }
           })
         ],
         1

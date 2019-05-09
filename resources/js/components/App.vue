@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Navbar :user="this.getUser()"></Navbar>
-        <Sidebar :user="this.getUser()" 
+        <Navbar :user="getUser"></Navbar>
+        <Sidebar :user="getUser" 
             @showIncomes="showIncomes(true)" 
             @hideIncomes="showIncomes(false)" 
             @showExpenses="showExpenses(true)"
@@ -10,8 +10,8 @@
         </Sidebar>
 
         <div class="content">
-            <Incomes :user="this.getUser()" v-show="incomes.show" @updateBalance="updateBalance()"></Incomes>
-            <Expenses :user="this.getUser()" v-show="expenses.show"></Expenses>
+            <Incomes :user="getUser" v-show="incomes.show" @updateUser="updateUser"></Incomes>
+            <Expenses :user="getUser" v-show="expenses.show"></Expenses>
         </div>
     </div>
 </template>
@@ -33,10 +33,6 @@ export default {
         }
     },
 
-    created() {
-        this.user = window.updateUserObject( this.user );
-    },
-
     methods: {
         showIncomes(bool) {
             this.incomes.show = bool;
@@ -46,12 +42,14 @@ export default {
             this.expenses.show = bool;
         },
 
-        getUser() {
-            return this.user;
-        },
+        updateUser() {
+            this.user = window.user;
+        }
+    },
 
-        updateBalance() {
-            this.balance = 15;
+    computed: {
+        getUser() {
+            return window.updateUserObject( this.user );
         }
     },
 
