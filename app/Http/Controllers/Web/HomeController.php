@@ -11,10 +11,7 @@ class HomeController extends Controller
     public function index()
     {
         if ( Auth::check() ) {
-            $user = Auth::user();
-
-            $user->incomes = $user->getIncomes();
-            $user->expenses = $user->getExpenses();
+            $user = getUserObject();
 
             return view("homepage", compact('user'));
         }

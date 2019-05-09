@@ -39,6 +39,19 @@ function loggedIn()
 function ajaxResponse( array $data = [] )
 {
     return array_merge([
-        'user'  => Auth::user(),
+        'user'  => getUserObject()
     ], $data);
+}
+
+
+function getUserObject()
+{
+    $user = Auth::user();
+
+    $user->incomes = $user->getIncomes();
+    $user->expenses = $user->getExpenses();
+    $user->income_categories = $user->getIncomeCategories();
+    $user->expense_categories = $user->getExpenseCategories();
+
+    return $user;
 }

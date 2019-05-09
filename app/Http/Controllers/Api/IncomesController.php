@@ -25,7 +25,9 @@ class IncomesController extends Controller
 
         $income = $this->user->incomes()->save($income);
 
-        return new IncomeResource( $income );
+        return ajaxResponse([
+            'income' => new IncomeResource( $income )
+        ]);
     }
 
 

@@ -46,6 +46,7 @@ window.api_token = api_token;
 window.Ajax = require('./Helpers/Ajax').default.Ajax;
 window.makeUrl = require('./Helpers/makeUrl').makeUrl;
 window.updateUserObject = require('./Helpers/updateUserObject').updateUserObject;
+window.Alert = require('./Helpers/Alert');
 
 // window.axios.get("/api/v1/user?api_token=" + window.api_token).then(response => {
 //     window.user = response.data;
