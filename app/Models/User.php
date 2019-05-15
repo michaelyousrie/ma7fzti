@@ -65,7 +65,7 @@ class User extends Authenticatable
 
     public function getIncomes()
     {
-        $incomes = $this->incomes;
+        $incomes = $this->incomes()->orderBy('created_at', 'desc')->get();
 
         foreach( $incomes as $index => $income ) {
             $incomes[$index]->when = $income->created_at->diffForHumans();
@@ -77,7 +77,7 @@ class User extends Authenticatable
 
     public function getExpenses()
     {
-        $expenses = $this->expenses;
+        $expenses = $this->expenses()->orderBy('created_at', 'desc')->get();
 
         foreach( $expenses as $index => $expense ) {
             $expenses[$index]->when = $expense->created_at->diffForHumans();
