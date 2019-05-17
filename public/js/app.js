@@ -2149,11 +2149,6 @@ __webpack_require__.r(__webpack_exports__);
     return {// 
     };
   },
-  computed: {
-    getBalance: function getBalance() {
-      return this.balance;
-    }
-  },
   methods: {
     showIncomes: function showIncomes() {
       this.$emit("showIncomes");
@@ -41574,7 +41569,7 @@ var render = function() {
     _c("p", [
       _c("b", [_vm._v("Balance:")]),
       _vm._v(" "),
-      _c("i", { staticClass: "text-success" }, [_vm._v(_vm._s(_vm.getBalance))])
+      _c("i", { staticClass: "text-success" }, [_vm._v(_vm._s(_vm.balance))])
     ])
   ])
 }

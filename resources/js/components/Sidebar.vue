@@ -12,7 +12,7 @@
         </ul>
         <br>
         <hr class="bg-light">
-        <p><b>Balance:</b> <i class="text-success">{{ getBalance }}</i></p>
+        <p><b>Balance:</b> <i class="text-success">{{ balance }}</i></p>
     </div>
 </template>
 
@@ -25,12 +25,6 @@ export default {
     data() {
         return {
             // 
-        }
-    },
-
-    computed: {
-        getBalance() {
-            return this.balance;
         }
     },
 
