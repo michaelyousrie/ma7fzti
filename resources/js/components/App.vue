@@ -2,17 +2,24 @@
     <div>
         <Navbar></Navbar>
 
-        <Sidebar :balance="getBalance"
-            @showIncomes="showIncomes(true)" 
-            @hideIncomes="showIncomes(false)" 
-            @showExpenses="showExpenses(true)"
-            @hideExpenses="showExpenses(false)"
+        <Sidebar 
+            @showIncomes="showIncomes(true)" @hideIncomes="showIncomes(false)"  @showExpenses="showExpenses(true)" @hideExpenses="showExpenses(false)"
+            :balance="getBalance" 
         >
         </Sidebar>
 
         <div class="content">
-            <Incomes v-show="incomesTab.show" @updateBalance="updateBalance" :incomes="getIncomes" :currency="getCurrency" :totalIncome="getTotalIncome" :incomeCategories="getIncomeCategories"></Incomes>
-            <Expenses v-show="expensesTab.show"></Expenses>
+            <Incomes 
+                v-show="incomesTab.show" 
+                @updateUser="updateUser" 
+                :incomes="getIncomes" :currency="getCurrency" :totalIncome="getTotalIncome" :incomeCategories="getIncomeCategories"
+            >
+            </Incomes>
+
+            <Expenses 
+                v-show="expensesTab.show"
+            >
+            </Expenses>
         </div>
     </div>
 </template>
@@ -20,8 +27,6 @@
 <script>
 
 export default {
-    name: "App",
-
     data() {
         return {
             incomesTab: {
@@ -63,8 +68,8 @@ export default {
             });
         },
 
-        updateBalance(payload) {
-            this.balance = payload.balance;
+        updateUser() {
+            this.getUser();
         }
     },
 

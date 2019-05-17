@@ -1803,8 +1803,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "App",
   data: function data() {
     return {
       incomesTab: {
@@ -1841,8 +1847,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.totalIncome = _this.user.getTotalIncome();
       });
     },
-    updateBalance: function updateBalance(payload) {
-      this.balance = payload.balance;
+    updateUser: function updateUser() {
+      this.getUser();
     }
   },
   computed: {
@@ -2012,7 +2018,7 @@ __webpack_require__.r(__webpack_exports__);
       var that = this;
       window.Alert.confirm("Are you sure you want to delete this income?", function () {
         window.axios["delete"](window.makeUrl("/user/incomes/" + id), []).then(function (resp) {
-          that.updateUser(resp);
+          that.$emit('updateUser');
           window.Alert.msg("Success!", "Income deleted!");
         });
       });
@@ -2031,7 +2037,7 @@ __webpack_require__.r(__webpack_exports__);
           category_id: category_id,
           amount: amount
         }).then(function (resp) {
-          that.updateUser(resp);
+          that.$emit('updateUser');
           window.Alert.msg("Income Added!");
           $('.modal').modal('hide');
           that.clearForm();
@@ -2040,25 +2046,10 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    updateUser: function updateUser(resp) {
-      this.incomes = resp.data.user.incomes;
-      this.balance = resp.data.user.balance;
-      this.$emit('updateBalance', {
-        balance: this.balance
-      });
-    },
     clearForm: function clearForm() {
       this.description_value = null;
       this.category_value = null;
       this.amount_value = null;
-    }
-  },
-  computed: {
-    getIncomes: function getIncomes() {
-      return this.incomes;
-    },
-    getUserBalance: function getUserBalance() {
-      return this.balance;
     }
   }
 });
@@ -41110,7 +41101,7 @@ var render = function() {
               totalIncome: _vm.getTotalIncome,
               incomeCategories: _vm.getIncomeCategories
             },
-            on: { updateBalance: _vm.updateBalance }
+            on: { updateUser: _vm.updateUser }
           }),
           _vm._v(" "),
           _c("Expenses", {
@@ -41222,7 +41213,7 @@ var render = function() {
         _c(
           "tbody",
           [
-            _vm._l(_vm.getIncomes, function(income, index) {
+            _vm._l(_vm.incomes, function(income, index) {
               return _c("tr", { key: index }, [
                 _c("td", [_vm._v(_vm._s(index + 1))]),
                 _vm._v(" "),

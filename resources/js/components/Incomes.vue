@@ -19,7 +19,7 @@
             </thead>
 
             <tbody>
-                <tr v-for="(income, index) in getIncomes" :key="index">
+                <tr v-for="(income, index) in incomes" :key="index">
                     <td>{{ index + 1 }}</td>
                     <td>{{ income.description }}</td>
                     <td>{{ income.category? income.category.name : '-' }}</td>
@@ -106,7 +106,7 @@ export default {
 
             window.Alert.confirm("Are you sure you want to delete this income?", function() {
                 window.axios.delete( window.makeUrl( "/user/incomes/" + id ), [] ).then(resp => {
-                    that.updateUser(resp);
+                    that.$emit('updateUser');
                     window.Alert.msg("Success!", "Income deleted!");
                 });
             });
@@ -128,7 +128,7 @@ export default {
                 let amount = that.amount_value;
 
                 window.axios.post( window.makeUrl( "/incomes" ), { description, category_id, amount } ).then(resp => {
-                    that.updateUser(resp);
+                    that.$emit('updateUser');
                     window.Alert.msg("Income Added!");
                     $('.modal').modal('hide');
                     that.clearForm();
@@ -139,30 +139,12 @@ export default {
         },
 
 
-        updateUser( resp ) {
-            this.incomes = resp.data.user.incomes;
-            this.balance = resp.data.user.balance;
-
-            this.$emit('updateBalance', { balance: this.balance });
-        },
-
-
         clearForm() {
             this.description_value = null;
             this.category_value = null;
             this.amount_value = null;
         }
-    },
-
-    computed: {
-        getIncomes() {
-            return this.incomes;
-        },
-
-        getUserBalance() {
-            return this.balance;
-        },
-    },
+    }
 }
 </script>
 
