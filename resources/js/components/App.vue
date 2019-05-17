@@ -1,5 +1,7 @@
 <template>
     <div>
+        <Loader v-show="showLoadingScreen"></Loader>
+
         <Navbar></Navbar>
 
         <Sidebar 
@@ -11,7 +13,7 @@
         <div class="content">
             <Incomes 
                 v-show="incomesTab.show" 
-                @updateUser="updateUser" 
+                @updateUser="updateUser" @showLoader="showLoader(true)" @hideLoader="showLoader(false)"
                 :incomes="getIncomes" :currency="getCurrency" :totalIncome="getTotalIncome" :incomeCategories="getIncomeCategories"
             >
             </Incomes>
@@ -29,6 +31,8 @@
 export default {
     data() {
         return {
+            showLoadingScreen: true,
+
             incomesTab: {
                 show: true
             },
@@ -56,6 +60,10 @@ export default {
         },
 
         getUser() {
+            var that = this;
+
+            that.showLoader(true);
+
             window.axios.get( window.makeUrl("userForFrontEnd") ).then(resp => {
                 window.user = this.user = window.updateUserObject( resp.data.data.user );
 
@@ -65,11 +73,17 @@ export default {
                 this.currency = this.user.currency;
                 this.incomeCategories = this.user.income_categories;
                 this.totalIncome = this.user.getTotalIncome();
+
+                that.showLoader(false);
             });
         },
 
         updateUser() {
             this.getUser();
+        },
+
+        showLoader(bool) {
+            this.showLoadingScreen = bool;
         }
     },
 

@@ -105,9 +105,13 @@ export default {
             var that = this;
 
             window.Alert.confirm("Are you sure you want to delete this income?", function() {
+                that.$emit('showLoader');
+
                 window.axios.delete( window.makeUrl( "/user/incomes/" + id ), [] ).then(resp => {
                     that.$emit('updateUser');
                     window.Alert.msg("Success!", "Income deleted!");
+
+                    that.$emit('hideLoader');
                 });
             });
         },
@@ -123,6 +127,8 @@ export default {
 
             window.Alert.confirm("Are you sure you want to add this income??", function() {
 
+                that.$emit('showLoader');
+
                 let description = that.description_value;
                 let category_id = that.category_value;
                 let amount = that.amount_value;
@@ -135,6 +141,8 @@ export default {
                 }).catch(error => {
                     window.FormErrors.Apply( error.response.data.errors );
                 });
+
+                that.$emit('hideLoader');
             });
         },
 
