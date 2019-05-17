@@ -48,6 +48,7 @@ window.makeUrl = require('./Helpers/makeUrl').makeUrl;
 window.updateUserObject = require('./Helpers/updateUserObject').updateUserObject;
 window.Alert = require('./Helpers/Alert');
 window.FormErrors = require('./Helpers/FormErrors');
+window.ShowError = require('./Helpers/ShowError').ShowError;
 
 $(document).on('focus', 'select, input, textarea', function(e) {
     let that = $(this);

@@ -1830,6 +1830,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.incomeCategories = _this.user.income_categories;
         _this.totalIncome = _this.user.getTotalIncome();
         that.showLoader(false);
+      })["catch"](function (error) {
+        window.ShowError();
       });
     },
     updateUser: function updateUser() {
@@ -1991,6 +1993,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['incomes', 'totalIncome', 'currency', 'incomeCategories'],
   data: function data() {
@@ -1998,7 +2001,9 @@ __webpack_require__.r(__webpack_exports__);
       show: true,
       amount_value: null,
       description_value: null,
-      category_value: null
+      category_value: null,
+      wantToAdd: true,
+      toBeUpdatedIncome: null
     };
   },
   methods: {
@@ -2010,11 +2015,34 @@ __webpack_require__.r(__webpack_exports__);
           that.$emit('updateUser');
           window.Alert.msg("Success!", "Income deleted!");
           that.$emit('hideLoader');
+        })["catch"](function (resp) {
+          window.ShowError();
         });
       });
     },
     showAddIncomeForm: function showAddIncomeForm() {
+      this.wantToAdd = true;
+      this.clearForm();
       $('.modal').modal();
+    },
+    showUpdateIncomeForm: function showUpdateIncomeForm(income) {
+      this.wantToAdd = false;
+      this.toBeUpdatedIncome = income;
+      this.clearForm();
+      this.amount_value = income.amount;
+      this.description_value = income.description;
+      this.category_value = income.category_id;
+      $('.modal').modal();
+    },
+    addEditIncome: function addEditIncome() {
+      if (this.wantToAdd == true) {
+        this.addIncome();
+      } else if (this.wantToAdd == false) {
+        this.updateIncome();
+      }
+    },
+    hideIncomeForm: function hideIncomeForm() {
+      $('.modal').modal('hide');
     },
     addIncome: function addIncome() {
       var that = this;
@@ -2034,6 +2062,29 @@ __webpack_require__.r(__webpack_exports__);
           that.clearForm();
         })["catch"](function (error) {
           window.FormErrors.Apply(error.response.data.errors);
+          window.ShowError();
+        });
+        that.$emit('hideLoader');
+      });
+    },
+    updateIncome: function updateIncome() {
+      var that = this;
+      window.Alert.confirm("Are you sure you want to edit this income??", function () {
+        that.$emit('showLoader');
+        var description = that.description_value;
+        var category_id = that.category_value;
+        var amount = that.amount_value;
+        window.axios.patch(window.makeUrl("/user/incomes/" + that.toBeUpdatedIncome.id), {
+          description: description,
+          category_id: category_id,
+          amount: amount
+        }).then(function (resp) {
+          that.$emit('updateUser');
+          window.Alert.msg("Income Updated!");
+          that.hideIncomeForm();
+        })["catch"](function (error) {
+          window.FormErrors.Apply(error.response.data.errors);
+          window.ShowError();
         });
         that.$emit('hideLoader');
       });
@@ -2042,6 +2093,9 @@ __webpack_require__.r(__webpack_exports__);
       this.description_value = null;
       this.category_value = null;
       this.amount_value = null;
+    },
+    getConfirmButtonTitle: function getConfirmButtonTitle() {
+      return this.wantToAdd == true ? 'Add Income' : 'Edit Income';
     }
   }
 });
@@ -41288,6 +41342,19 @@ var render = function() {
                   _c(
                     "button",
                     {
+                      staticClass: "btn btn-xs btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.showUpdateIncomeForm(income)
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fa fa-edit" })]
+                  ),
+                  _vm._v("  \n                    "),
+                  _c(
+                    "button",
+                    {
                       staticClass: "btn btn-xs btn-danger",
                       on: {
                         click: function($event) {
@@ -41337,7 +41404,18 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(1),
+                _c("div", { staticClass: "modal-header" }, [
+                  _c(
+                    "h5",
+                    {
+                      staticClass: "modal-title",
+                      attrs: { id: "addIncomeModal" }
+                    },
+                    [_vm._v(_vm._s(_vm.getConfirmButtonTitle()))]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(1)
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
                   _c("div", { staticClass: "form-group" }, [
@@ -41477,9 +41555,13 @@ var render = function() {
                     {
                       staticClass: "btn btn-primary",
                       attrs: { type: "button" },
-                      on: { click: _vm.addIncome }
+                      on: {
+                        click: function($event) {
+                          return _vm.addEditIncome(_vm.income)
+                        }
+                      }
                     },
-                    [_vm._v("Add Income")]
+                    [_vm._v(_vm._s(_vm.getConfirmButtonTitle()))]
                   )
                 ])
               ])
@@ -41513,26 +41595,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c(
-        "h5",
-        { staticClass: "modal-title", attrs: { id: "addIncomeModal" } },
-        [_vm._v("Add Income")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: {
-            type: "button",
-            "data-dismiss": "modal",
-            "aria-label": "Close"
-          }
-        },
-        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   }
 ]
 render._withStripped = true
@@ -53973,6 +54047,25 @@ function ClearField(fieldId) {
 
 /***/ }),
 
+/***/ "./resources/js/Helpers/ShowError.js":
+/*!*******************************************!*\
+  !*** ./resources/js/Helpers/ShowError.js ***!
+  \*******************************************/
+/*! exports provided: ShowError */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShowError", function() { return ShowError; });
+function ShowError() {
+  var msg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "There was an error :(";
+  window.Alert.error(msg);
+}
+
+
+
+/***/ }),
+
 /***/ "./resources/js/Helpers/makeUrl.js":
 /*!*****************************************!*\
   !*** ./resources/js/Helpers/makeUrl.js ***!
@@ -54143,6 +54236,7 @@ window.makeUrl = __webpack_require__(/*! ./Helpers/makeUrl */ "./resources/js/He
 window.updateUserObject = __webpack_require__(/*! ./Helpers/updateUserObject */ "./resources/js/Helpers/updateUserObject.js").updateUserObject;
 window.Alert = __webpack_require__(/*! ./Helpers/Alert */ "./resources/js/Helpers/Alert.js");
 window.FormErrors = __webpack_require__(/*! ./Helpers/FormErrors */ "./resources/js/Helpers/FormErrors.js");
+window.ShowError = __webpack_require__(/*! ./Helpers/ShowError */ "./resources/js/Helpers/ShowError.js").ShowError;
 $(document).on('focus', 'select, input, textarea', function (e) {
   var that = $(this);
   window.FormErrors.ClearField(that.attr('id'));

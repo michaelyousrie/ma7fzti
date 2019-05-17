@@ -26,6 +26,7 @@
                     <td>{{ income.when }}</td>
                     <td><span class="text-success">{{ currency }} +{{ income.amount }}</span></td>
                     <td>
+                        <button class="btn btn-xs btn-primary" @click="showUpdateIncomeForm(income)"><i class="fa fa-edit"></i></button> &nbsp;
                         <button class="btn btn-xs btn-danger" @click="deleteIncome(income.id)"><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
@@ -42,7 +43,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addIncomeModal">Add Income</h5>
+                        <h5 class="modal-title" id="addIncomeModal">{{ getConfirmButtonTitle() }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -76,7 +77,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" @click="addIncome">Add Income</button>
+                        <button type="button" class="btn btn-primary" @click="addEditIncome(income)">{{ getConfirmButtonTitle() }}</button>
                     </div>
                 </div>
             </div>
@@ -96,7 +97,11 @@ export default {
 
             amount_value: null,
             description_value: null,
-            category_value: null
+            category_value: null,
+
+            wantToAdd: true,
+
+            toBeUpdatedIncome: null
         }
     },
 
@@ -112,13 +117,44 @@ export default {
                     window.Alert.msg("Success!", "Income deleted!");
 
                     that.$emit('hideLoader');
+                }).catch(resp => {
+                    window.ShowError();
                 });
             });
         },
 
 
         showAddIncomeForm() {
+            this.wantToAdd = true;
+            this.clearForm();
             $('.modal').modal();
+        },
+
+        
+        showUpdateIncomeForm( income ) {
+            this.wantToAdd = false;
+            this.toBeUpdatedIncome = income;
+            this.clearForm();
+
+            this.amount_value = income.amount;
+            this.description_value = income.description;
+            this.category_value = income.category_id;
+
+            $('.modal').modal();
+        },
+
+
+        addEditIncome() {
+            if (this.wantToAdd == true) {
+                this.addIncome();
+            } else if ( this.wantToAdd == false ) {
+                this.updateIncome();
+            }
+        },
+
+        
+        hideIncomeForm() {
+            $('.modal').modal('hide');
         },
 
 
@@ -140,6 +176,34 @@ export default {
                     that.clearForm();
                 }).catch(error => {
                     window.FormErrors.Apply( error.response.data.errors );
+                    window.ShowError();
+                });
+
+                that.$emit('hideLoader');
+            });
+        },
+
+
+        updateIncome() {
+            var that = this;
+
+            window.Alert.confirm("Are you sure you want to edit this income??", function() {
+
+                that.$emit('showLoader');
+
+                let description = that.description_value;
+                let category_id = that.category_value;
+                let amount = that.amount_value;
+
+                window.axios.patch( window.makeUrl( "/user/incomes/" + that.toBeUpdatedIncome.id ), { description, category_id, amount } ).then(resp => {
+                    that.$emit('updateUser');
+                    window.Alert.msg("Income Updated!");
+                    
+                    that.hideIncomeForm();
+
+                }).catch(error => {
+                    window.FormErrors.Apply( error.response.data.errors );
+                    window.ShowError();
                 });
 
                 that.$emit('hideLoader');
@@ -151,6 +215,10 @@ export default {
             this.description_value = null;
             this.category_value = null;
             this.amount_value = null;
+        },
+
+        getConfirmButtonTitle() {
+            return this.wantToAdd == true ? 'Add Income' : 'Edit Income';
         }
     }
 }

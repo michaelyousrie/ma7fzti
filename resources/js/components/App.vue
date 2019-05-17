@@ -75,6 +75,8 @@ export default {
                 this.totalIncome = this.user.getTotalIncome();
 
                 that.showLoader(false);
+            }).catch(error => {
+                window.ShowError();
             });
         },
 
