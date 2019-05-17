@@ -1,7 +1,8 @@
 <template>
     <div>
-        <Navbar :user="getUser"></Navbar>
-        <Sidebar :user="getUser" 
+        <Navbar></Navbar>
+
+        <Sidebar :balance="getBalance"
             @showIncomes="showIncomes(true)" 
             @hideIncomes="showIncomes(false)" 
             @showExpenses="showExpenses(true)"
@@ -10,8 +11,8 @@
         </Sidebar>
 
         <div class="content">
-            <Incomes :user="getUser" v-show="incomes.show" @updateUser="updateUser"></Incomes>
-            <Expenses :user="getUser" v-show="expenses.show"></Expenses>
+            <Incomes v-show="incomesTab.show" @updateBalance="updateBalance" :incomes="getIncomes" :currency="getCurrency" :totalIncome="getTotalIncome" :incomeCategories="getIncomeCategories"></Incomes>
+            <Expenses v-show="expensesTab.show"></Expenses>
         </div>
     </div>
 </template>
@@ -23,41 +24,85 @@ export default {
 
     data() {
         return {
-            incomes: {
+            incomesTab: {
                 show: true
             },
 
-            expenses: {
+            expensesTab: {
                 show: false
             },
+
+            balance: 0,
+            totalIncome: 0,
+            currency: null,
+            incomes: [],
+            expenses: [],
+            incomeCategories: []
         }
     },
 
     methods: {
         showIncomes(bool) {
-            this.incomes.show = bool;
+            this.incomesTab.show = bool;
         },
 
         showExpenses(bool) {
-            this.expenses.show = bool;
+            this.expensesTab.show = bool;
         },
 
-        updateUser() {
-            this.user = window.user;
+        getUser() {
+            window.axios.get( window.makeUrl("userForFrontEnd") ).then(resp => {
+                window.user = this.user = window.updateUserObject( resp.data.data.user );
+
+                this.incomes = this.user.incomes;
+                this.expenses = this.user.expenses;
+                this.balance = this.user.balance;
+                this.currency = this.user.currency;
+                this.incomeCategories = this.user.income_categories;
+                this.totalIncome = this.user.getTotalIncome();
+            });
+        },
+
+        updateBalance(payload) {
+            this.balance = payload.balance;
         }
     },
 
     computed: {
-        getUser() {
-            return window.updateUserObject( this.user );
+        getBalance() {
+            return this.balance;
+        },
+
+        getIncomes() {
+            return this.incomes;
+        },
+
+        getExpenses() {
+            return this.expenses;
+        },
+
+        getCurrency() {
+            return this.currency;
+        },
+
+        getTotalIncome() {
+            return this.totalIncome;
+        },
+
+        getIncomeCategories() {
+            return this.incomeCategories;
         }
     },
 
-    props: ['user']
+    created() {
+        this.getUser();
+    }
 }
 </script>
 
 
 <style>
-
+    .error-feedback-span {
+        color: red;
+    }
 </style>

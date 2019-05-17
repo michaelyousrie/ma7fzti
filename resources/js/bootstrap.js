@@ -47,6 +47,13 @@ window.Ajax = require('./Helpers/Ajax').default.Ajax;
 window.makeUrl = require('./Helpers/makeUrl').makeUrl;
 window.updateUserObject = require('./Helpers/updateUserObject').updateUserObject;
 window.Alert = require('./Helpers/Alert');
+window.FormErrors = require('./Helpers/FormErrors');
+
+$(document).on('focus', 'select, input, textarea', function(e) {
+    let that = $(this);
+
+    window.FormErrors.ClearField( that.attr('id') );
+});
 
 // window.axios.get("/api/v1/user?api_token=" + window.api_token).then(response => {
 //     window.user = response.data;

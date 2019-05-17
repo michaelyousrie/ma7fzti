@@ -19,19 +19,19 @@
             </thead>
 
             <tbody>
-                <tr v-for="(income, index) in getUserIncomes" :key="index">
+                <tr v-for="(income, index) in getIncomes" :key="index">
                     <td>{{ index + 1 }}</td>
                     <td>{{ income.description }}</td>
                     <td>{{ income.category? income.category.name : '-' }}</td>
                     <td>{{ income.when }}</td>
-                    <td><span class="text-success">{{user.currency }} +{{ income.amount }}</span></td>
+                    <td><span class="text-success">{{ currency }} +{{ income.amount }}</span></td>
                     <td>
                         <button class="btn btn-xs btn-danger" @click="deleteIncome(income.id)"><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
                 <tr class="bg-info">
                     <td></td><td></td><td></td><td></td>
-                    <td>{{ user.getTotalIncome() }}</td>
+                    <td>{{ this.totalIncome }}</td>
                     <td></td>
                 </tr>
             </tbody>
@@ -52,8 +52,9 @@
                         <div class="form-group">
                             <label for="category">Category</label>
                             <select name="category_id" id="category" class="form-control" v-model="category_value">
-                                <option v-for="cat in user.income_categories" :value="cat.id" :key="cat.id">{{ cat.name }}</option>
+                                <option v-for="cat in incomeCategories" :value="cat.id" :key="cat.id">{{ cat.name }}</option>
                             </select>
+                            <span class="error-feedback-span" id="category_id-feedback-span"></span>
                         </div>
                         <!-- /Category -->
 
@@ -61,6 +62,7 @@
                         <div class="form-group">
                             <label for="description">Description</label>
                             <textarea id="description" class="form-control" name="description" rows="4" cols="2" v-model="description_value"></textarea>
+                            <span class="error-feedback-span" id="description-feedback-span"></span>
                         </div>
                         <!-- /Description -->
 
@@ -68,6 +70,7 @@
                         <div class="form-group">
                             <label for="amount">Amount</label>
                             <input type="text" id="amount" class="form-control" name="amount" v-model="amount_value">
+                            <span class="error-feedback-span" id="amount-feedback-span"></span>
                         </div>
                         <!--  Amount/-->
                     </div>
@@ -85,20 +88,11 @@
 
 <script>
 export default {
-    name: "Incomes",
-
-    props: ['user'],
-
-    created() {
-        this.incomes = this.user.incomes;
-        this.balance = this.user.balance;
-    },
+    props: ['incomes', 'totalIncome', 'currency', 'incomeCategories'],
     
     data() {
         return {
             show: true,
-            incomes: [],
-            balance: 0,
 
             amount_value: null,
             description_value: null,
@@ -138,14 +132,18 @@ export default {
                     window.Alert.msg("Income Added!");
                     $('.modal').modal('hide');
                     that.clearForm();
+                }).catch(error => {
+                    window.FormErrors.Apply( error.response.data.errors );
                 });
             });
         },
 
 
         updateUser( resp ) {
-            this.user = window.user = window.updateUserObject( resp.data.user );
-            this.$emit("updateUser");
+            this.incomes = resp.data.user.incomes;
+            this.balance = resp.data.user.balance;
+
+            this.$emit('updateBalance', { balance: this.balance });
         },
 
 
@@ -157,8 +155,8 @@ export default {
     },
 
     computed: {
-        getUserIncomes() {
-            return this.user.incomes;
+        getIncomes() {
+            return this.incomes;
         },
 
         getUserBalance() {

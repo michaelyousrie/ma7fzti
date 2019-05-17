@@ -36,14 +36,54 @@ function loggedIn()
 }
 
 
-function ajaxResponse( array $data = [] )
+/**
+ * Send back a unified status in the ajax response
+ * 
+ * @param array $data
+ * @param bool $success
+ * 
+ * @return array
+ */
+function ajaxResponse( array $data = [], bool $success = true )
 {
-    return array_merge([
-        'user'  => getUserObject()
-    ], $data);
+    return [
+        'success'=> $success,
+        'data'  =>  $data
+    ];
 }
 
 
+/**
+ * Return a successful ajax response
+ * 
+ * @param array $data
+ * 
+ * @return array
+ */
+function successResponse( array $data = [] )
+{
+    return ajaxResponse($data, true);
+}
+
+
+/**
+ * Return a failure ajax response
+ * 
+ * @param array $data
+ * 
+ * @return array
+ */
+function failResponse( array $data = [] )
+{
+    return ajaxResponse($data, false);
+}
+
+
+/**
+ * Returns a user object with some modified data
+ * 
+ * @return App\Models\User
+ */
 function getUserObject()
 {
     $user = Auth::user();

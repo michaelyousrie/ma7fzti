@@ -12,7 +12,7 @@
         </ul>
         <br>
         <hr class="bg-light">
-        <p><b>Balance:</b> <i class="text-success">{{ user.getBalance() }}</i></p>
+        <p><b>Balance:</b> <i class="text-success">{{ getBalance }}</i></p>
     </div>
 </template>
 
@@ -20,11 +20,17 @@
 export default {
     name: "Sidebar",
 
-    props: ['user'],
+    props: ['balance'],
 
     data() {
         return {
+            // 
+        }
+    },
 
+    computed: {
+        getBalance() {
+            return this.balance;
         }
     },
 
