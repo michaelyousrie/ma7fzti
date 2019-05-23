@@ -1763,6 +1763,8 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1841,7 +1843,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showLoadingScreen = bool;
     }
   },
-  computed: {
+  computed: _defineProperty({
     getBalance: function getBalance() {
       return this.balance;
     },
@@ -1860,7 +1862,9 @@ __webpack_require__.r(__webpack_exports__);
     getIncomeCategories: function getIncomeCategories() {
       return this.incomeCategories;
     }
-  },
+  }, "getCurrency", function getCurrency() {
+    return this.currency;
+  }),
   created: function created() {
     this.getUser();
   }
@@ -2212,7 +2216,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Sidebar",
-  props: ['balance'],
+  props: ['balance', 'currency'],
   data: function data() {
     return {// 
     };
@@ -41164,7 +41168,7 @@ var render = function() {
       _c("Navbar"),
       _vm._v(" "),
       _c("Sidebar", {
-        attrs: { balance: _vm.getBalance },
+        attrs: { balance: _vm.getBalance, currency: _vm.getCurrency },
         on: {
           showIncomes: function($event) {
             return _vm.showIncomes(true)
@@ -41738,7 +41742,9 @@ var render = function() {
     _c("p", [
       _c("b", [_vm._v("Balance:")]),
       _vm._v(" "),
-      _c("i", { staticClass: "text-success" }, [_vm._v(_vm._s(_vm.balance))])
+      _c("i", { staticClass: "text-success" }, [
+        _vm._v(_vm._s(_vm.currency) + " " + _vm._s(_vm.balance))
+      ])
     ])
   ])
 }

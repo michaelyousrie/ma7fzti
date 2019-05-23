@@ -6,7 +6,7 @@
 
         <Sidebar 
             @showIncomes="showIncomes(true)" @hideIncomes="showIncomes(false)"  @showExpenses="showExpenses(true)" @hideExpenses="showExpenses(false)"
-            :balance="getBalance" 
+            :balance="getBalance" :currency="getCurrency"
         >
         </Sidebar>
 
@@ -112,6 +112,10 @@ export default {
 
         getIncomeCategories() {
             return this.incomeCategories;
+        },
+
+        getCurrency() {
+            return this.currency
         }
     },
 

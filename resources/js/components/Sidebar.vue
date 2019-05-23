@@ -12,7 +12,7 @@
         </ul>
         <br>
         <hr class="bg-light">
-        <p><b>Balance:</b> <i class="text-success">{{ balance }}</i></p>
+        <p><b>Balance:</b> <i class="text-success">{{currency}} {{ balance }}</i></p>
     </div>
 </template>
 
@@ -20,7 +20,7 @@
 export default {
     name: "Sidebar",
 
-    props: ['balance'],
+    props: ['balance', 'currency'],
 
     data() {
         return {
