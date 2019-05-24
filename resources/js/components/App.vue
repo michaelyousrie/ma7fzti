@@ -2,13 +2,17 @@
     <div>
         <Loader v-show="showLoadingScreen"></Loader>
 
-        <Navbar></Navbar>
+        <Navbar
+        @showIncomes="showIncomes(true)" @hideIncomes="showIncomes(false)"  @showExpenses="showExpenses(true)" @hideExpenses="showExpenses(false)"
+        :first_name="getUserFirstName" :balance="getBalance" :currency="getCurrency"
+        >
+        </Navbar>
 
-        <Sidebar 
+        <!-- <Sidebar 
             @showIncomes="showIncomes(true)" @hideIncomes="showIncomes(false)"  @showExpenses="showExpenses(true)" @hideExpenses="showExpenses(false)"
             :balance="getBalance" :currency="getCurrency"
         >
-        </Sidebar>
+        </Sidebar> -->
 
         <div class="content">
             <Incomes 
@@ -116,6 +120,10 @@ export default {
 
         getCurrency() {
             return this.currency
+        },
+
+        getUserFirstName() {
+            return this.user.first_name;
         }
     },
 

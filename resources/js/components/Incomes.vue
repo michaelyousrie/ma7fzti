@@ -1,6 +1,6 @@
 <template>
     <div v-show="this.show">
-        <h1 class="center bb">
+        <h1 class="bb">
             Incomes
             
             <button class="btn btn-primary right" @click="showAddIncomeForm"><i class="fa fa-plus"></i> Add Income</button>
@@ -30,7 +30,7 @@
                         <button class="btn btn-xs btn-danger" @click="deleteIncome(income.id)"><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
-                <tr class="bg-info">
+                <tr class="tr-sum">
                     <td></td><td></td><td></td><td></td>
                     <td>{{ this.totalIncome }}</td>
                     <td></td>
@@ -225,20 +225,5 @@ export default {
 </script>
 
 <style>
-    .center {
-        text-align: center;
-    }
 
-    .bb {
-        border-bottom: 1px solid #e8e8e8;
-        width: 90%;
-        padding-bottom: 10px;
-        margin-left: 5%;
-    }
-
-    .right {
-        float: right;
-        vertical-align: middle;
-        margin-top: 10px;
-    }
 </style>
