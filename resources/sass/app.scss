@@ -27,15 +27,18 @@ body {
 
 .navbar {
     background-color: $background_second_color;
-    border-bottom: 1px solid $background_third_color;
+    // border-bottom: 1px solid $background_third_color;
+    padding: 0px;
 
     a {
         color: $main_font_color;
     }
 
     a.navbar-brand {
+        font-size: 2em;
         color: $brand_color;
         padding-left: 50px;
+        padding-right: 50px;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-style: italic;
         letter-spacing: 3px;
@@ -43,7 +46,7 @@ body {
 
     .nav-item {
         padding: 10px;
-        margin-left: 10px;
+        border-left: 1px solid $background_third_color;
 
         &:hover {
             background-color: $background_color;

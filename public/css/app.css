@@ -10675,7 +10675,7 @@ body {
 
 .navbar {
   background-color: #303030;
-  border-bottom: 1px solid #474747;
+  padding: 0px;
 }
 
 .navbar a {
@@ -10683,8 +10683,10 @@ body {
 }
 
 .navbar a.navbar-brand {
+  font-size: 2em;
   color: #FF652F;
   padding-left: 50px;
+  padding-right: 50px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-style: italic;
   letter-spacing: 3px;
@@ -10692,7 +10694,7 @@ body {
 
 .navbar .nav-item {
   padding: 10px;
-  margin-left: 10px;
+  border-left: 1px solid #474747;
 }
 
 .navbar .nav-item:hover {

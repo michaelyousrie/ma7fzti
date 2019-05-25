@@ -8,7 +8,7 @@
         </button> -->
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto">
+            <ul class="navbar-nav mr-auto">
                 <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown
@@ -76,7 +76,5 @@
 </script>
 
 <style>
-    .navbar-brand {
-        font-size: 2em;
-    }
+
 </style>
