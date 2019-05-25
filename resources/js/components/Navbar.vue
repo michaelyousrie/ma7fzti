@@ -9,19 +9,6 @@
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                    </a>
-                    
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a v-for="(link, index) in links" :key="index" class="dropdown-item" :href="link.href">{{link.label}}</a>
-                    </div>
-                </li>
-
-                <li class="nav-item" v-for="(item,index) in items" :key="index">
-                    <a :href="item.href" class="nav-link">{{item.label}}</a>
-                </li> -->
 
                 <li :class="{'nav-item': true, 'active': incomes.active}" @click="showIncomes">
                     <a href="#" class="nav-link">Incomes</a>
@@ -29,6 +16,10 @@
 
                 <li :class="{'active': expenses.active, 'nav-item': true}" @click="showExpenses">
                     <a href="#" class="nav-link">Expenses</a>
+                </li>
+
+                <li :class="{'active': profile.active, 'nav-item': true}" @click="showExpenses">
+                    <a href="#" class="nav-link">Profile</a>
                 </li>
             </ul>
 
@@ -51,6 +42,10 @@
 
                 incomes: {
                     active: true
+                },
+
+                profile: {
+                    active: false
                 }
             }
         },

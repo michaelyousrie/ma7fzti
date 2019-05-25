@@ -2179,15 +2179,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Navbar",
   data: function data() {
@@ -2198,6 +2189,9 @@ __webpack_require__.r(__webpack_exports__);
       },
       incomes: {
         active: true
+      },
+      profile: {
+        active: false
       }
     };
   },
@@ -41591,6 +41585,19 @@ var render = function() {
             [
               _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
                 _vm._v("Expenses")
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            {
+              class: { active: _vm.profile.active, "nav-item": true },
+              on: { click: _vm.showExpenses }
+            },
+            [
+              _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+                _vm._v("Profile")
               ])
             ]
           )
