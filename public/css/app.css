@@ -10764,8 +10764,7 @@ table tbody tr.tr-sum {
   margin-top: 10px;
 }
 
-.dataTables_filter,
-.dataTables_paginate ul.pagination {
+.dataTables_filter {
   text-align: center !important;
 }
 

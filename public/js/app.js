@@ -69743,6 +69743,7 @@ function ClearField(fieldId) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitDataTable", function() { return InitDataTable; });
 function InitDataTable(elem) {
+  $.fn.dataTable.ext.errMode = 'none';
   elem.DataTable({
     dom: 't<"row"<"col-md-4" l><"col-md-4 text-center" f> <"col-md-4 text-center" p>>'
   });
