@@ -49,6 +49,7 @@ window.updateUserObject = require('./Helpers/updateUserObject').updateUserObject
 window.Alert = require('./Helpers/Alert');
 window.FormErrors = require('./Helpers/FormErrors');
 window.ShowError = require('./Helpers/ShowError').ShowError;
+window.InitDataTable = require('./Helpers/InitDataTable').InitDataTable;
 
 $(document).on('focus', 'select, input, textarea', function(e) {
     let that = $(this);

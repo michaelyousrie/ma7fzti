@@ -10764,15 +10764,8 @@ table tbody tr.tr-sum {
   margin-top: 10px;
 }
 
-div.dataTables_filter input,
-.custom-select-sm {
-  background-color: #303030 !important;
-  color: #303030 !important;
-  border: 1px solid #474747 !important;
-}
-
-.paging_full_numbers {
-  color: #303030 !important;
-  background-color: #303030 !important;
+.dataTables_filter,
+.dataTables_paginate ul.pagination {
+  text-align: center !important;
 }
 

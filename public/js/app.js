@@ -2257,7 +2257,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['incomes', 'totalIncome', 'currency', 'incomeCategories'],
   data: function data() {
@@ -2325,7 +2324,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     }
   },
   updated: function updated() {
-    $('#incomesTable').DataTable();
+    window.InitDataTable($('#incomesTable'));
   }
 });
 
@@ -57157,9 +57156,7 @@ var render = function() {
                 0
               )
             ]
-          ),
-          _vm._v(" "),
-          _c("br")
+          )
         ]
       ),
       _vm._v(" "),
@@ -69735,6 +69732,26 @@ function ClearField(fieldId) {
 
 /***/ }),
 
+/***/ "./resources/js/Helpers/InitDataTable.js":
+/*!***********************************************!*\
+  !*** ./resources/js/Helpers/InitDataTable.js ***!
+  \***********************************************/
+/*! exports provided: InitDataTable */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitDataTable", function() { return InitDataTable; });
+function InitDataTable(elem) {
+  elem.DataTable({
+    dom: 't<"row"<"col-md-4" l><"col-md-4 text-center" f> <"col-md-4 text-center" p>>'
+  });
+}
+
+
+
+/***/ }),
+
 /***/ "./resources/js/Helpers/ShowError.js":
 /*!*******************************************!*\
   !*** ./resources/js/Helpers/ShowError.js ***!
@@ -69934,6 +69951,7 @@ window.updateUserObject = __webpack_require__(/*! ./Helpers/updateUserObject */ 
 window.Alert = __webpack_require__(/*! ./Helpers/Alert */ "./resources/js/Helpers/Alert.js");
 window.FormErrors = __webpack_require__(/*! ./Helpers/FormErrors */ "./resources/js/Helpers/FormErrors.js");
 window.ShowError = __webpack_require__(/*! ./Helpers/ShowError */ "./resources/js/Helpers/ShowError.js").ShowError;
+window.InitDataTable = __webpack_require__(/*! ./Helpers/InitDataTable */ "./resources/js/Helpers/InitDataTable.js").InitDataTable;
 $(document).on('focus', 'select, input, textarea', function (e) {
   var that = $(this);
   window.FormErrors.ClearField(that.attr('id'));

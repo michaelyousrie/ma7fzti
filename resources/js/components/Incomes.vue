@@ -37,7 +37,6 @@
                     </tr>
                 </tbody>
             </table>
-            <br>
         </div>
 
         <Form-AddIncome
@@ -135,7 +134,7 @@ export default {
     },
 
     updated() {
-        $('#incomesTable').DataTable();
+        window.InitDataTable( $('#incomesTable') );
     }
 }
 </script>

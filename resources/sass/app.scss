@@ -124,13 +124,12 @@ table {
 
 @import "./includes/datatable.css";
 
-div.dataTables_filter input, .custom-select-sm {
-    background-color: $background_second_color !important;
-    color: $background_second_color !important;
-    border: 1px solid $background_third_color !important;
+.dataTables_filter, .dataTables_paginate ul.pagination {
+    text-align: center !important;
 }
 
-.paging_full_numbers {
-    color: $background_second_color !important;
-    background-color: $background_second_color !important;
-}
+// div.dataTables_filter input, .custom-select-sm {
+//     background-color: $background_second_color !important;
+//     color: $background_second_color !important;
+//     border: 1px solid $background_third_color !important;
+// }
