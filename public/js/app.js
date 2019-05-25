@@ -41555,6 +41555,8 @@ var render = function() {
       _vm._v(_vm._s(_vm.application_name))
     ]),
     _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
     _c(
       "div",
       {
@@ -41619,7 +41621,28 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "navbar-toggler bg-dark text-white",
+        attrs: {
+          type: "button",
+          "data-toggle": "collapse",
+          "data-target": "#navbarSupportedContent",
+          "aria-controls": "navbarSupportedContent",
+          "aria-expanded": "false",
+          "aria-label": "Toggle navigation"
+        }
+      },
+      [_c("span", [_c("i", { staticClass: "fa fa-bars" })])]
+    )
+  }
+]
 render._withStripped = true
 
 
