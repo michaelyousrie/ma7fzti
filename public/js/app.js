@@ -1803,6 +1803,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       showLoadingScreen: true,
+      user: {
+        "first_name": "User",
+        "last_name": "User"
+      },
       incomesTab: {
         show: true
       },

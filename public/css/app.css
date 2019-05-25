@@ -10685,6 +10685,9 @@ body {
 .navbar a.navbar-brand {
   color: #FF652F;
   padding-left: 50px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-style: italic;
+  letter-spacing: 3px;
 }
 
 .navbar .nav-item {
@@ -10694,6 +10697,7 @@ body {
 
 .navbar .nav-item:hover {
   background-color: #272727;
+  cursor: pointer;
 }
 
 .navbar .nav-item.active {

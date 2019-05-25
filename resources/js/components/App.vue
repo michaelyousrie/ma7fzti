@@ -37,6 +37,11 @@ export default {
         return {
             showLoadingScreen: true,
 
+            user: {
+                "first_name": "User",
+                "last_name": "User"
+            },
+
             incomesTab: {
                 show: true
             },

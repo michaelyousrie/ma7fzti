@@ -36,6 +36,9 @@ body {
     a.navbar-brand {
         color: $brand_color;
         padding-left: 50px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-style: italic;
+        letter-spacing: 3px;
     }
 
     .nav-item {
@@ -44,6 +47,7 @@ body {
 
         &:hover {
             background-color: $background_color;
+            cursor: pointer;
         }
         
         &.active {
