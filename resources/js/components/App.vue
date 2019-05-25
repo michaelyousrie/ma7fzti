@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Loader v-show="showLoadingScreen"></Loader>
+        <Loader v-if="showLoadingScreen"></Loader>
 
         <Navbar
             @showTab="showTab"
@@ -16,19 +16,19 @@
 
         <div class="content">
             <Incomes 
-                v-show="tabs.incomes.show" 
+                v-if="tabs.incomes.show" 
                 @updateUser="updateUser" @showLoader="showLoader(true)" @hideLoader="showLoader(false)"
                 :incomes="getIncomes" :currency="getCurrency" :totalIncome="getTotalIncome" :incomeCategories="getIncomeCategories"
             >
             </Incomes>
 
             <Expenses 
-                v-show="tabs.expenses.show"
+                v-if="tabs.expenses.show"
             >
             </Expenses>
 
             <Profile
-                v-show="tabs.profile.show">
+                v-if="tabs.profile.show">
             </Profile>
         </div>
     </div>

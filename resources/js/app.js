@@ -6,6 +6,8 @@
  */
 
 require('./bootstrap');
+const includes = require.context("./includes", true, /\.js$/i);
+includes.keys().map(key => require("./includes/" + key.split('/').pop().split('.')[0]));
 
 window.Vue = require('vue');
 

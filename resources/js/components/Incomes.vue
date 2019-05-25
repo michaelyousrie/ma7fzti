@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="table.show">
+        <div v-show="table.show">
             <h1 class="bb">
                 Incomes
                 
@@ -9,15 +9,17 @@
             
             <br>
 
-            <table class="table table-dark table-striped">
+            <table id="incomesTable" class="table table-dark table-striped">
                 <thead>
-                    <th>#</th>
-                    <th>ID</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Created</th>
-                    <th>Amount</th>
-                    <th></th>
+                    <tr>
+                        <th>#</th>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Created</th>
+                        <th>Amount</th>
+                        <th></th>
+                    </tr>
                 </thead>
 
                 <tbody>
@@ -33,13 +35,9 @@
                             <button class="btn btn-xs btn-danger" @click="deleteIncome(income.id)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
-                    <tr class="tr-sum">
-                        <td></td><td></td><td></td><td></td><td></td>
-                        <td>{{ this.totalIncome }}</td>
-                        <td></td>
-                    </tr>
                 </tbody>
             </table>
+            <br>
         </div>
 
         <Form-AddIncome
@@ -134,6 +132,10 @@ export default {
         getToBeUpdatedIncome() {
             return this.toBeUpdatedIncome;
         }
+    },
+
+    updated() {
+        $('#incomesTable').DataTable();
     }
 }
 </script>
