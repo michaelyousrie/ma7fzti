@@ -18,7 +18,7 @@
                     <a href="#" class="nav-link">Expenses</a>
                 </li>
 
-                <li :class="{'active': profile.active, 'nav-item': true}" @click="showExpenses">
+                <li :class="{'active': profile.active, 'nav-item': true}" @click="showProfile">
                     <a href="#" class="nav-link">Profile</a>
                 </li>
             </ul>
@@ -54,8 +54,9 @@
             showIncomes() {
                 this.$emit("showIncomes");
                 this.$emit("hideExpenses");
-                this.expenses.active = false;
                 this.incomes.active = true;
+                this.expenses.active = false;
+                this.profile.active = false;
             },
 
             showExpenses() {
@@ -63,6 +64,14 @@
                 this.$emit("showExpenses");
                 this.expenses.active = true;
                 this.incomes.active = false;
+                this.profile.active = false;
+            },
+
+            showProfile() {
+                this.profile.active = true;
+                this.expenses.active = false;
+                this.incomes.active = false;
+                return null;
             }
         },
 

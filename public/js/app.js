@@ -2199,14 +2199,22 @@ __webpack_require__.r(__webpack_exports__);
     showIncomes: function showIncomes() {
       this.$emit("showIncomes");
       this.$emit("hideExpenses");
-      this.expenses.active = false;
       this.incomes.active = true;
+      this.expenses.active = false;
+      this.profile.active = false;
     },
     showExpenses: function showExpenses() {
       this.$emit("hideIncomes");
       this.$emit("showExpenses");
       this.expenses.active = true;
       this.incomes.active = false;
+      this.profile.active = false;
+    },
+    showProfile: function showProfile() {
+      this.profile.active = true;
+      this.expenses.active = false;
+      this.incomes.active = false;
+      return null;
     }
   },
   props: ['first_name', 'balance', 'currency']
@@ -41595,7 +41603,7 @@ var render = function() {
             "li",
             {
               class: { active: _vm.profile.active, "nav-item": true },
-              on: { click: _vm.showExpenses }
+              on: { click: _vm.showProfile }
             },
             [
               _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
