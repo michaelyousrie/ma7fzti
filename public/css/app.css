@@ -10670,17 +10670,17 @@ a.text-dark:focus {
 }
 
 body {
-  background-color: #272727;
-  color: #FFE400;
+  background-color: #efefef;
+  color: #477aad;
 }
 
 .navbar {
-  background-color: #303030;
+  background-color: #e5e5e5;
   padding: 0px;
 }
 
 .navbar a {
-  color: #FFE400;
+  color: #477aad;
 }
 
 .navbar a.navbar-brand {
@@ -10695,16 +10695,16 @@ body {
 
 .navbar .nav-item {
   padding: 10px;
-  border-left: 1px solid #474747;
+  border-left: 1px solid #dbdbdb;
 }
 
 .navbar .nav-item:hover {
-  background-color: #272727;
+  background-color: #efefef;
   cursor: pointer;
 }
 
 .navbar .nav-item.active {
-  background-color: #272727;
+  background-color: #efefef;
 }
 
 .navbar .balance {
@@ -10718,22 +10718,15 @@ body {
 }
 
 .modal .modal-header {
-  border-bottom-color: #303030;
+  border-bottom-color: #e5e5e5;
 }
 
 .modal .modal-footer {
-  border-top-color: #303030;
+  border-top-color: #e5e5e5;
 }
 
 .modal .modal-content {
-  background-color: #272727;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  background-color: #303030;
-  border: 1px solid #474747;
+  background-color: #efefef;
 }
 
 table th {
@@ -10741,11 +10734,11 @@ table th {
 }
 
 table td {
-  color: #FFE400;
+  color: #477aad;
 }
 
 table tbody tr.tr-sum {
-  background: #303030 !important;
+  background: #e5e5e5 !important;
 }
 
 .center {
@@ -10753,7 +10746,7 @@ table tbody tr.tr-sum {
 }
 
 .bb {
-  border-bottom: 1px solid #474747;
+  border-bottom: 1px solid #dbdbdb;
   width: 100%;
   padding-bottom: 10px;
 }

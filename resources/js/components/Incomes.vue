@@ -9,7 +9,7 @@
             
             <br>
 
-            <table id="incomesTable" class="table table-dark table-striped">
+            <table id="incomesTable" class="table table-light table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>#</th>

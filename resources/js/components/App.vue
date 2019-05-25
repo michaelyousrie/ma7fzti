@@ -16,19 +16,19 @@
 
         <div class="content">
             <Incomes 
-                v-if="tabs.incomes.show" 
+                v-show="tabs.incomes.show" 
                 @updateUser="updateUser" @showLoader="showLoader(true)" @hideLoader="showLoader(false)"
                 :incomes="getIncomes" :currency="getCurrency" :totalIncome="getTotalIncome" :incomeCategories="getIncomeCategories"
             >
             </Incomes>
 
             <Expenses 
-                v-if="tabs.expenses.show"
+                v-show="tabs.expenses.show"
             >
             </Expenses>
 
             <Profile
-                v-if="tabs.profile.show">
+                v-show="tabs.profile.show">
             </Profile>
         </div>
     </div>

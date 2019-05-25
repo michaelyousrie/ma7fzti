@@ -6,10 +6,10 @@
 @import '~bootstrap/scss/bootstrap';
 
 
-$background_color: #272727;
-$background_second_color: #303030;
-$background_third_color: #474747;
-$main_font_color: #FFE400;
+$background_color: #efefef;
+$background_second_color: #e5e5e5;
+$background_third_color: #dbdbdb;
+$main_font_color: #477aad;
 $brand_color: #FF652F;
 $brand_second_color: #14A76C;
 
@@ -84,14 +84,6 @@ body {
     }
 }
 
-.form-group {
-    input, select, textarea {
-        background-color: $background_second_color;
-        border: 1px solid $background_third_color;
-    }
-}
-
-
 table {
     th {
         color: $brand_color;
@@ -132,4 +124,12 @@ table {
 //     background-color: $background_second_color !important;
 //     color: $background_second_color !important;
 //     border: 1px solid $background_third_color !important;
+// }
+
+
+// .form-group {
+//     input, select, textarea {
+//         background-color: $background_second_color;
+//         border: 1px solid $background_third_color;
+//     }
 // }

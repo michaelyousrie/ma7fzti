@@ -56599,29 +56599,53 @@ var render = function() {
         "div",
         { staticClass: "content" },
         [
-          _vm.tabs.incomes.show
-            ? _c("Incomes", {
-                attrs: {
-                  incomes: _vm.getIncomes,
-                  currency: _vm.getCurrency,
-                  totalIncome: _vm.getTotalIncome,
-                  incomeCategories: _vm.getIncomeCategories
-                },
-                on: {
-                  updateUser: _vm.updateUser,
-                  showLoader: function($event) {
-                    return _vm.showLoader(true)
-                  },
-                  hideLoader: function($event) {
-                    return _vm.showLoader(false)
-                  }
-                }
-              })
-            : _vm._e(),
+          _c("Incomes", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.tabs.incomes.show,
+                expression: "tabs.incomes.show"
+              }
+            ],
+            attrs: {
+              incomes: _vm.getIncomes,
+              currency: _vm.getCurrency,
+              totalIncome: _vm.getTotalIncome,
+              incomeCategories: _vm.getIncomeCategories
+            },
+            on: {
+              updateUser: _vm.updateUser,
+              showLoader: function($event) {
+                return _vm.showLoader(true)
+              },
+              hideLoader: function($event) {
+                return _vm.showLoader(false)
+              }
+            }
+          }),
           _vm._v(" "),
-          _vm.tabs.expenses.show ? _c("Expenses") : _vm._e(),
+          _c("Expenses", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.tabs.expenses.show,
+                expression: "tabs.expenses.show"
+              }
+            ]
+          }),
           _vm._v(" "),
-          _vm.tabs.profile.show ? _c("Profile") : _vm._e()
+          _c("Profile", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.tabs.profile.show,
+                expression: "tabs.profile.show"
+              }
+            ]
+          })
         ],
         1
       )
@@ -57092,7 +57116,7 @@ var render = function() {
           _c(
             "table",
             {
-              staticClass: "table table-dark table-striped",
+              staticClass: "table table-light table-bordered table-striped",
               attrs: { id: "incomesTable" }
             },
             [
