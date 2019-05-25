@@ -2068,13 +2068,117 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["incomeCategories", 'income'],
   data: function data() {
-    return {};
+    return {
+      form: {
+        amount_value: this.income ? this.income.amount : '',
+        description_value: this.income ? this.income.description : '',
+        category_value: this.income ? this.income.category_id : ''
+      }
+    };
+  },
+  watch: {
+    income: function income(_income) {
+      this.form.amount_value = _income.amount;
+      this.form.description_value = _income.description;
+      this.form.category_value = _income.category_id;
+    }
+  },
+  methods: {
+    showIncomesTable: function showIncomesTable() {
+      this.$emit("showTable");
+    },
+    clearForm: function clearForm() {
+      var entries = Object.entries(this.form);
+
+      for (var _i = 0, _entries = entries; _i < _entries.length; _i++) {
+        var _entries$_i = _slicedToArray(_entries[_i], 2),
+            key = _entries$_i[0],
+            value = _entries$_i[1];
+
+        this.form[key] = null;
+      }
+    },
+    updateIncome: function updateIncome() {
+      var that = this;
+      window.Alert.confirm("Are you sure you want to edit this income??", function () {
+        that.$emit('showLoader');
+        var description = that.form.description_value;
+        var category_id = that.form.category_value;
+        var amount = that.form.amount_value;
+        window.axios.patch(window.makeUrl("/user/incomes/" + that.income.id), {
+          description: description,
+          category_id: category_id,
+          amount: amount
+        }).then(function (resp) {
+          that.$emit('updateUser');
+          window.Alert.msg("Income Updated!");
+          that.showIncomesTable();
+        })["catch"](function (error) {
+          window.FormErrors.Apply(error.response.data.errors);
+          window.ShowError();
+        });
+        that.$emit('hideLoader');
+      });
+    }
   }
 });
 
@@ -2154,6 +2258,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['incomes', 'totalIncome', 'currency', 'incomeCategories'],
   data: function data() {
@@ -2162,13 +2268,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         "add": {
           show: false
         },
-        "edit": {
+        "update": {
           show: false
         }
       },
       table: {
         show: true
-      }
+      },
+      toBeUpdatedIncome: null
     };
   },
   methods: {
@@ -2187,6 +2294,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           this.forms[key].show = false;
         }
       }
+    },
+    updateIncome: function updateIncome(income) {
+      this.toBeUpdatedIncome = income;
+      this.showForm('update');
     },
     showTable: function showTable() {
       var bool = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
@@ -2208,28 +2319,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           window.ShowError();
         });
       });
-    },
-    updateIncome: function updateIncome() {
-      var that = this;
-      window.Alert.confirm("Are you sure you want to edit this income??", function () {
-        that.$emit('showLoader');
-        var description = that.description_value;
-        var category_id = that.category_value;
-        var amount = that.amount_value;
-        window.axios.patch(window.makeUrl("/user/incomes/" + that.toBeUpdatedIncome.id), {
-          description: description,
-          category_id: category_id,
-          amount: amount
-        }).then(function (resp) {
-          that.updateUser();
-          window.Alert.msg("Income Updated!");
-          that.hideIncomeForm();
-        })["catch"](function (error) {
-          window.FormErrors.Apply(error.response.data.errors);
-          window.ShowError();
-        });
-        that.$emit('hideLoader');
-      });
+    }
+  },
+  computed: {
+    getToBeUpdatedIncome: function getToBeUpdatedIncome() {
+      return this.toBeUpdatedIncome;
     }
   }
 });
@@ -41521,7 +41615,169 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Edit Income")])
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-12 col-lg-10 offset-lg-1" }, [
+      _c("h1", { staticClass: "bb" }, [
+        _vm._v(
+          "\n            Edit Income #" +
+            _vm._s(_vm.income ? _vm.income.id : "") +
+            "\n\n            "
+        ),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary right",
+            on: { click: _vm.showIncomesTable }
+          },
+          [_c("i", { staticClass: "fa fa-chevron-left" }), _vm._v(" Incomes")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "form-group col-md-12 col-lg-6" }, [
+          _c("label", { attrs: { for: "category" } }, [_vm._v("Category")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.category_value,
+                  expression: "form.category_value"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                name: "category_id",
+                "data-feedback-id": "edit_category_id",
+                id: "category"
+              },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.form,
+                    "category_value",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            _vm._l(_vm.incomeCategories, function(cat) {
+              return _c(
+                "option",
+                { key: cat.id, domProps: { value: cat.id } },
+                [_vm._v(_vm._s(cat.name))]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "edit_category_id-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12 col-lg-6" }, [
+          _c("label", { attrs: { for: "amount" } }, [_vm._v("Amount")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.amount_value,
+                expression: "form.amount_value"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              id: "amount",
+              "data-feedback-id": "edit_amount",
+              name: "amount"
+            },
+            domProps: { value: _vm.form.amount_value },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "amount_value", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "edit_amount-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c("label", { attrs: { for: "description" } }, [
+            _vm._v("Description")
+          ]),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.description_value,
+                expression: "form.description_value"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              id: "description",
+              "data-feedback-id": "edit_description",
+              name: "description",
+              rows: "4",
+              cols: "2"
+            },
+            domProps: { value: _vm.form.description_value },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "description_value", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "edit_description-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success btn-block",
+              on: { click: _vm.updateIncome }
+            },
+            [_vm._v("Update Income")]
+          )
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -41548,142 +41804,130 @@ var render = function() {
   return _c(
     "div",
     [
-      _c(
-        "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.table.show,
-              expression: "table.show"
-            }
-          ]
-        },
-        [
-          _c("h1", { staticClass: "bb" }, [
-            _vm._v("\n            Incomes\n            \n            "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary right",
-                on: {
-                  click: function($event) {
-                    return _vm.showForm("add")
+      _vm.table.show
+        ? _c("div", [
+            _c("h1", { staticClass: "bb" }, [
+              _vm._v("\n            Incomes\n            \n            "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary right",
+                  on: {
+                    click: function($event) {
+                      return _vm.showForm("add")
+                    }
                   }
-                }
-              },
-              [_c("i", { staticClass: "fa fa-plus" }), _vm._v(" Add Income")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c("table", { staticClass: "table table-dark table-striped" }, [
-            _vm._m(0),
+                },
+                [_c("i", { staticClass: "fa fa-plus" }), _vm._v(" Add Income")]
+              )
+            ]),
             _vm._v(" "),
-            _c(
-              "tbody",
-              [
-                _vm._l(_vm.incomes, function(income, index) {
-                  return _c("tr", { key: index }, [
-                    _c("td", [_vm._v(_vm._s(index + 1))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(income.description))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        _vm._s(income.category ? income.category.name : "-")
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(income.when))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("span", { staticClass: "text-success" }, [
+            _c("br"),
+            _vm._v(" "),
+            _c("table", { staticClass: "table table-dark table-striped" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                [
+                  _vm._l(_vm.incomes, function(income, index) {
+                    return _c("tr", { key: index }, [
+                      _c("td", [_vm._v(_vm._s(index + 1))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(income.id))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(income.description))]),
+                      _vm._v(" "),
+                      _c("td", [
                         _vm._v(
-                          _vm._s(_vm.currency) + " +" + _vm._s(income.amount)
+                          _vm._s(income.category ? income.category.name : "-")
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(income.when))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("span", { staticClass: "text-success" }, [
+                          _vm._v(
+                            _vm._s(_vm.currency) + " +" + _vm._s(income.amount)
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-xs btn-primary",
+                            on: {
+                              click: function($event) {
+                                return _vm.updateIncome(income)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-edit" })]
+                        ),
+                        _vm._v("  \n                        "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-xs btn-danger",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteIncome(income.id)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-trash" })]
                         )
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-xs btn-primary",
-                          on: {
-                            click: function($event) {
-                              return _vm.showUpdateIncomeForm(income)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fa fa-edit" })]
-                      ),
-                      _vm._v("  \n                        "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-xs btn-danger",
-                          on: {
-                            click: function($event) {
-                              return _vm.deleteIncome(income.id)
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fa fa-trash" })]
-                      )
                     ])
+                  }),
+                  _vm._v(" "),
+                  _c("tr", { staticClass: "tr-sum" }, [
+                    _c("td"),
+                    _c("td"),
+                    _c("td"),
+                    _c("td"),
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(this.totalIncome))]),
+                    _vm._v(" "),
+                    _c("td")
                   ])
-                }),
-                _vm._v(" "),
-                _c("tr", { staticClass: "tr-sum" }, [
-                  _c("td"),
-                  _c("td"),
-                  _c("td"),
-                  _c("td"),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(this.totalIncome))]),
-                  _vm._v(" "),
-                  _c("td")
-                ])
-              ],
-              2
-            )
+                ],
+                2
+              )
+            ])
           ])
-        ]
-      ),
+        : _vm._e(),
       _vm._v(" "),
-      _c("Form-AddIncome", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: this.forms.add.show,
-            expression: "this.forms.add.show"
-          }
-        ],
-        attrs: { incomeCategories: _vm.incomeCategories },
-        on: {
-          showTable: function($event) {
-            return _vm.showTable(true)
-          },
-          updateUser: _vm.updateUser
-        }
-      }),
+      this.forms.add.show
+        ? _c("Form-AddIncome", {
+            attrs: { incomeCategories: _vm.incomeCategories },
+            on: {
+              showTable: function($event) {
+                return _vm.showTable(true)
+              },
+              updateUser: _vm.updateUser
+            }
+          })
+        : _vm._e(),
       _vm._v(" "),
-      _c("Form-EditIncome", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: this.forms.edit.show,
-            expression: "this.forms.edit.show"
-          }
-        ],
-        attrs: { incomeCategories: _vm.incomeCategories },
-        on: { updateUser: _vm.updateUser }
-      })
+      this.forms.update.show
+        ? _c("Form-EditIncome", {
+            attrs: {
+              incomeCategories: _vm.incomeCategories,
+              income: _vm.getToBeUpdatedIncome
+            },
+            on: {
+              showTable: function($event) {
+                return _vm.showTable(true)
+              },
+              updateUser: _vm.updateUser
+            }
+          })
+        : _vm._e()
     ],
     1
   )
@@ -41695,6 +41939,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("th", [_vm._v("#")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("ID")]),
       _vm._v(" "),
       _c("th", [_vm._v("Description")]),
       _vm._v(" "),

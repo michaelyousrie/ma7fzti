@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-show="table.show">
+        <div v-if="table.show">
             <h1 class="bb">
                 Incomes
                 
@@ -12,6 +12,7 @@
             <table class="table table-dark table-striped">
                 <thead>
                     <th>#</th>
+                    <th>ID</th>
                     <th>Description</th>
                     <th>Category</th>
                     <th>Created</th>
@@ -22,17 +23,18 @@
                 <tbody>
                     <tr v-for="(income, index) in incomes" :key="index">
                         <td>{{ index + 1 }}</td>
+                        <td>{{income.id }}</td>
                         <td>{{ income.description }}</td>
                         <td>{{ income.category? income.category.name : '-' }}</td>
                         <td>{{ income.when }}</td>
                         <td><span class="text-success">{{ currency }} +{{ income.amount }}</span></td>
                         <td>
-                            <button class="btn btn-xs btn-primary" @click="showUpdateIncomeForm(income)"><i class="fa fa-edit"></i></button> &nbsp;
+                            <button class="btn btn-xs btn-primary" @click="updateIncome(income)"><i class="fa fa-edit"></i></button> &nbsp;
                             <button class="btn btn-xs btn-danger" @click="deleteIncome(income.id)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                     <tr class="tr-sum">
-                        <td></td><td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td>
                         <td>{{ this.totalIncome }}</td>
                         <td></td>
                     </tr>
@@ -41,15 +43,15 @@
         </div>
 
         <Form-AddIncome
-            v-show="this.forms.add.show"
+            v-if="this.forms.add.show"
             @showTable="showTable(true)" @updateUser="updateUser"
             :incomeCategories="incomeCategories"
         >
         </Form-AddIncome>
         <Form-EditIncome
-            v-show="this.forms.edit.show"
-            @updateUser="updateUser"
-            :incomeCategories="incomeCategories"
+            v-if="this.forms.update.show"
+            @showTable="showTable(true)" @updateUser="updateUser"
+            :incomeCategories="incomeCategories" :income="getToBeUpdatedIncome"
         >
         </Form-EditIncome>
     </div>
@@ -66,14 +68,16 @@ export default {
                     show: false
                 },
 
-                "edit": {
+                "update": {
                     show: false
                 }
             },
 
             table: {
                 show: true
-            }
+            },
+
+            toBeUpdatedIncome: null
         }
     },
 
@@ -89,6 +93,11 @@ export default {
                     this.forms[key].show = false;
                 }
             }
+        },
+        
+        updateIncome(income) {
+            this.toBeUpdatedIncome = income;
+            this.showForm('update');
         },
 
 
@@ -118,33 +127,12 @@ export default {
                     window.ShowError();
                 });
             });
-        },
+        }
+    },
 
-
-        updateIncome() {
-            var that = this;
-
-            window.Alert.confirm("Are you sure you want to edit this income??", function() {
-
-                that.$emit('showLoader');
-
-                let description = that.description_value;
-                let category_id = that.category_value;
-                let amount = that.amount_value;
-
-                window.axios.patch( window.makeUrl( "/user/incomes/" + that.toBeUpdatedIncome.id ), { description, category_id, amount } ).then(resp => {
-                    that.updateUser();
-                    window.Alert.msg("Income Updated!");
-                    
-                    that.hideIncomeForm();
-
-                }).catch(error => {
-                    window.FormErrors.Apply( error.response.data.errors );
-                    window.ShowError();
-                });
-
-                that.$emit('hideLoader');
-            });
+    computed: {
+        getToBeUpdatedIncome() {
+            return this.toBeUpdatedIncome;
         }
     }
 }
