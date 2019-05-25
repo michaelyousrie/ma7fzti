@@ -10,17 +10,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
 
-                <li :class="{'nav-item': true, 'active': incomes.active}" @click="showIncomes">
-                    <a href="#" class="nav-link">Incomes</a>
+                <li v-for="(nav_item, index) in nav_items" :key="index" :class="{'nav-item': true, 'active': nav_item.active}" @click="nav_item.click()">
+                    <a href="#" class="nav-link">{{nav_item.label}}</a>
                 </li>
 
-                <li :class="{'active': expenses.active, 'nav-item': true}" @click="showExpenses">
+                <!-- <li :class="{'active': expenses.active, 'nav-item': true}" @click="showExpenses">
                     <a href="#" class="nav-link">Expenses</a>
                 </li>
 
                 <li :class="{'active': profile.active, 'nav-item': true}" @click="showProfile">
                     <a href="#" class="nav-link">Profile</a>
-                </li>
+                </li> -->
             </ul>
 
             <p>Welcome, <a href="#">{{first_name}}</a> <br> <span class="balance">( {{currency}} {{balance}} )</span></p>
@@ -33,45 +33,58 @@
         name: "Navbar",
 
         data() {
+            var that = this;
+
             return {
                 application_name: window.application_name,
 
-                expenses: {
-                    active: false
-                },
+                nav_items: {
+                    "incomes": {
+                        click() {
+                            that.show("incomes");
+                        },
 
-                incomes: {
-                    active: true
-                },
+                        label: "Incomes",
+                        active: true
+                    },
 
-                profile: {
-                    active: false
-                }
+                    "expenses": {
+                        click() {
+                            that.show("expenses");
+                        },
+                        
+                        label: "Expenses",
+                        active: false
+                    },
+
+                    "profile": {
+                        click() {
+                            that.show("profile");
+                        },
+
+                        label: "Profile",
+                        active: false
+                    }
+                },
             }
         },
 
         methods: {
-            showIncomes() {
-                this.$emit("showIncomes");
-                this.$emit("hideExpenses");
-                this.incomes.active = true;
-                this.expenses.active = false;
-                this.profile.active = false;
+            show(tab) {
+                this.markActive(tab);
+                this.$emit("showTab", {tab});
             },
 
-            showExpenses() {
-                this.$emit("hideIncomes");
-                this.$emit("showExpenses");
-                this.expenses.active = true;
-                this.incomes.active = false;
-                this.profile.active = false;
-            },
-
-            showProfile() {
-                this.profile.active = true;
-                this.expenses.active = false;
-                this.incomes.active = false;
-                return null;
+            markActive(tab) {
+                let entries = Object.entries(this.nav_items);
+                
+                for (const [key, value] of entries) {
+                    if( key == tab ) {
+                        this.nav_items[key].active = true;
+                    } else {
+                        this.nav_items[key].active = false;
+                    }
+                }
             }
         },
 

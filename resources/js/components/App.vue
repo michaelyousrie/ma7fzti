@@ -3,8 +3,8 @@
         <Loader v-show="showLoadingScreen"></Loader>
 
         <Navbar
-        @showIncomes="showIncomes(true)" @hideIncomes="showIncomes(false)"  @showExpenses="showExpenses(true)" @hideExpenses="showExpenses(false)"
-        :first_name="getUserFirstName" :balance="getBalance" :currency="getCurrency"
+            @showTab="showTab"
+            :first_name="getUserFirstName" :balance="getBalance" :currency="getCurrency"
         >
         </Navbar>
 
@@ -16,16 +16,20 @@
 
         <div class="content">
             <Incomes 
-                v-show="incomesTab.show" 
+                v-show="tabs.incomes.show" 
                 @updateUser="updateUser" @showLoader="showLoader(true)" @hideLoader="showLoader(false)"
                 :incomes="getIncomes" :currency="getCurrency" :totalIncome="getTotalIncome" :incomeCategories="getIncomeCategories"
             >
             </Incomes>
 
             <Expenses 
-                v-show="expensesTab.show"
+                v-show="tabs.expenses.show"
             >
             </Expenses>
+
+            <Profile
+                v-show="tabs.profile.show">
+            </Profile>
         </div>
     </div>
 </template>
@@ -42,12 +46,18 @@ export default {
                 "last_name": "User"
             },
 
-            incomesTab: {
-                show: true
-            },
+            tabs: {
+                incomes: {
+                    show: true
+                },
 
-            expensesTab: {
-                show: false
+                expenses: {
+                    show: false
+                },
+
+                profile: {
+                    show: false
+                }
             },
 
             balance: 0,
@@ -60,12 +70,17 @@ export default {
     },
 
     methods: {
-        showIncomes(bool) {
-            this.incomesTab.show = bool;
-        },
+        showTab(payload) {
+            let tab = payload.tab;
+            let entries = Object.entries(this.tabs);
 
-        showExpenses(bool) {
-            this.expensesTab.show = bool;
+            for( const [element, value] of entries ) {
+                if ( element == tab ) {
+                    this.tabs[element].show = true;
+                } else {
+                    this.tabs[element].show = false;
+                }
+            }
         },
 
         getUser() {
