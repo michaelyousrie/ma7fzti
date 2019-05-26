@@ -10670,17 +10670,18 @@ a.text-dark:focus {
 }
 
 body {
-  background-color: #efefef;
-  color: #477aad;
+  background-color: #F8F8F8;
+  color: #4f4f4f;
+  font-family: Helvetica, sans-serif, Arial;
 }
 
 .navbar {
-  background-color: #e5e5e5;
+  background-color: #fff;
   padding: 0px;
 }
 
 .navbar a {
-  color: #477aad;
+  color: #4f4f4f;
 }
 
 .navbar a.navbar-brand {
@@ -10695,16 +10696,16 @@ body {
 
 .navbar .nav-item {
   padding: 10px;
-  border-left: 1px solid #dbdbdb;
+  border-left: 1px solid #7F848A;
 }
 
 .navbar .nav-item:hover {
-  background-color: #efefef;
+  background-color: #F8F8F8;
   cursor: pointer;
 }
 
 .navbar .nav-item.active {
-  background-color: #efefef;
+  background-color: #F8F8F8;
 }
 
 .navbar .balance {
@@ -10718,15 +10719,15 @@ body {
 }
 
 .modal .modal-header {
-  border-bottom-color: #e5e5e5;
+  border-bottom-color: #fff;
 }
 
 .modal .modal-footer {
-  border-top-color: #e5e5e5;
+  border-top-color: #fff;
 }
 
 .modal .modal-content {
-  background-color: #efefef;
+  background-color: #F8F8F8;
 }
 
 table th {
@@ -10734,11 +10735,11 @@ table th {
 }
 
 table td {
-  color: #477aad;
+  color: #4f4f4f;
 }
 
 table tbody tr.tr-sum {
-  background: #e5e5e5 !important;
+  background: #fff !important;
 }
 
 .center {
@@ -10746,7 +10747,7 @@ table tbody tr.tr-sum {
 }
 
 .bb {
-  border-bottom: 1px solid #dbdbdb;
+  border-bottom: 1px solid #7F848A;
   width: 100%;
   padding-bottom: 10px;
 }

@@ -6,10 +6,10 @@
 @import '~bootstrap/scss/bootstrap';
 
 
-$background_color: #efefef;
-$background_second_color: #e5e5e5;
-$background_third_color: #dbdbdb;
-$main_font_color: #477aad;
+$background_color: #F8F8F8;
+$background_second_color: #fff;
+$background_third_color: #7F848A;
+$main_font_color: #4f4f4f;
 $brand_color: #FF652F;
 $brand_second_color: #14A76C;
 
@@ -23,6 +23,7 @@ $brand_second_color: #14A76C;
 body {
     background-color: $background_color;
     color: $main_font_color;
+    font-family: Helvetica, sans-serif, Arial;
 }
 
 .navbar {
