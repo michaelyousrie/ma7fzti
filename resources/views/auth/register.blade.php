@@ -36,16 +36,31 @@
                         {{-- Password --}}
                         <div class="wrap-input100 validate-input" data-validate="Password is required">
                             <span class="label-input100">Password</span>
-                            <input class="input100" type="password" name="pass" placeholder="Type your password">
+                            <input class="input100" type="password" name="password" placeholder="Type your password">
                             <span class="focus-input100" data-symbol="&#xf190;"></span>
                         </div>
                         {{-- /Password --}}
-                        
-                        <div class="text-right p-t-8 p-b-31">
-                            {{-- <a href="#">
-                                Forgot password?
-                            </a> --}}
+
+                        <br>
+
+                        {{-- Currency --}}
+                        <div class="wrap-input100 validate-input m-b-23" data-validate = "Currency is required">
+                            <span class="label-input100">Currency</span>
+                            <input class="input100" type="text" name="currency" placeholder="Type your currency symbol">
+                            <span class="focus-input100" data-symbol="&#xf19a;"></span>
                         </div>
+                        {{-- /Currency --}}
+
+                        {{-- Language --}}
+                        <div class="wrap-input100 validate-input m-b-23" data-validate = "Language is required">
+                            <span class="label-input100">Language</span>
+                            <select name="language_code" id="language_code" class="form-control">
+                                @foreach( $langs as $lang )
+                                    <option value="{{ $lang->code }}">{{ $lang->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        {{-- /Language --}}
                         
                         <div class="container-login100-form-btn">
                             <div class="wrap-login100-form-btn">
@@ -56,7 +71,7 @@
                             </div>
                         </div>
 
-                        <div class="flex-col-c p-t-155">
+                        <div class="flex-col-c p-t-5">
                                 <span class="txt1 p-b-17">
                                     Have an account already?
                                 </span>
