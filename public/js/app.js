@@ -2399,6 +2399,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Navbar",
   data: function data() {
@@ -57335,17 +57344,52 @@ var render = function() {
           0
         ),
         _vm._v(" "),
-        _c("p", [
-          _vm._v("Welcome, "),
-          _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(_vm.first_name))]),
+        _c("div", { staticClass: "dropdown dropleft mr-2" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-secondary dropdown-toggle",
+              attrs: {
+                type: "button",
+                id: "dropdownMenuButton",
+                "data-toggle": "dropdown",
+                "aria-haspopup": "true",
+                "aria-expanded": "false"
+              }
+            },
+            [
+              _vm._v(
+                "\n                Welcome, " +
+                  _vm._s(_vm.first_name) +
+                  "\n            "
+              )
+            ]
+          ),
           _vm._v(" "),
-          _c("br"),
-          _vm._v(" "),
-          _c("span", { staticClass: "balance" }, [
-            _vm._v(
-              "( " + _vm._s(_vm.currency) + " " + _vm._s(_vm.balance) + " )"
-            )
-          ])
+          _c(
+            "div",
+            {
+              staticClass: "dropdown-menu p-2",
+              attrs: { "aria-labelledby": "dropdownMenuButton" }
+            },
+            [
+              _c("p", { staticClass: "text-center" }, [
+                _vm._v("Balance: "),
+                _c("br"),
+                _vm._v(
+                  " (" + _vm._s(_vm.currency) + " " + _vm._s(_vm.balance) + ")"
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "dropdown-divider" }),
+              _vm._v(" "),
+              _c(
+                "a",
+                { staticClass: "dropdown-item", attrs: { href: "logout" } },
+                [_vm._v("Logout")]
+              )
+            ]
+          )
         ])
       ]
     )

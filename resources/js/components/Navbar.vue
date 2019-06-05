@@ -23,7 +23,16 @@
                 </li> -->
             </ul>
 
-            <p>Welcome, <a href="#">{{first_name}}</a> <br> <span class="balance">( {{currency}} {{balance}} )</span></p>
+            <div class="dropdown dropleft mr-2">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Welcome, {{ first_name }}
+                </button>
+                <div class="dropdown-menu p-2" aria-labelledby="dropdownMenuButton">
+                    <p class="text-center">Balance: <br> ({{ currency }} {{ balance }})</p>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="logout">Logout</a>
+                </div>
+            </div>
         </div>
     </nav>
 </template>

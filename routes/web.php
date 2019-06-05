@@ -7,3 +7,5 @@ Route::post("/login", "Web\Auth\LoginController@store")->name('login.store')->mi
 
 Route::get('/register', "Web\Auth\RegisterController@show")->name('register.show')->middleware("NotLoggedIn");
 Route::post("/register", "Web\Auth\RegisterController@store")->name('register.store')->middleware("NotLoggedIn");
+
+Route::get( "/logout", "Web\Auth\LogoutController@store" )->middleware("auth");
