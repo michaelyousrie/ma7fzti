@@ -6,6 +6,8 @@
  */
 
 require('./bootstrap');
+const includes = require.context("./includes", true, /\.js$/i);
+includes.keys().map(key => require("./includes/" + key.split('/').pop().split('.')[0]));
 
 window.Vue = require('vue');
 
@@ -17,10 +19,11 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+const files = require.context('./', true, /\.vue$/i);
+const forms = require.context('./components/Forms/', true, /\.vue$/i);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+forms.keys().map(key => Vue.component("Form-"+key.split('/').pop().split('.')[0], forms(key).default));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

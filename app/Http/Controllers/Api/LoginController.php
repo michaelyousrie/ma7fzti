@@ -20,7 +20,7 @@ class LoginController extends Controller
         if ( ! $verify ) {
             return [
                 'errors'    => [
-                    "password" => "Wrong Password!"
+                    "password" => [ "Wrong Password!" ]
                 ]
             ];
         }

@@ -206,7 +206,7 @@ class IncomesTest extends TestCase
             $incs[] = $inc->id;
         }
 
-        $incomes = $this->getResponse("/api/v1/user/incomes", [], "get")['data'];
+        $incomes = $this->getResponse("/api/v1/user/incomes", [], "get")['data']->incomes;
 
         foreach( $incomes as $income ) {
             $this->assertTrue( in_array($income->id, $incs) );
@@ -222,7 +222,7 @@ class IncomesTest extends TestCase
             'user_id'   => $this->user->id
         ]);
 
-        $response = $this->getResponse("/api/v1/user/incomes/{$item->id}", [], "get")['data'];
+        $response = $this->getResponse("/api/v1/user/incomes/{$item->id}", [], "get")['data']->income;
 
         $this->assertEquals( $response->id, $item->id );
         $this->assertEquals( $response->amount, $item->amount );

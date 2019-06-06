@@ -27,4 +27,12 @@ class UsersController extends Controller
 
         return new UserResource($this->user);
     }
+
+
+    public function frontEndIndex()
+    {
+        return successResponse([
+            'user'  => getUserObject()
+        ]);
+    }
 }

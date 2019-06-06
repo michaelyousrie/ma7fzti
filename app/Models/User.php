@@ -61,4 +61,72 @@ class User extends Authenticatable
     {
         return $this->hasMany(ExpenseCategory::class);
     }
+
+
+    public function getIncomes()
+    {
+        $incomes = $this->incomes()->orderBy('created_at', 'desc')->get();
+
+        foreach( $incomes as $index => $income ) {
+            $incomes[$index]->when = $income->created_at->diffForHumans();
+        }
+
+        return $incomes;
+    }
+
+
+    public function getExpenses()
+    {
+        $expenses = $this->expenses()->orderBy('created_at', 'desc')->get();
+
+        foreach( $expenses as $index => $expense ) {
+            $expenses[$index]->when = $expense->created_at->diffForHumans();
+        }
+
+        return $expenses;
+    }
+
+
+    public function getIncomeCategories()
+    {
+        $cats = $this->incomeCategories;
+
+        foreach( $cats as $index => $cat ) {
+            $cats[$index]->when = $cat->created_at->diffForHumans();
+        }
+
+        return $cats;
+    }
+
+
+    public function getExpenseCategories()
+    {
+        $cats = $this->expenseCategories;
+
+        foreach( $cats as $index => $cat ) {
+            $cats[$index]->when = $cat->created_at->diffForHumans();
+        }
+
+        return $cats;
+    }
+
+
+    public function calculateBalance()
+    {
+        $total = 0;
+
+        foreach( $this->incomes as $income ) {
+            $total += $income->amount;
+        }
+
+        foreach( $this->expenses as $expense ) {
+            $total -= $expense->amount;
+        }
+
+        $this->balance = $total;
+
+        $this->save();
+
+        return $total;
+    }
 }
