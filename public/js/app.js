@@ -1811,6 +1811,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1835,7 +1837,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       currency: null,
       incomes: [],
       expenses: [],
-      incomeCategories: []
+      incomeCategories: [],
+      expenseCategories: []
     };
   },
   methods: {
@@ -1867,7 +1870,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         _this.balance = _this.user.balance;
         _this.currency = _this.user.currency;
         _this.incomeCategories = _this.user.income_categories;
+        _this.expenseCategories = _this.user.expense_categories;
         _this.totalIncome = _this.user.getTotalIncome();
+        _this.totalExpense = _this.user.getTotalExpense();
         that.showLoader(false);
       })["catch"](function (error) {
         window.ShowError();
@@ -1896,8 +1901,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     getTotalIncome: function getTotalIncome() {
       return this.totalIncome;
     },
+    getTotalExpense: function getTotalExpense() {
+      return this.totalExpense;
+    },
     getIncomeCategories: function getIncomeCategories() {
       return this.incomeCategories;
+    },
+    getExpenseCategories: function getExpenseCategories() {
+      return this.expenseCategories;
     }
   }, _defineProperty(_computed, "getCurrency", function getCurrency() {
     return this.currency;
@@ -1920,6 +1931,64 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1927,14 +1996,194 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Expenses",
+  props: ['expenses', 'totalExpense', 'currency', 'expenseCategories'],
   data: function data() {
     return {
-      show: false
+      forms: {
+        "add": {
+          show: false
+        },
+        "update": {
+          show: false
+        }
+      },
+      table: {
+        show: true
+      },
+      toBeUpdatedExpense: null
     };
   },
-  props: ['user'],
-  methods: {}
+  methods: {
+    showForm: function showForm(form) {
+      var entries = Object.entries(this.forms);
+      this.table.show = false;
+
+      for (var _i = 0, _entries = entries; _i < _entries.length; _i++) {
+        var _entries$_i = _slicedToArray(_entries[_i], 2),
+            key = _entries$_i[0],
+            value = _entries$_i[1];
+
+        if (key == form) {
+          this.forms[key].show = true;
+        } else {
+          this.forms[key].show = false;
+        }
+      }
+    },
+    updateExpense: function updateExpense(expense) {
+      this.toBeUpdatedExpense = expense;
+      this.showForm('update');
+    },
+    showTable: function showTable() {
+      var bool = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      this.showForm(false);
+      this.table.show = bool;
+    },
+    updateUser: function updateUser() {
+      this.$emit('updateUser');
+    },
+    deleteExpense: function deleteExpense(id) {
+      var that = this;
+      window.Alert.confirm("Are you sure you want to delete this expense?", function () {
+        that.$emit('showLoader');
+        window.axios["delete"](window.makeUrl("/user/expenses/" + id), []).then(function (resp) {
+          that.updateUser();
+          window.Alert.msg("Success!", "Expense deleted!");
+          that.$emit('hideLoader');
+        })["catch"](function (resp) {
+          window.ShowError();
+        });
+      });
+    }
+  },
+  computed: {
+    getToBeUpdatedExpense: function getToBeUpdatedExpense() {
+      return this.toBeUpdatedExpense;
+    }
+  },
+  updated: function updated() {
+    window.InitDataTable($('#expensesTable'));
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/AddExpense.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Forms/AddExpense.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["expenseCategories"],
+  data: function data() {
+    return {
+      form: {
+        amount_value: null,
+        description_value: null,
+        category_value: null
+      }
+    };
+  },
+  methods: {
+    showExpensesTable: function showExpensesTable() {
+      this.$emit("showTable");
+    },
+    clearForm: function clearForm() {
+      var entries = Object.entries(this.form);
+
+      for (var _i = 0, _entries = entries; _i < _entries.length; _i++) {
+        var _entries$_i = _slicedToArray(_entries[_i], 2),
+            key = _entries$_i[0],
+            value = _entries$_i[1];
+
+        this.form[key] = null;
+      }
+    },
+    addExpense: function addExpense() {
+      var that = this;
+      window.Alert.confirm("Are you sure you want to add this Expense?", function () {
+        that.$emit('showLoader');
+        var description = that.form.description_value;
+        var category_id = that.form.category_value;
+        var amount = that.form.amount_value;
+        window.axios.post(window.makeUrl("/expenses"), {
+          description: description,
+          category_id: category_id,
+          amount: amount
+        }).then(function (resp) {
+          that.$emit('updateUser');
+          that.clearForm();
+          that.showExpensesTable();
+          window.Alert.msg("Expense Added!");
+        })["catch"](function (error) {
+          window.FormErrors.Apply(error.response.data.errors);
+          window.ShowError();
+        });
+        that.$emit('hideLoader');
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2047,6 +2296,131 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           that.clearForm();
           that.showIncomesTable();
           window.Alert.msg("Income Added!");
+        })["catch"](function (error) {
+          window.FormErrors.Apply(error.response.data.errors);
+          window.ShowError();
+        });
+        that.$emit('hideLoader');
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/EditExpense.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Forms/EditExpense.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["expenseCategories", 'expense'],
+  data: function data() {
+    return {
+      form: {
+        amount_value: this.expense ? this.expense.amount : '',
+        description_value: this.expense ? this.expense.description : '',
+        category_value: this.expense ? this.expense.category_id : ''
+      }
+    };
+  },
+  watch: {
+    expense: function expense(_expense) {
+      this.form.amount_value = _expense.amount;
+      this.form.description_value = _expense.description;
+      this.form.category_value = _expense.category_id;
+    }
+  },
+  methods: {
+    showExpensesTable: function showExpensesTable() {
+      this.$emit("showTable");
+    },
+    clearForm: function clearForm() {
+      var entries = Object.entries(this.form);
+
+      for (var _i = 0, _entries = entries; _i < _entries.length; _i++) {
+        var _entries$_i = _slicedToArray(_entries[_i], 2),
+            key = _entries$_i[0],
+            value = _entries$_i[1];
+
+        this.form[key] = null;
+      }
+    },
+    updateExpense: function updateExpense() {
+      var that = this;
+      window.Alert.confirm("Are you sure you want to edit this expense?", function () {
+        that.$emit('showLoader');
+        var description = that.form.description_value;
+        var category_id = that.form.category_value;
+        var amount = that.form.amount_value;
+        window.axios.patch(window.makeUrl("/user/expenses/" + that.expense.id), {
+          description: description,
+          category_id: category_id,
+          amount: amount
+        }).then(function (resp) {
+          that.$emit('updateUser');
+          window.Alert.msg("Expense Updated!");
+          that.showExpensesTable();
         })["catch"](function (error) {
           window.FormErrors.Apply(error.response.data.errors);
           window.ShowError();
@@ -56642,7 +57016,22 @@ var render = function() {
                 value: _vm.tabs.expenses.show,
                 expression: "tabs.expenses.show"
               }
-            ]
+            ],
+            attrs: {
+              expenses: _vm.getExpenses,
+              currency: _vm.getCurrency,
+              totalExpense: _vm.getTotalExpense,
+              expenseCategories: _vm.getExpenseCategories
+            },
+            on: {
+              updateUser: _vm.updateUser,
+              showLoader: function($event) {
+                return _vm.showLoader(true)
+              },
+              hideLoader: function($event) {
+                return _vm.showLoader(false)
+              }
+            }
           }),
           _vm._v(" "),
           _c("Profile", {
@@ -56686,18 +57075,342 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      directives: [
+    [
+      _c(
+        "div",
         {
-          name: "show",
-          rawName: "v-show",
-          value: this.show,
-          expression: "this.show"
-        }
-      ]
-    },
-    [_c("h1", [_vm._v("Expenses")])]
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.table.show,
+              expression: "table.show"
+            }
+          ]
+        },
+        [
+          _c("h1", { staticClass: "bb" }, [
+            _vm._v("\n            Expenses\n            \n            "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary right",
+                on: {
+                  click: function($event) {
+                    return _vm.showForm("add")
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fa fa-plus" }), _vm._v(" Add Expense")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "table",
+            {
+              staticClass: "table table-light table-bordered table-striped",
+              attrs: { id: "expensesTable" }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.expenses, function(expense, index) {
+                  return _c("tr", { key: index }, [
+                    _c("td", [_vm._v(_vm._s(index + 1))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(expense.id))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(expense.description))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(expense.category ? expense.category.name : "-")
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(expense.when))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("span", { staticClass: "text-danger" }, [
+                        _vm._v(
+                          _vm._s(_vm.currency) + " -" + _vm._s(expense.amount)
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-xs btn-primary",
+                          on: {
+                            click: function($event) {
+                              return _vm.updateExpense(expense)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-edit" })]
+                      ),
+                      _vm._v("  \n                        "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-xs btn-danger",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteExpense(expense.id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-trash" })]
+                      )
+                    ])
+                  ])
+                }),
+                0
+              )
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      this.forms.add.show
+        ? _c("Form-AddExpense", {
+            attrs: { expenseCategories: _vm.expenseCategories },
+            on: {
+              showTable: function($event) {
+                return _vm.showTable(true)
+              },
+              updateUser: _vm.updateUser
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      this.forms.update.show
+        ? _c("Form-EditExpense", {
+            attrs: {
+              expenseCategories: _vm.expenseCategories,
+              expense: _vm.getToBeUpdatedExpense
+            },
+            on: {
+              showTable: function($event) {
+                return _vm.showTable(true)
+              },
+              updateUser: _vm.updateUser
+            }
+          })
+        : _vm._e()
+    ],
+    1
   )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Category")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Created")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Amount")]),
+        _vm._v(" "),
+        _c("th")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/AddExpense.vue?vue&type=template&id=13b0c53c&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Forms/AddExpense.vue?vue&type=template&id=13b0c53c& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-12 col-lg-10 offset-lg-1" }, [
+      _c("h1", { staticClass: "bb" }, [
+        _vm._v("\n            Add Expense\n\n            "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary right",
+            on: { click: _vm.showExpensesTable }
+          },
+          [_c("i", { staticClass: "fa fa-chevron-left" }), _vm._v(" Expenses")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "form-group col-md-12 col-lg-6" }, [
+          _c("label", { attrs: { for: "category" } }, [_vm._v("Category")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.category_value,
+                  expression: "form.category_value"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "category_id", id: "category" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.form,
+                    "category_value",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            _vm._l(_vm.expenseCategories, function(cat) {
+              return _c(
+                "option",
+                { key: cat.id, domProps: { value: cat.id } },
+                [_vm._v(_vm._s(cat.name))]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "category_id-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12 col-lg-6" }, [
+          _c("label", { attrs: { for: "amount" } }, [_vm._v("Amount")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.amount_value,
+                expression: "form.amount_value"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", id: "amount", name: "amount" },
+            domProps: { value: _vm.form.amount_value },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "amount_value", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "amount-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c("label", { attrs: { for: "description" } }, [
+            _vm._v("Description")
+          ]),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.description_value,
+                expression: "form.description_value"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              id: "description",
+              name: "description",
+              rows: "4",
+              cols: "2"
+            },
+            domProps: { value: _vm.form.description_value },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "description_value", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "description-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-danger btn-block",
+              on: { click: _vm.clearForm }
+            },
+            [_vm._v("Clear Form")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success btn-block",
+              on: { click: _vm.addExpense }
+            },
+            [_vm._v("Add Expense")]
+          )
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -56874,6 +57587,192 @@ var render = function() {
               on: { click: _vm.addIncome }
             },
             [_vm._v("Add Income")]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/EditExpense.vue?vue&type=template&id=0b735b13&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Forms/EditExpense.vue?vue&type=template&id=0b735b13& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-12 col-lg-10 offset-lg-1" }, [
+      _c("h1", { staticClass: "bb" }, [
+        _vm._v(
+          "\n            Edit Expense #" +
+            _vm._s(_vm.expense ? _vm.expense.id : "") +
+            "\n\n            "
+        ),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary right",
+            on: { click: _vm.showExpensesTable }
+          },
+          [_c("i", { staticClass: "fa fa-chevron-left" }), _vm._v(" Expenses")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "form-group col-md-12 col-lg-6" }, [
+          _c("label", { attrs: { for: "category" } }, [_vm._v("Category")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.category_value,
+                  expression: "form.category_value"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                name: "category_id",
+                "data-feedback-id": "edit_category_id",
+                id: "category"
+              },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.form,
+                    "category_value",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            _vm._l(_vm.expenseCategories, function(cat) {
+              return _c(
+                "option",
+                { key: cat.id, domProps: { value: cat.id } },
+                [_vm._v(_vm._s(cat.name))]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "edit_category_id-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12 col-lg-6" }, [
+          _c("label", { attrs: { for: "amount" } }, [_vm._v("Amount")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.amount_value,
+                expression: "form.amount_value"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              id: "amount",
+              "data-feedback-id": "edit_amount",
+              name: "amount"
+            },
+            domProps: { value: _vm.form.amount_value },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "amount_value", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "edit_amount-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c("label", { attrs: { for: "description" } }, [
+            _vm._v("Description")
+          ]),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.description_value,
+                expression: "form.description_value"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              id: "description",
+              "data-feedback-id": "edit_description",
+              name: "description",
+              rows: "4",
+              cols: "2"
+            },
+            domProps: { value: _vm.form.description_value },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "description_value", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "edit_description-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success btn-block",
+              on: { click: _vm.updateExpense }
+            },
+            [_vm._v("Update Expense")]
           )
         ])
       ])
@@ -69645,7 +70544,9 @@ module.exports = function(module) {
 var map = {
 	"./components/App.vue": "./resources/js/components/App.vue",
 	"./components/Expenses.vue": "./resources/js/components/Expenses.vue",
+	"./components/Forms/AddExpense.vue": "./resources/js/components/Forms/AddExpense.vue",
 	"./components/Forms/AddIncome.vue": "./resources/js/components/Forms/AddIncome.vue",
+	"./components/Forms/EditExpense.vue": "./resources/js/components/Forms/EditExpense.vue",
 	"./components/Forms/EditIncome.vue": "./resources/js/components/Forms/EditIncome.vue",
 	"./components/Incomes.vue": "./resources/js/components/Incomes.vue",
 	"./components/Loader.vue": "./resources/js/components/Loader.vue",
@@ -69888,7 +70789,7 @@ function updateUserObject(user) {
   user.getTotalExpense = function () {
     var total = 0;
     this.expenses.forEach(function (expense) {
-      total -= expense.amount;
+      total += expense.amount;
     });
     return this.currency + " " + total;
   };
@@ -70208,7 +71109,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./AddExpense.vue": "./resources/js/components/Forms/AddExpense.vue",
 	"./AddIncome.vue": "./resources/js/components/Forms/AddIncome.vue",
+	"./EditExpense.vue": "./resources/js/components/Forms/EditExpense.vue",
 	"./EditIncome.vue": "./resources/js/components/Forms/EditIncome.vue"
 };
 
@@ -70231,6 +71134,75 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = "./resources/js/components/Forms sync recursive \\.vue$/";
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/AddExpense.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/Forms/AddExpense.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AddExpense_vue_vue_type_template_id_13b0c53c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddExpense.vue?vue&type=template&id=13b0c53c& */ "./resources/js/components/Forms/AddExpense.vue?vue&type=template&id=13b0c53c&");
+/* harmony import */ var _AddExpense_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddExpense.vue?vue&type=script&lang=js& */ "./resources/js/components/Forms/AddExpense.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AddExpense_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddExpense_vue_vue_type_template_id_13b0c53c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddExpense_vue_vue_type_template_id_13b0c53c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Forms/AddExpense.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/AddExpense.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/Forms/AddExpense.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddExpense_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddExpense.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/AddExpense.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddExpense_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/AddExpense.vue?vue&type=template&id=13b0c53c&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/Forms/AddExpense.vue?vue&type=template&id=13b0c53c& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddExpense_vue_vue_type_template_id_13b0c53c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddExpense.vue?vue&type=template&id=13b0c53c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/AddExpense.vue?vue&type=template&id=13b0c53c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddExpense_vue_vue_type_template_id_13b0c53c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddExpense_vue_vue_type_template_id_13b0c53c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -70298,6 +71270,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddIncome_vue_vue_type_template_id_c6ce99e2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddIncome_vue_vue_type_template_id_c6ce99e2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/EditExpense.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/Forms/EditExpense.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditExpense_vue_vue_type_template_id_0b735b13___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditExpense.vue?vue&type=template&id=0b735b13& */ "./resources/js/components/Forms/EditExpense.vue?vue&type=template&id=0b735b13&");
+/* harmony import */ var _EditExpense_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditExpense.vue?vue&type=script&lang=js& */ "./resources/js/components/Forms/EditExpense.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditExpense_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditExpense_vue_vue_type_template_id_0b735b13___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditExpense_vue_vue_type_template_id_0b735b13___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Forms/EditExpense.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/EditExpense.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/Forms/EditExpense.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditExpense_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditExpense.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/EditExpense.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditExpense_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/EditExpense.vue?vue&type=template&id=0b735b13&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/Forms/EditExpense.vue?vue&type=template&id=0b735b13& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditExpense_vue_vue_type_template_id_0b735b13___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditExpense.vue?vue&type=template&id=0b735b13& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/EditExpense.vue?vue&type=template&id=0b735b13&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditExpense_vue_vue_type_template_id_0b735b13___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditExpense_vue_vue_type_template_id_0b735b13___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -24,6 +24,8 @@
 
             <Expenses 
                 v-show="tabs.expenses.show"
+                @updateUser="updateUser" @showLoader="showLoader(true)" @hideLoader="showLoader(false)"
+                :expenses="getExpenses" :currency="getCurrency" :totalExpense="getTotalExpense" :expenseCategories="getExpenseCategories"
             >
             </Expenses>
 
@@ -65,7 +67,8 @@ export default {
             currency: null,
             incomes: [],
             expenses: [],
-            incomeCategories: []
+            incomeCategories: [],
+            expenseCategories: []
         }
     },
 
@@ -96,7 +99,9 @@ export default {
                 this.balance = this.user.balance;
                 this.currency = this.user.currency;
                 this.incomeCategories = this.user.income_categories;
+                this.expenseCategories = this.user.expense_categories;
                 this.totalIncome = this.user.getTotalIncome();
+                this.totalExpense = this.user.getTotalExpense();
 
                 that.showLoader(false);
             }).catch(error => {
@@ -134,8 +139,16 @@ export default {
             return this.totalIncome;
         },
 
+        getTotalExpense() {
+            return this.totalExpense;
+        },
+
         getIncomeCategories() {
             return this.incomeCategories;
+        },
+
+        getExpenseCategories() {
+            return this.expenseCategories;
         },
 
         getCurrency() {

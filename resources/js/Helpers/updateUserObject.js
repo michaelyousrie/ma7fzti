@@ -22,7 +22,7 @@ function updateUserObject( user ) {
         let total = 0;
         
         this.expenses.forEach(expense => {
-            total -= expense.amount;
+            total += expense.amount;
         });
 
         return this.currency + " " + total;
