@@ -12,7 +12,7 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
-} catch (e) {}
+} catch (e) { console.log(e) }
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -37,6 +37,29 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+window.application_name = "Ma7fzti";
+
+let api_token = $('meta[name="api-token"]').attr('value');
+window.api_token = api_token;
+
+window.Ajax = require('./Helpers/Ajax').default.Ajax;
+window.makeUrl = require('./Helpers/makeUrl').makeUrl;
+window.updateUserObject = require('./Helpers/updateUserObject').updateUserObject;
+window.Alert = require('./Helpers/Alert');
+window.FormErrors = require('./Helpers/FormErrors');
+window.ShowError = require('./Helpers/ShowError').ShowError;
+window.InitDataTable = require('./Helpers/InitDataTable').InitDataTable;
+
+$(document).on('focus', 'select, input, textarea', function(e) {
+    let that = $(this);
+
+    window.FormErrors.ClearField( that.attr('id') );
+});
+
+// window.axios.get("/api/v1/user?api_token=" + window.api_token).then(response => {
+//     window.user = response.data;
+// });
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

@@ -49,4 +49,18 @@ class ExpensesController extends Controller
 
         return new ExpenseResource($expense);
     }
+
+
+    public function destroy( $id )
+    {
+        try {
+            $expense = $this->guard( Expense::class, $id );
+    
+            $expense->delete();
+    
+            return successResponse();
+        } catch( \Exception $e ) {
+            return failResponse();
+        }
+    }
 }
