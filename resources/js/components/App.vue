@@ -30,7 +30,10 @@
             </Expenses>
 
             <Profile
-                v-show="tabs.profile.show">
+                v-show="tabs.profile.show"
+                @updateUser="updateUser" @showLoader="showLoader(true)" @hideLoader="showLoader(false)"
+                :user="getUserData"
+            >
             </Profile>
         </div>
     </div>
@@ -157,7 +160,11 @@ export default {
 
         getUserFirstName() {
             return this.user.first_name;
-        }
+        },
+
+        getUserData() {
+            return this.user;
+        },
     },
 
     created() {

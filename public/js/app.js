@@ -1813,6 +1813,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1914,6 +1917,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     return this.currency;
   }), _defineProperty(_computed, "getUserFirstName", function getUserFirstName() {
     return this.user.first_name;
+  }), _defineProperty(_computed, "getUserData", function getUserData() {
+    return this.user;
   }), _computed),
   created: function created() {
     this.getUser();
@@ -2854,10 +2859,206 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['user'],
+  watch: {
+    user: function user(_user) {
+      this.form.first_name = _user.first_name;
+      this.form.last_name = _user.last_name;
+      this.form.email = _user.email;
+      this.form.currency = _user.currency;
+      this.form.language_code = _user.language_code;
+    }
+  },
   data: function data() {
-    return {// 
+    return {
+      form: {
+        first_name: null,
+        last_name: null,
+        email: null,
+        currency: null,
+        language_code: null,
+        password: null,
+        new_password: '',
+        new_password_confirm: ''
+      },
+      languages: []
     };
+  },
+  created: function created() {
+    var that = this;
+    window.axios.get(window.makeUrl("languages")).then(function (resp) {
+      that.languages = resp.data.data;
+    })["catch"](function (err) {
+      window.ShowError();
+    });
+  },
+  computed: {
+    getLanguages: function getLanguages() {
+      return this.languages;
+    }
+  },
+  methods: {
+    updateProfile: function updateProfile() {
+      var that = this;
+      window.Alert.confirm("Are you sure you want to update your profile?", function () {
+        that.$emit("showLoader");
+        window.axios.patch(window.makeUrl("user"), {
+          first_name: that.form.first_name,
+          last_name: that.form.last_name,
+          email: that.form.email,
+          currency: that.form.currency,
+          language_code: that.form.language_code,
+          new_password: that.form.new_password,
+          password: that.form.password
+        }).then(function (resp) {
+          window.Alert.msg("Profile Updated. Please relogin...");
+          window.location = "/logout";
+        })["catch"](function (error) {
+          window.FormErrors.Apply(error.response.data.errors);
+          window.ShowError();
+        });
+        that.$emit('hideLoader');
+      });
+    },
+    showPasswordModal: function showPasswordModal() {
+      if (!this.confirmPasswordsMatch()) return;
+      $("#EnterPasswordModal").modal('show');
+    },
+    confirmPasswordsMatch: function confirmPasswordsMatch() {
+      if (this.form.new_password != this.form.new_password_confirm) {
+        window.Alert.error("Error", "Your password confirmation doesn't match your password!");
+        return false;
+      }
+
+      return true;
+    }
   }
 });
 
@@ -57042,7 +57243,17 @@ var render = function() {
                 value: _vm.tabs.profile.show,
                 expression: "tabs.profile.show"
               }
-            ]
+            ],
+            attrs: { user: _vm.getUserData },
+            on: {
+              updateUser: _vm.updateUser,
+              showLoader: function($event) {
+                return _vm.showLoader(true)
+              },
+              hideLoader: function($event) {
+                return _vm.showLoader(false)
+              }
+            }
           })
         ],
         1
@@ -58337,9 +58548,423 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Profile")])
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-12 col-lg-10 offset-lg-1" }, [
+      _c("h1", { staticClass: "bb" }, [_vm._v("My Profile")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", { attrs: { for: "first_name" } }, [_vm._v("First Name")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.first_name,
+                expression: "form.first_name"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", name: "first_name", id: "first_name" },
+            domProps: { value: _vm.form.first_name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "first_name", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "first_name-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-6" }, [
+          _c("label", { attrs: { for: "last_name" } }, [_vm._v("Last Name")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.last_name,
+                expression: "form.last_name"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", name: "last_name", id: "last_name" },
+            domProps: { value: _vm.form.last_name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "last_name", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "last_name-feedback-span" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.email,
+                expression: "form.email"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", name: "email", id: "email" },
+            domProps: { value: _vm.form.email },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "email", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "email-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12 col-lg-6" }, [
+          _c("label", { attrs: { for: "currency" } }, [_vm._v("Currency")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.currency,
+                expression: "form.currency"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", name: "currency", id: "currency" },
+            domProps: { value: _vm.form.currency },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "currency", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "currency-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12 col-lg-6" }, [
+          _c("label", { attrs: { for: "language_code" } }, [
+            _vm._v("Language")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.language_code,
+                  expression: "form.language_code"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "language_code", id: "language_code" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.form,
+                    "language_code",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            _vm._l(_vm.getLanguages, function(lang) {
+              return _c(
+                "option",
+                { key: lang.code, domProps: { value: lang.code } },
+                [_vm._v(_vm._s(lang.name))]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "language_code-feedback-span" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-12 col-lg-6" }, [
+              _c("label", { attrs: { for: "new_password" } }, [
+                _vm._v("New Password")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.new_password,
+                    expression: "form.new_password"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "password",
+                  name: "new_password",
+                  id: "new_password"
+                },
+                domProps: { value: _vm.form.new_password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form, "new_password", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span", {
+                staticClass: "error-feedback-span",
+                attrs: { id: "new_password-feedback-span" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-12 col-lg-6" }, [
+              _c("label", { attrs: { for: "new_password_confirm" } }, [
+                _vm._v("New Password Confirmation")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.new_password_confirm,
+                    expression: "form.new_password_confirm"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "password",
+                  name: "new_password_confirm",
+                  id: "new_password_confirm"
+                },
+                domProps: { value: _vm.form.new_password_confirm },
+                on: {
+                  blur: _vm.confirmPasswordsMatch,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.form,
+                      "new_password_confirm",
+                      $event.target.value
+                    )
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span", {
+                staticClass: "error-feedback-span",
+                attrs: { id: "new_password_confirm-feedback-span" }
+              })
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success btn-block",
+              on: { click: _vm.showPasswordModal }
+            },
+            [_vm._v("Update Profile")]
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "EnterPassword",
+          "aria-hidden": "true",
+          id: "EnterPasswordModal"
+        }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("div", { staticClass: "col-md-12" }, [
+                _c("label", { attrs: { for: "password" } }, [
+                  _vm._v("Enter Current Password")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.password,
+                      expression: "form.password"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "password", name: "password", id: "password" },
+                  domProps: { value: _vm.form.password },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "password", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", {
+                  staticClass: "error-feedback-span",
+                  attrs: { id: "password-feedback-span" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("br"),
+              _c("hr"),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-12" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary form-control",
+                        attrs: { type: "button" },
+                        on: { click: _vm.updateProfile }
+                      },
+                      [_vm._v("Update Profile")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(2)
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]
+    )
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h1", { staticClass: "bb" }, [
+      _vm._v("\n                    Change Password\n                    "),
+      _c("span", { staticStyle: { "font-size": "0.5em" } }, [
+        _vm._v("(Leave empty to keep your current password)")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Enter Password")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary form-control",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Close")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
