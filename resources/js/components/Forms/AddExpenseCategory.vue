@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-md-12 col-lg-10 offset-lg-1">
             <h1 class="bb">
-                Add Income Category
+                Add Expense Category
 
-                <button class="btn btn-primary right" @click="showIncomesTable"><i class="fa fa-chevron-left"></i> Income Categories</button>
+                <button class="btn btn-primary right" @click="showExpensesTable"><i class="fa fa-chevron-left"></i> Expense Categories</button>
             </h1>
             
             <br>
@@ -29,7 +29,7 @@
                 <!-- Buttons -->
                 <div class="form-group col-md-12">
                     <button class="btn btn-danger btn-block" @click="clearForm">Clear Form</button>
-                    <button class="btn btn-success btn-block" @click="addIncome">Add Income Category</button>
+                    <button class="btn btn-success btn-block" @click="addExpenseCategory">Add Expense Category</button>
                 </div>
                 <!-- /Buttons -->
             </div>
@@ -49,7 +49,7 @@ export default {
     },
 
     methods: {
-        showIncomesTable() {
+        showExpensesTable() {
             this.$emit("showTable");
         },
 
@@ -61,21 +61,21 @@ export default {
             }
         },
 
-        addIncome() {
+        addExpenseCategory() {
             var that = this;
 
-            window.Alert.confirm("Are you sure you want to add this income category?", function() {
+            window.Alert.confirm("Are you sure you want to add this expense category?", function() {
 
                 that.$emit('showLoader');
 
                 let name = that.form.name_value;
                 let description = that.form.description_value;
 
-                window.axios.post( window.makeUrl( "/user/income_categories" ), { name, description } ).then(resp => {
+                window.axios.post( window.makeUrl( "/user/expense_categories" ), { name, description } ).then(resp => {
                     that.$emit('updateUser');
                     that.clearForm();
-                    that.showIncomesTable();
-                    window.Alert.msg("Income Category Added!");
+                    that.showExpensesTable();
+                    window.Alert.msg("Expense Category Added!");
                 }).catch(error => {
                     window.FormErrors.Apply( error.response.data.errors );
                     window.ShowError();

@@ -1947,6 +1947,152 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExpenseCategories.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExpenseCategories.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['user'],
+  data: function data() {
+    return {
+      forms: {
+        "add": {
+          show: false
+        },
+        "update": {
+          show: false
+        }
+      },
+      table: {
+        show: true
+      },
+      toBeUpdatedCategory: null
+    };
+  },
+  methods: {
+    showForm: function showForm(form) {
+      var entries = Object.entries(this.forms);
+      this.table.show = false;
+
+      for (var _i = 0, _entries = entries; _i < _entries.length; _i++) {
+        var _entries$_i = _slicedToArray(_entries[_i], 2),
+            key = _entries$_i[0],
+            value = _entries$_i[1];
+
+        if (key == form) {
+          this.forms[key].show = true;
+        } else {
+          this.forms[key].show = false;
+        }
+      }
+    },
+    updateCategory: function updateCategory(category) {
+      this.toBeUpdatedCategory = category;
+      this.showForm('update');
+    },
+    showTable: function showTable() {
+      var bool = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+      this.showForm(false);
+      this.table.show = bool;
+    },
+    updateUser: function updateUser() {
+      this.$emit('updateUser');
+    },
+    deleteCategory: function deleteCategory(id) {
+      var that = this;
+      window.Alert.confirm("Are you sure you want to delete this expense category AND all expenses that are associated with it?", function () {
+        that.$emit('showLoader');
+        window.axios["delete"](window.makeUrl("/user/expense_categories/" + id), []).then(function (resp) {
+          that.updateUser();
+          window.Alert.msg("Success!", "Expense Category deleted!");
+          that.$emit('hideLoader');
+        })["catch"](function (resp) {
+          window.ShowError();
+        });
+      });
+    }
+  },
+  computed: {
+    getToBeUpdatedCategory: function getToBeUpdatedCategory() {
+      return this.toBeUpdatedCategory;
+    },
+    getExpenseCategories: function getExpenseCategories() {
+      return this.user.expense_categories;
+    }
+  },
+  updated: function updated() {
+    window.InitDataTable($('#expenseCategoriesTable'));
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Expenses.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Expenses.vue?vue&type=script&lang=js& ***!
@@ -2213,6 +2359,112 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/AddExpenseCategory.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Forms/AddExpenseCategory.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      form: {
+        name_value: null,
+        description_value: null
+      }
+    };
+  },
+  methods: {
+    showExpensesTable: function showExpensesTable() {
+      this.$emit("showTable");
+    },
+    clearForm: function clearForm() {
+      var entries = Object.entries(this.form);
+
+      for (var _i = 0, _entries = entries; _i < _entries.length; _i++) {
+        var _entries$_i = _slicedToArray(_entries[_i], 2),
+            key = _entries$_i[0],
+            value = _entries$_i[1];
+
+        this.form[key] = null;
+      }
+    },
+    addExpenseCategory: function addExpenseCategory() {
+      var that = this;
+      window.Alert.confirm("Are you sure you want to add this expense category?", function () {
+        that.$emit('showLoader');
+        var name = that.form.name_value;
+        var description = that.form.description_value;
+        window.axios.post(window.makeUrl("/user/expense_categories"), {
+          name: name,
+          description: description
+        }).then(function (resp) {
+          that.$emit('updateUser');
+          that.clearForm();
+          that.showExpensesTable();
+          window.Alert.msg("Expense Category Added!");
+        })["catch"](function (error) {
+          window.FormErrors.Apply(error.response.data.errors);
+          window.ShowError();
+        });
+        that.$emit('hideLoader');
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/AddIncome.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Forms/AddIncome.vue?vue&type=script&lang=js& ***!
@@ -2390,7 +2642,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["incomeCategories"],
   data: function data() {
     return {
       form: {
@@ -2553,6 +2804,117 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
           that.$emit('updateUser');
           window.Alert.msg("Expense Updated!");
           that.showExpensesTable();
+        })["catch"](function (error) {
+          window.FormErrors.Apply(error.response.data.errors);
+          window.ShowError();
+        });
+        that.$emit('hideLoader');
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/EditExpenseCategory.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Forms/EditExpenseCategory.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['category'],
+  data: function data() {
+    return {
+      form: {
+        name_value: this.category ? this.category.name : '',
+        description_value: this.category ? this.category.description : ''
+      }
+    };
+  },
+  watch: {
+    category: function category(_category) {
+      this.form.name_value = _category.name;
+      this.form.name_value = _category.description;
+    }
+  },
+  methods: {
+    showExpenseCategoriesTable: function showExpenseCategoriesTable() {
+      this.$emit("showTable");
+    },
+    clearForm: function clearForm() {
+      var entries = Object.entries(this.form);
+
+      for (var _i = 0, _entries = entries; _i < _entries.length; _i++) {
+        var _entries$_i = _slicedToArray(_entries[_i], 2),
+            key = _entries$_i[0],
+            value = _entries$_i[1];
+
+        this.form[key] = null;
+      }
+    },
+    updateIncome: function updateIncome() {
+      var that = this;
+      window.Alert.confirm("Are you sure you want to edit this expense category?", function () {
+        that.$emit('showLoader');
+        var description = that.form.description_value;
+        var name = that.form.name_value;
+        window.axios.patch(window.makeUrl("/user/expense_categories/" + that.category.id), {
+          name: name,
+          description: description
+        }).then(function (resp) {
+          that.$emit('updateUser');
+          window.Alert.msg("Expense Category Updated!");
+          that.showExpenseCategoriesTable();
         })["catch"](function (error) {
           window.FormErrors.Apply(error.response.data.errors);
           window.ShowError();
@@ -2818,7 +3180,6 @@ function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = 
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-//
 //
 //
 //
@@ -57725,9 +58086,152 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Expense Categories")])
+  return _c(
+    "div",
+    [
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.table.show,
+              expression: "table.show"
+            }
+          ]
+        },
+        [
+          _c("h1", { staticClass: "bb" }, [
+            _vm._v(
+              "\n            Expense Categories\n            \n            "
+            ),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary right",
+                on: {
+                  click: function($event) {
+                    return _vm.showForm("add")
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "fa fa-plus" }),
+                _vm._v(" Add Expense Category")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "table",
+            {
+              staticClass: "table table-light table-bordered table-striped",
+              attrs: { id: "expenseCategoriesTable" }
+            },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.getExpenseCategories, function(category, index) {
+                  return _c("tr", { key: index }, [
+                    _c("td", [_vm._v(_vm._s(index + 1))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(category.id))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(category.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(category.description))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(category.when))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-xs btn-primary",
+                          on: {
+                            click: function($event) {
+                              return _vm.updateCategory(category)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-edit" })]
+                      ),
+                      _vm._v("  \n                        "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-xs btn-danger",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteCategory(category.id)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-trash" })]
+                      )
+                    ])
+                  ])
+                }),
+                0
+              )
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      this.forms.add.show
+        ? _c("Form-AddExpenseCategory", {
+            on: {
+              showTable: function($event) {
+                return _vm.showTable(true)
+              },
+              updateUser: _vm.updateUser
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      this.forms.update.show
+        ? _c("Form-EditExpenseCategory", {
+            attrs: { category: _vm.getToBeUpdatedCategory },
+            on: {
+              showTable: function($event) {
+                return _vm.showTable(true)
+              },
+              updateUser: _vm.updateUser
+            }
+          })
+        : _vm._e()
+    ],
+    1
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Created")]),
+        _vm._v(" "),
+        _c("th")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -58082,6 +58586,146 @@ var render = function() {
               on: { click: _vm.addExpense }
             },
             [_vm._v("Add Expense")]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/AddExpenseCategory.vue?vue&type=template&id=d6aed500&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Forms/AddExpenseCategory.vue?vue&type=template&id=d6aed500& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-12 col-lg-10 offset-lg-1" }, [
+      _c("h1", { staticClass: "bb" }, [
+        _vm._v("\n            Add Expense Category\n\n            "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary right",
+            on: { click: _vm.showExpensesTable }
+          },
+          [
+            _c("i", { staticClass: "fa fa-chevron-left" }),
+            _vm._v(" Expense Categories")
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.name_value,
+                expression: "form.name_value"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              id: "name",
+              "data-feedback-id": "edit_name",
+              name: "name"
+            },
+            domProps: { value: _vm.form.name_value },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "name_value", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "edit_name-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c("label", { attrs: { for: "description" } }, [
+            _vm._v("Description")
+          ]),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.description_value,
+                expression: "form.description_value"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              id: "description",
+              "data-feedback-id": "edit_description",
+              name: "description",
+              rows: "4",
+              cols: "2"
+            },
+            domProps: { value: _vm.form.description_value },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "description_value", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "edit_description-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-danger btn-block",
+              on: { click: _vm.clearForm }
+            },
+            [_vm._v("Clear Form")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success btn-block",
+              on: { click: _vm.addExpenseCategory }
+            },
+            [_vm._v("Add Expense Category")]
           )
         ])
       ])
@@ -58602,6 +59246,141 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/EditExpenseCategory.vue?vue&type=template&id=38381231&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Forms/EditExpenseCategory.vue?vue&type=template&id=38381231& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-12 col-lg-10 offset-lg-1" }, [
+      _c("h1", { staticClass: "bb" }, [
+        _vm._v("\n            Edit Expense Category "),
+        _c("i", [
+          _vm._v("(" + _vm._s(_vm.category ? _vm.category.name : "") + ")")
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary right",
+            on: { click: _vm.showExpenseCategoriesTable }
+          },
+          [
+            _c("i", { staticClass: "fa fa-chevron-left" }),
+            _vm._v(" Expense Categories")
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.name_value,
+                expression: "form.name_value"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              id: "name",
+              "data-feedback-id": "edit_name",
+              name: "name"
+            },
+            domProps: { value: _vm.form.name_value },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "name_value", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "edit_name-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c("label", { attrs: { for: "description" } }, [
+            _vm._v("Description")
+          ]),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.description_value,
+                expression: "form.description_value"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              id: "description",
+              "data-feedback-id": "edit_description",
+              name: "description",
+              rows: "4",
+              cols: "2"
+            },
+            domProps: { value: _vm.form.description_value },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form, "description_value", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "error-feedback-span",
+            attrs: { id: "edit_description-feedback-span" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-md-12" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-success btn-block",
+              on: { click: _vm.updateIncome }
+            },
+            [_vm._v("Update Income Category")]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/EditIncome.vue?vue&type=template&id=52f5fb3e&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Forms/EditIncome.vue?vue&type=template&id=52f5fb3e& ***!
@@ -59038,7 +59817,6 @@ var render = function() {
       _vm._v(" "),
       this.forms.add.show
         ? _c("Form-AddIncomeCategory", {
-            attrs: { incomeCategories: _vm.incomeCategories },
             on: {
               showTable: function($event) {
                 return _vm.showTable(true)
@@ -59050,10 +59828,7 @@ var render = function() {
       _vm._v(" "),
       this.forms.update.show
         ? _c("Form-EditIncomeCategory", {
-            attrs: {
-              incomeCategories: _vm.incomeCategories,
-              category: _vm.getToBeUpdatedCategory
-            },
+            attrs: { category: _vm.getToBeUpdatedCategory },
             on: {
               showTable: function($event) {
                 return _vm.showTable(true)
@@ -72082,9 +72857,11 @@ var map = {
 	"./components/ExpenseCategories.vue": "./resources/js/components/ExpenseCategories.vue",
 	"./components/Expenses.vue": "./resources/js/components/Expenses.vue",
 	"./components/Forms/AddExpense.vue": "./resources/js/components/Forms/AddExpense.vue",
+	"./components/Forms/AddExpenseCategory.vue": "./resources/js/components/Forms/AddExpenseCategory.vue",
 	"./components/Forms/AddIncome.vue": "./resources/js/components/Forms/AddIncome.vue",
 	"./components/Forms/AddIncomeCategory.vue": "./resources/js/components/Forms/AddIncomeCategory.vue",
 	"./components/Forms/EditExpense.vue": "./resources/js/components/Forms/EditExpense.vue",
+	"./components/Forms/EditExpenseCategory.vue": "./resources/js/components/Forms/EditExpenseCategory.vue",
 	"./components/Forms/EditIncome.vue": "./resources/js/components/Forms/EditIncome.vue",
 	"./components/Forms/EditIncomeCategory.vue": "./resources/js/components/Forms/EditIncomeCategory.vue",
 	"./components/IncomeCategories.vue": "./resources/js/components/IncomeCategories.vue",
@@ -72582,15 +73359,17 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ExpenseCategories_vue_vue_type_template_id_5b15bfb9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ExpenseCategories.vue?vue&type=template&id=5b15bfb9& */ "./resources/js/components/ExpenseCategories.vue?vue&type=template&id=5b15bfb9&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _ExpenseCategories_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExpenseCategories.vue?vue&type=script&lang=js& */ "./resources/js/components/ExpenseCategories.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var script = {}
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  script,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ExpenseCategories_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _ExpenseCategories_vue_vue_type_template_id_5b15bfb9___WEBPACK_IMPORTED_MODULE_0__["render"],
   _ExpenseCategories_vue_vue_type_template_id_5b15bfb9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
@@ -72604,6 +73383,20 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 if (false) { var api; }
 component.options.__file = "resources/js/components/ExpenseCategories.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ExpenseCategories.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/ExpenseCategories.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExpenseCategories_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ExpenseCategories.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExpenseCategories.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExpenseCategories_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -72703,9 +73496,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var map = {
 	"./AddExpense.vue": "./resources/js/components/Forms/AddExpense.vue",
+	"./AddExpenseCategory.vue": "./resources/js/components/Forms/AddExpenseCategory.vue",
 	"./AddIncome.vue": "./resources/js/components/Forms/AddIncome.vue",
 	"./AddIncomeCategory.vue": "./resources/js/components/Forms/AddIncomeCategory.vue",
 	"./EditExpense.vue": "./resources/js/components/Forms/EditExpense.vue",
+	"./EditExpenseCategory.vue": "./resources/js/components/Forms/EditExpenseCategory.vue",
 	"./EditIncome.vue": "./resources/js/components/Forms/EditIncome.vue",
 	"./EditIncomeCategory.vue": "./resources/js/components/Forms/EditIncomeCategory.vue"
 };
@@ -72796,6 +73591,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddExpense_vue_vue_type_template_id_13b0c53c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddExpense_vue_vue_type_template_id_13b0c53c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/AddExpenseCategory.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/components/Forms/AddExpenseCategory.vue ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AddExpenseCategory_vue_vue_type_template_id_d6aed500___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddExpenseCategory.vue?vue&type=template&id=d6aed500& */ "./resources/js/components/Forms/AddExpenseCategory.vue?vue&type=template&id=d6aed500&");
+/* harmony import */ var _AddExpenseCategory_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddExpenseCategory.vue?vue&type=script&lang=js& */ "./resources/js/components/Forms/AddExpenseCategory.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AddExpenseCategory_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddExpenseCategory_vue_vue_type_template_id_d6aed500___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddExpenseCategory_vue_vue_type_template_id_d6aed500___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Forms/AddExpenseCategory.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/AddExpenseCategory.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/Forms/AddExpenseCategory.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddExpenseCategory_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddExpenseCategory.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/AddExpenseCategory.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddExpenseCategory_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/AddExpenseCategory.vue?vue&type=template&id=d6aed500&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/Forms/AddExpenseCategory.vue?vue&type=template&id=d6aed500& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddExpenseCategory_vue_vue_type_template_id_d6aed500___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddExpenseCategory.vue?vue&type=template&id=d6aed500& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/AddExpenseCategory.vue?vue&type=template&id=d6aed500&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddExpenseCategory_vue_vue_type_template_id_d6aed500___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddExpenseCategory_vue_vue_type_template_id_d6aed500___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -73003,6 +73867,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditExpense_vue_vue_type_template_id_0b735b13___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditExpense_vue_vue_type_template_id_0b735b13___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/EditExpenseCategory.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/Forms/EditExpenseCategory.vue ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditExpenseCategory_vue_vue_type_template_id_38381231___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditExpenseCategory.vue?vue&type=template&id=38381231& */ "./resources/js/components/Forms/EditExpenseCategory.vue?vue&type=template&id=38381231&");
+/* harmony import */ var _EditExpenseCategory_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditExpenseCategory.vue?vue&type=script&lang=js& */ "./resources/js/components/Forms/EditExpenseCategory.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditExpenseCategory_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditExpenseCategory_vue_vue_type_template_id_38381231___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditExpenseCategory_vue_vue_type_template_id_38381231___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Forms/EditExpenseCategory.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/EditExpenseCategory.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/Forms/EditExpenseCategory.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditExpenseCategory_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditExpenseCategory.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/EditExpenseCategory.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditExpenseCategory_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Forms/EditExpenseCategory.vue?vue&type=template&id=38381231&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/Forms/EditExpenseCategory.vue?vue&type=template&id=38381231& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditExpenseCategory_vue_vue_type_template_id_38381231___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditExpenseCategory.vue?vue&type=template&id=38381231& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Forms/EditExpenseCategory.vue?vue&type=template&id=38381231&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditExpenseCategory_vue_vue_type_template_id_38381231___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditExpenseCategory_vue_vue_type_template_id_38381231___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

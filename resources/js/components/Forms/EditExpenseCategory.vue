@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-md-12 col-lg-10 offset-lg-1">
             <h1 class="bb">
-                Add Income Category
+                Edit Expense Category <i>({{ category ? category.name : ''}})</i>
 
-                <button class="btn btn-primary right" @click="showIncomesTable"><i class="fa fa-chevron-left"></i> Income Categories</button>
+                <button class="btn btn-primary right" @click="showExpenseCategoriesTable"><i class="fa fa-chevron-left"></i> Expense Categories</button>
             </h1>
             
             <br>
@@ -28,8 +28,7 @@
 
                 <!-- Buttons -->
                 <div class="form-group col-md-12">
-                    <button class="btn btn-danger btn-block" @click="clearForm">Clear Form</button>
-                    <button class="btn btn-success btn-block" @click="addIncome">Add Income Category</button>
+                    <button class="btn btn-success btn-block" @click="updateIncome">Update Income Category</button>
                 </div>
                 <!-- /Buttons -->
             </div>
@@ -39,17 +38,26 @@
 
 <script>
 export default {
+    props: ['category'],
+
     data() {
         return {
             form: {
-                name_value: null,
-                description_value: null
+                name_value: this.category? this.category.name : '',
+                description_value: this.category? this.category.description : ''
             }
         }
     },
 
+    watch: {
+        category(category) {
+            this.form.name_value = category.name;
+            this.form.name_value = category.description;
+        }
+    },
+
     methods: {
-        showIncomesTable() {
+        showExpenseCategoriesTable() {
             this.$emit("showTable");
         },
 
@@ -61,21 +69,22 @@ export default {
             }
         },
 
-        addIncome() {
+        updateIncome() {
             var that = this;
 
-            window.Alert.confirm("Are you sure you want to add this income category?", function() {
+            window.Alert.confirm("Are you sure you want to edit this expense category?", function() {
 
                 that.$emit('showLoader');
 
-                let name = that.form.name_value;
                 let description = that.form.description_value;
+                let name = that.form.name_value;
 
-                window.axios.post( window.makeUrl( "/user/income_categories" ), { name, description } ).then(resp => {
+                window.axios.patch( window.makeUrl( "/user/expense_categories/" + that.category.id ), { name, description } ).then(resp => {
                     that.$emit('updateUser');
-                    that.clearForm();
-                    that.showIncomesTable();
-                    window.Alert.msg("Income Category Added!");
+                    window.Alert.msg("Expense Category Updated!");
+                    
+                    that.showExpenseCategoriesTable();
+
                 }).catch(error => {
                     window.FormErrors.Apply( error.response.data.errors );
                     window.ShowError();
@@ -83,7 +92,7 @@ export default {
 
                 that.$emit('hideLoader');
             });
-        },
+        }
     }
 }
 </script>

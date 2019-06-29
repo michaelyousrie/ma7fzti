@@ -21,6 +21,7 @@ Route::namespace( 'Api' )->prefix('v1')->group(function() {
     Route::get('/user/expense_categories', 'ExpenseCategoriesController@index');
     Route::get('/user/expense_categories/{id}', 'ExpenseCategoriesController@show');
     Route::patch('/user/expense_categories/{id}', 'ExpenseCategoriesController@update');
+    Route::delete('/user/expense_categories/{id}', 'ExpenseCategoriesController@destroy');
     
     Route::get('/user', 'UsersController@index');
     Route::get('/userForFrontEnd', 'UsersController@frontEndIndex');

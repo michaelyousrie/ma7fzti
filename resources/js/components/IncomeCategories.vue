@@ -40,13 +40,12 @@
         <Form-AddIncomeCategory
             v-if="this.forms.add.show"
             @showTable="showTable(true)" @updateUser="updateUser"
-            :incomeCategories="incomeCategories"
         >
         </Form-AddIncomeCategory>
         <Form-EditIncomeCategory
             v-if="this.forms.update.show"
             @showTable="showTable(true)" @updateUser="updateUser"
-            :incomeCategories="incomeCategories" :category="getToBeUpdatedCategory"
+            :category="getToBeUpdatedCategory"
         >
         </Form-EditIncomeCategory>
     </div>
