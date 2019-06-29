@@ -33,7 +33,7 @@
     },
     "autoload": {
         "files": [
-            "app/helpers/response.php",
+            "app/Helpers/response.php",
             "app/Helpers/Helper.php"
         ],
         "psr-4": {
