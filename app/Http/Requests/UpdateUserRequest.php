@@ -34,6 +34,7 @@ class UpdateUserRequest extends BaseRequest
                 }),
             ],
             "password"          => 'required|min:5',
+            "new_password"      => "nullable|min:5",
             "language_code"     => "required|exists:languages,code",
             "currency"          => "required|max:3",
         ];

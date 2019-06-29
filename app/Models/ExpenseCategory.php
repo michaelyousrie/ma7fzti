@@ -19,4 +19,10 @@ class ExpenseCategory extends Model
     {
         return $this->hasMany( Expense::class );
     }
+
+
+    public function getExpenses()
+    {
+        return Expense::where( 'category_id', $this->id )->get();
+    }
 }

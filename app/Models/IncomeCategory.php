@@ -11,4 +11,10 @@ class IncomeCategory extends Model
     protected $fillable = [
         'name', 'description'
     ];
+
+
+    public function getIncomes()
+    {
+        return Income::where( 'category_id', $this->id )->get();
+    }
 }

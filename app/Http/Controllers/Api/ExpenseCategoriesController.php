@@ -48,4 +48,23 @@ class ExpenseCategoriesController extends Controller
 
         return new ExpenseCategoryResource( $expenseCategory );
     }
+
+
+    public function destroy( $id )
+    {
+        try {
+            $expenseCategory = $this->guard( ExpenseCategory::class, $id );    
+            $expenses = $expenseCategory->getExpenses();
+
+            foreach( $expenses as $expense ) {
+                $expense->delete();
+            }
+    
+            $expenseCategory->delete();
+    
+            return successResponse();
+        } catch( Exception $e ) {
+            return failResponse();
+        }
+    }
 }
