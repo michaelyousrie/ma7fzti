@@ -66,6 +66,24 @@
                         active: false
                     },
 
+                    "income_categories": {
+                        click() {
+                            that.show('income_categories');
+                        },
+
+                        label: "Income Categories",
+                        active: false
+                    },
+                    
+                    "expense_categories": {
+                        click() {
+                            that.show('expense_categories');
+                        },
+
+                        label: "Expense Categories",
+                        active: false
+                    },
+
                     "profile": {
                         click() {
                             that.show("profile");
@@ -73,7 +91,7 @@
 
                         label: "Profile",
                         active: false
-                    }
+                    },
                 },
             }
         },

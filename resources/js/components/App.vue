@@ -35,6 +35,20 @@
                 :user="getUserData"
             >
             </Profile>
+
+            <IncomeCategories
+                v-show="tabs.income_categories.show"
+                @updateUser="updateUser" @showLoader="showLoader(true)" @hideLoader="showLoader(false)"
+                :user="getUserData"
+            >
+            </IncomeCategories>
+
+            <ExpenseCategories
+                v-show="tabs.expense_categories.show"
+                @updateUser="updateUser" @showLoader="showLoader(true)" @hideLoader="showLoader(false)"
+                :user="getUserData"
+            >
+            </ExpenseCategories>
         </div>
     </div>
 </template>
@@ -61,6 +75,14 @@ export default {
                 },
 
                 profile: {
+                    show: false
+                },
+
+                income_categories: {
+                    show: false
+                },
+
+                expense_categories: {
                     show: false
                 }
             },

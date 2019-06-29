@@ -7,6 +7,7 @@ use App\Http\Resources\IncomeCategoryResource;
 use App\Http\Requests\CreateIncomeCategoryRequest;
 use App\Models\IncomeCategory;
 use App\Http\Requests\UpdateIncomeCategoryRequest;
+use PHPUnit\Framework\MockObject\Stub\Exception;
 
 class IncomeCategoriesController extends Controller
 {
@@ -47,5 +48,24 @@ class IncomeCategoriesController extends Controller
         $incomeCategory->save();
 
         return new IncomeCategoryResource( $incomeCategory );
+    }
+
+
+    public function destroy( $id )
+    {
+        try {
+            $incomeCategory = $this->guard( IncomeCategory::class, $id );    
+            $incomes = $incomeCategory->getIncomes();
+
+            foreach( $incomes as $income ) {
+                $income->delete();
+            }
+    
+            $incomeCategory->delete();
+    
+            return successResponse();
+        } catch( Exception $e ) {
+            return failResponse();
+        }
     }
 }
